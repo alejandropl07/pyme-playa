@@ -36,7 +36,7 @@ const CrearSolicitud = () => {
                     <div className="form-group">
                         <label>Productos</label>
                         <select className="form-select" aria-label="Productos">
-                            <option selected    value="0"></option>
+                            <option defaultValue>Seleccione los productos</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
