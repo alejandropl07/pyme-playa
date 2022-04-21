@@ -3,13 +3,16 @@ import React,   {useEffect} from "react";
 //Redux
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
+import { obtenerSucursalesAction } from "../actions/sucursalesAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
     const   dispatch    =   useDispatch();
     useEffect(()  =>  {
         const   obtenerDivision = ()    => dispatch(obtenerDivisionAction()) ;
+        const   obtenerSucursales = ()    => dispatch(obtenerSucursalesAction()) ;
         obtenerDivision();
+        obtenerSucursales();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -18,6 +21,7 @@ const CrearSolicitud = () => {
   const error = useSelector((state) =>  state.error.error);
   const loading =   useSelector((state) =>  state.divisiones.loading);
   const {divisiones} =   useSelector((state) =>  state.divisiones.divisiones);
+  const {sucursal} =   useSelector((state) =>  state.sucursales.sucursales);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -38,15 +42,15 @@ const CrearSolicitud = () => {
                                 <option value={division.id_division}>{division.descrip_division}</option>
                             ) )}
                             </select>
-                    </div>
+                    </div> 
 
                     <div className="form-group">
                         <label>Sucursal</label>
                         <select className="form-select" aria-label="Sucursal">
                             <option defaultValue>Seleccione la sucursal</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {sucursal.map(    sucursal    => (
+                                <option value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
+                            ) )}
                         </select>
                     </div>
 
