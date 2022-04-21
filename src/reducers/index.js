@@ -5,6 +5,7 @@ import clientesReducer from "./clientesReducer";
 import divisionReducer from "./divisionReducer";
 import sucursalesReducer from "./sucursalesReducer";
 import proveedoresReducer from "./proveedoresReducer";
+import clasePedidoReducer from "./clasePedidoReducer";
 
 export default  combineReducers ({
     error:  validacionReducer,
@@ -13,4 +14,5 @@ export default  combineReducers ({
     divisiones: divisionReducer,
     sucursales: sucursalesReducer,
     proveedores:    proveedoresReducer,
+    pedidos:    clasePedidoReducer,
 });
