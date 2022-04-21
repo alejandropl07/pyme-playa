@@ -7,6 +7,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import CrearSolicitud from "./components/CrearSolicitud";
 import Solicitudes from './components/Solicitudes';
 import PDF from './components/PDF';
+import CrearCliente from './components/CrearCliente';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <div className="container">
             <Routes>
                 <Route exact path="/" element={<CrearSolicitud/>} /> 
+                <Route exact path="/crearcliente" element={<CrearCliente/>} />
                 <Route exact path="/solicitudes" element={<Solicitudes/>} />
                 <Route exact path="/pdf" element={<PDFViewer  style={{width:"100%", height:"90vh"}}><PDF/></PDFViewer>} />  
             </Routes>

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { eliminarSolicitudAction } from "../actions/SolicitudesAction";
+//import { eliminarSolicitudAction } from "../actions/solicitudesAction";
 
 const Solicitud  =   ({solicitud})  =>{
     const dispatch  = useDispatch();
@@ -28,7 +28,6 @@ const Solicitud  =   ({solicitud})  =>{
                 'success'
               )
             console.log(id);
-            dispatch(eliminarSolicitudAction(id));
             }
           })    
     }

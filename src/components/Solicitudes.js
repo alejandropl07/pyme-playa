@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { obtenerSolicitudesAction } from "../actions/solicitudesAction";
+import Solicitud from "./Solicitud";
 
 const Solicitudes = () => {
   const   dispatch    =   useDispatch();
@@ -32,7 +33,12 @@ const Solicitudes = () => {
           </tr>
         </thead>
         <tbody>
-            
+        {solicitudes.map( solicitud => (
+                        <Solicitud
+                            key={solicitud.id}
+                            solicitud={solicitud}
+                        />
+              ))}
         </tbody>
       </table>
       {loading  ? "Cargando solicitudes"  : null}
