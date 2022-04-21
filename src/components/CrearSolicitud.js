@@ -4,6 +4,7 @@ import React,   {useEffect} from "react";
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
+import { obtenerProveedoresAction } from "../actions/proveedoresAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
@@ -11,8 +12,10 @@ const CrearSolicitud = () => {
     useEffect(()  =>  {
         const   obtenerDivision = ()    => dispatch(obtenerDivisionAction()) ;
         const   obtenerSucursales = ()    => dispatch(obtenerSucursalesAction()) ;
+        const   obtenerProveedores = ()    => dispatch(obtenerProveedoresAction()) ;
         obtenerDivision();
         obtenerSucursales();
+        obtenerProveedores();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -22,6 +25,7 @@ const CrearSolicitud = () => {
   const loading =   useSelector((state) =>  state.divisiones.loading);
   const {divisiones} =   useSelector((state) =>  state.divisiones.divisiones);
   const {sucursal} =   useSelector((state) =>  state.sucursales.sucursales);
+  const {proveedores} =   useSelector((state) =>  state.proveedores.proveedores);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -58,9 +62,9 @@ const CrearSolicitud = () => {
                         <label>Proveedor</label>
                         <select className="form-select" aria-label="Proveedor">
                             <option defaultValue>Seleccione el proveedor</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {proveedores.map(    proveedor    => (
+                                <option value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
+                            ) )}
                         </select>
                     </div>
 
