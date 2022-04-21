@@ -1,18 +1,24 @@
-import React from "react";
+import React,   {useEffect} from "react";
 
 //Redux
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
+import { obtenerDivisionAction } from "../actions/divisionAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
+    const   dispatch    =   useDispatch();
+    useEffect(()  =>  {
+        const   obtenerDivision = ()    => dispatch(obtenerDivisionAction()) ;
+        obtenerDivision();
+    },[]);
 
-  //Validacion
-  const dispatch  = useDispatch();
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
 
   //Obtener los datos del state
   const error = useSelector((state) =>  state.error.error);
-
+  const loading =   useSelector((state) =>  state.divisiones.loading);
+  const {divisiones} =   useSelector((state) =>  state.divisiones.divisiones);
+    
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
   });
@@ -28,10 +34,10 @@ const CrearSolicitud = () => {
                         <label>División</label>
                         <select className="form-select" aria-label="División">
                             <option defaultValue>Seleccione la división</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                            {divisiones.map(    division    => (
+                                <option value={division.id_division}>{division.descrip_division}</option>
+                            ) )}
+                            </select>
                     </div>
 
                     <div className="form-group">
