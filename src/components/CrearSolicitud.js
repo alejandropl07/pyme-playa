@@ -1,29 +1,21 @@
 import React from "react";
 
 //Redux
-import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
+import { agregarSolicitudAction } from "../actions/solicitudesAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
 
   //Validacion
   const dispatch  = useDispatch();
-  const   validarFormulario = ()    => dispatch(validarFormularioAction()) ;
-  const   exitoValidacion = ()    => dispatch(validacionExito()) ;
-  const   errorValidacion = ()    => dispatch(validacionError()) ;
+  const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
 
   //Obtener los datos del state
   const error = useSelector((state) =>  state.error.error);
 
   const submitCrearSolicitud =  e   =>{
-    e.preventDefault();
-
-    validarFormulario();
-
-    //Validar
-
-    //Si pasa la validadacion
-    exitoValidacion();
+    agregarSolicitud({
+  });
 }
 
   return (

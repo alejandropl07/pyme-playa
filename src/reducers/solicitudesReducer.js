@@ -2,6 +2,9 @@ import {
     COMENZAR_DESCARGA_SOLICITUDES,
     DESCARGA_SOLICITUDES_EXITO,
     DESCARGA_SOLICITUDES_ERROR,
+    AGREGAR_SOLICITUD,
+    AGREGAR_SOLICITUD_EXITO,
+    AGREGAR_SOLICITUD_ERROR,
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -36,6 +39,25 @@ import {
           solicitudes: [],
           error: true,
           loading: false,
+          solicitud: {},
+        };
+
+        case AGREGAR_SOLICITUD:
+        return {
+          ...state,
+          solicitud: {},
+        };
+      case AGREGAR_SOLICITUD_EXITO:
+        return {
+          ...state,
+          error: false,
+          solicitud: action.payload,
+        };
+  
+      case AGREGAR_SOLICITUD_ERROR:
+        return {
+          ...state,
+          error: action.payload,
           solicitud: {},
         };
   

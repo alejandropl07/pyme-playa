@@ -1,5 +1,4 @@
 import React,   { useState } from "react";
-import clienteAxios from "../config/axios";
 
 //Redux
 import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
