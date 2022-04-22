@@ -25,10 +25,13 @@ const CrearSolicitud = () => {
 
   //Obtener los datos del state
   const error = useSelector((state) =>  state.error.error);
-  const loading =   useSelector((state) =>  state.divisiones.loading);
+  const loadingDivisiones =   useSelector((state) =>  state.divisiones.loading);
   const {divisiones} =   useSelector((state) =>  state.divisiones.divisiones);
+  const loadingSucursal =   useSelector((state) =>  state.sucursales.loading);
   const {sucursal} =   useSelector((state) =>  state.sucursales.sucursales);
+  const loadingProveedores =   useSelector((state) =>  state.proveedores.loading);
   const {proveedores} =   useSelector((state) =>  state.proveedores.proveedores);
+  const loadingPedidos =   useSelector((state) =>  state.pedidos.loading);
   const {clasesPedido} =   useSelector((state) =>  state.pedidos.pedidos);
     
   const submitCrearSolicitud =  e   =>{
@@ -46,17 +49,23 @@ const CrearSolicitud = () => {
                         <label>División</label>
                         <select className="form-select" aria-label="División">
                             <option defaultValue>Seleccione la división</option>
-                            {divisiones.map(    division    => (
+                            {loadingDivisiones  ?
+                            <option value="0">División</option>  
+                            : 
+                            divisiones.map(    division    => (
                                 <option value={division.id_division}>{division.descrip_division}</option>
                             ) )}
-                            </select>
-                    </div> 
+                        </select>
+                    </div>
 
                     <div className="form-group">
                         <label>Sucursal</label>
                         <select className="form-select" aria-label="Sucursal">
                             <option defaultValue>Seleccione la sucursal</option>
-                            {sucursal.map(    sucursal    => (
+                            {loadingSucursal  ?
+                            <option value="0">Sucursal</option>  
+                            : 
+                            sucursal.map(    sucursal    => (
                                 <option value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
                             ) )}
                         </select>
@@ -66,7 +75,10 @@ const CrearSolicitud = () => {
                         <label>Proveedor</label>
                         <select className="form-select" aria-label="Proveedor">
                             <option defaultValue>Seleccione el proveedor</option>
-                            {proveedores.map(    proveedor    => (
+                            {loadingProveedores  ?
+                            <option value="0">Proveedor</option>  
+                            : 
+                            proveedores.map(    proveedor    => (
                                 <option value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
                             ) )}
                         </select>
@@ -76,7 +88,10 @@ const CrearSolicitud = () => {
                         <label>Clase de pedido</label>
                         <select className="form-select" aria-label="ClasePedido">
                             <option defaultValue>Seleccione la clase de pedido</option>
-                            {clasesPedido.map(    pedido    => (
+                            {loadingPedidos  ?
+                            <option value="0">Clase pedido</option>  
+                            : 
+                            clasesPedido.map(    pedido    => (
                                 <option value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
                             ) )}
                         </select>

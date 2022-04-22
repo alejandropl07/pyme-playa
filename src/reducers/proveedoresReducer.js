@@ -9,7 +9,7 @@ import {
   const initialState = {
     proveedores: [],
     error: null,
-    loading: false,
+    loading: true,
   };
   
   export default function (state = initialState, action) {
