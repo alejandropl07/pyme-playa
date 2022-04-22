@@ -6,6 +6,7 @@ import divisionReducer from "./divisionReducer";
 import sucursalesReducer from "./sucursalesReducer";
 import proveedoresReducer from "./proveedoresReducer";
 import clasePedidoReducer from "./clasePedidoReducer";
+import embarquesReducer from "./embarquesReducer";
 
 export default  combineReducers ({
     error:  validacionReducer,
@@ -15,4 +16,5 @@ export default  combineReducers ({
     sucursales: sucursalesReducer,
     proveedores:    proveedoresReducer,
     pedidos:    clasePedidoReducer,
+    embarques:  embarquesReducer,
 });
