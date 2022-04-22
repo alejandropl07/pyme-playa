@@ -9,6 +9,7 @@ import { obtenerPedidosAction } from "../actions/clasePedidoAction";
 import { obtenerEmbarquesAction } from "../actions/embarquesAction";
 import { obtenerClientesAction } from "../actions/clientesAction";
 import { obtenerDestinosAction } from "../actions/destinosAction";
+import { obtenerProductosAction } from "../actions/tipoProductoAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
@@ -21,6 +22,7 @@ const CrearSolicitud = () => {
         const   obtenerEmbarques = ()    => dispatch(obtenerEmbarquesAction()) ;
         const   obtenerClientes = ()    => dispatch(obtenerClientesAction()) ;
         const   obtenerDestinos = ()    => dispatch(obtenerDestinosAction()) ;
+        const   obtenerProductos = ()    => dispatch(obtenerProductosAction()) ;
         obtenerDivision();
         obtenerSucursales();
         obtenerProveedores();
@@ -28,6 +30,7 @@ const CrearSolicitud = () => {
         obtenerEmbarques();
         obtenerClientes();
         obtenerDestinos();
+        obtenerProductos();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -48,6 +51,8 @@ const CrearSolicitud = () => {
   const {clientes} =   useSelector((state) =>  state.clientes.clientes);
   const loadingDestinos =   useSelector((state) =>  state.destinos.loading);
   const {destinos} =   useSelector((state) =>  state.destinos.destinos);
+  const loadingProductos =   useSelector((state) =>  state.productos.loading);
+  const {tiposProducto} =   useSelector((state) =>  state.productos.productos);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -166,9 +171,12 @@ const CrearSolicitud = () => {
                         <label>Tipo de producto</label>
                         <select className="form-select" aria-label="TipoProducto">
                             <option defaultValue>Seleccione el tipo de producto</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {loadingProductos  ?
+                            <option value="0">Producto</option>  
+                            : 
+                            tiposProducto.map(    producto    => (
+                                <option value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
+                            ) )}
                         </select>
                     </div>
 
