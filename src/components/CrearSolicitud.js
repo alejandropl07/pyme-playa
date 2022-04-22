@@ -10,6 +10,7 @@ import { obtenerEmbarquesAction } from "../actions/embarquesAction";
 import { obtenerClientesAction } from "../actions/clientesAction";
 import { obtenerDestinosAction } from "../actions/destinosAction";
 import { obtenerProductosAction } from "../actions/tipoProductoAction";
+import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
@@ -23,6 +24,7 @@ const CrearSolicitud = () => {
         const   obtenerClientes = ()    => dispatch(obtenerClientesAction()) ;
         const   obtenerDestinos = ()    => dispatch(obtenerDestinosAction()) ;
         const   obtenerProductos = ()    => dispatch(obtenerProductosAction()) ;
+        const   obtenerMonedas = ()    => dispatch(obtenerMonedasAction()) ;
         obtenerDivision();
         obtenerSucursales();
         obtenerProveedores();
@@ -31,6 +33,7 @@ const CrearSolicitud = () => {
         obtenerClientes();
         obtenerDestinos();
         obtenerProductos();
+        obtenerMonedas();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -53,6 +56,8 @@ const CrearSolicitud = () => {
   const {destinos} =   useSelector((state) =>  state.destinos.destinos);
   const loadingProductos =   useSelector((state) =>  state.productos.loading);
   const {tiposProducto} =   useSelector((state) =>  state.productos.productos);
+  const loadingMonedas =   useSelector((state) =>  state.monedas.loading);
+  const {monedas} =   useSelector((state) =>  state.monedas.monedas);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -190,9 +195,12 @@ const CrearSolicitud = () => {
                         <label>Moneda</label>
                         <select className="form-select" aria-label="Moneda">
                             <option defaultValue>Seleccione el tipo de moneda</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {loadingMonedas  ?
+                            <option value="0">Moneda</option>  
+                            : 
+                            monedas.map(    moneda    => (
+                                <option value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
+                            ) )}
                         </select>
                     </div>
 
