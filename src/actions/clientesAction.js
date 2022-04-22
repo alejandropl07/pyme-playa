@@ -2,6 +2,9 @@ import {
     COMENZAR_CREAR_CLIENTE,
     CREAR_CLIENTE_EXITO,
     CREAR_CLIENTE_ERROR,
+    OBTENER_CLIENTES,
+    OBTENER_CLIENTES_EXITO,
+    OBTENER_CLIENTES_ERROR,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -55,4 +58,34 @@ export  const crearClienteExito =   (cliente)  =>  ({
 export  const crearClienteError =   (error)  =>  ({
     type:   CREAR_CLIENTE_ERROR,
     payload:    error
+});
+
+
+export  function obtenerClientesAction() {
+    return(dispatch)    =>  {
+        dispatch(obtenerClientes());
+
+        //Consultar la API
+        clienteAxios.get('/clientes')
+        .then(respuesta =>  {
+            dispatch(obtenerClientesExito(respuesta.data))
+        })
+        .catch(error    =>{
+            dispatch(obtenerClientesError())
+        })
+        
+    }
+}
+
+export  const obtenerClientes =   ()  =>  ({
+    type:   OBTENER_CLIENTES,
+});
+
+export  const obtenerClientesExito =   (clientes)  =>  ({
+    type:   OBTENER_CLIENTES_EXITO,
+    payload:    clientes,
+});
+
+export  const obtenerClientesError =   ()  =>  ({
+    type:   OBTENER_CLIENTES_ERROR,
 });

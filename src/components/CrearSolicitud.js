@@ -7,6 +7,7 @@ import { obtenerSucursalesAction } from "../actions/sucursalesAction";
 import { obtenerProveedoresAction } from "../actions/proveedoresAction";
 import { obtenerPedidosAction } from "../actions/clasePedidoAction";
 import { obtenerEmbarquesAction } from "../actions/embarquesAction";
+import { obtenerClientesAction } from "../actions/clientesAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
@@ -17,11 +18,13 @@ const CrearSolicitud = () => {
         const   obtenerProveedores = ()    => dispatch(obtenerProveedoresAction()) ;
         const   obtenerPedidos = ()    => dispatch(obtenerPedidosAction()) ;
         const   obtenerEmbarques = ()    => dispatch(obtenerEmbarquesAction()) ;
+        const   obtenerClientes = ()    => dispatch(obtenerClientesAction()) ;
         obtenerDivision();
         obtenerSucursales();
         obtenerProveedores();
         obtenerPedidos();
         obtenerEmbarques();
+        obtenerClientes();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -38,6 +41,8 @@ const CrearSolicitud = () => {
   const {clasesPedido} =   useSelector((state) =>  state.pedidos.pedidos);
   const loadingEmbarques =   useSelector((state) =>  state.embarques.loading);
   const {embarques} =   useSelector((state) =>  state.embarques.embarques);
+  const loadingClientes =   useSelector((state) =>  state.clientes.loading);
+  const {clientes} =   useSelector((state) =>  state.clientes.clientes);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -119,9 +124,12 @@ const CrearSolicitud = () => {
                         <label>Cliente</label>
                         <select className="form-select" aria-label="Cliente">
                             <option defaultValue>Seleccione el cliente</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {loadingClientes  ?
+                            <option value="0">Cliente</option>  
+                            : 
+                            clientes.map(    cliente    => (
+                                <option value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
+                            ) )}
                         </select>
                     </div>
 
