@@ -8,6 +8,7 @@ import { obtenerProveedoresAction } from "../actions/proveedoresAction";
 import { obtenerPedidosAction } from "../actions/clasePedidoAction";
 import { obtenerEmbarquesAction } from "../actions/embarquesAction";
 import { obtenerClientesAction } from "../actions/clientesAction";
+import { obtenerDestinosAction } from "../actions/destinosAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const CrearSolicitud = () => {
@@ -19,12 +20,14 @@ const CrearSolicitud = () => {
         const   obtenerPedidos = ()    => dispatch(obtenerPedidosAction()) ;
         const   obtenerEmbarques = ()    => dispatch(obtenerEmbarquesAction()) ;
         const   obtenerClientes = ()    => dispatch(obtenerClientesAction()) ;
+        const   obtenerDestinos = ()    => dispatch(obtenerDestinosAction()) ;
         obtenerDivision();
         obtenerSucursales();
         obtenerProveedores();
         obtenerPedidos();
         obtenerEmbarques();
         obtenerClientes();
+        obtenerDestinos();
     },[]);
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
@@ -43,6 +46,8 @@ const CrearSolicitud = () => {
   const {embarques} =   useSelector((state) =>  state.embarques.embarques);
   const loadingClientes =   useSelector((state) =>  state.clientes.loading);
   const {clientes} =   useSelector((state) =>  state.clientes.clientes);
+  const loadingDestinos =   useSelector((state) =>  state.destinos.loading);
+  const {destinos} =   useSelector((state) =>  state.destinos.destinos);
     
   const submitCrearSolicitud =  e   =>{
     agregarSolicitud({
@@ -148,9 +153,12 @@ const CrearSolicitud = () => {
                         <label>Destino</label>
                         <select className="form-select" aria-label="Destino">
                             <option defaultValue>Seleccione el destino</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {loadingDestinos  ?
+                            <option value="0">Destino</option>  
+                            : 
+                            destinos.map(    destino    => (
+                                <option value={destino.id_destino}>{destino.descrip_destino}</option>
+                            ) )}
                         </select>
                     </div>
 
