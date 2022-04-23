@@ -4,8 +4,14 @@ module.exports = function override(config, env) {
         assert: require.resolve('assert'),
         buffer: require.resolve('buffer'),
         stream: require.resolve('stream-browserify'),
-        zlib: require.resolve('browserify-zlib'),  
+        zlib: require.resolve('browserify-zlib'),
     };
+    config.module.rules.push({
+        test: /\.m?js/,
+        resolve: {
+            fullySpecified: false
+        }
+    }),
     config.plugins.push(
         new webpack.ProvidePlugin({
             process: 'process/browser',

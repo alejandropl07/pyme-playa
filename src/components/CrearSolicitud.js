@@ -1,4 +1,5 @@
-import React,   {useEffect} from "react";
+import React,   {useEffect, useState} from "react";
+import *    as  XLSX from "xlsx";
 
 //Redux
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
@@ -35,6 +36,36 @@ const CrearSolicitud = () => {
         obtenerProductos();
         obtenerMonedas();
     },[]);
+
+    const   [items, setItems]   =   useState([]);
+
+    const readExcel   =   (file)  =>  {
+        const promise =   new Promise ((resolve,  reject) =>  {
+            const fileReader    =   new FileReader();
+            fileReader.readAsArrayBuffer(file)
+  
+            fileReader.onload =   (e)  =>  {
+                const bufferArray =   e.target.result;
+  
+                const wb  =   XLSX.read(bufferArray,  {type:  'buffer'});
+  
+                const wsname  =   wb.SheetNames[0];
+  
+                const ws  =   wb.Sheets[wsname];
+  
+                const data    =   XLSX.utils.sheet_to_json(ws);
+  
+                resolve(data);
+            };
+            fileReader.onerror    =   (error) =>  {
+                reject(error);
+            };
+        });
+        promise.then((d)  =>  {
+            console.log(d);
+            setItems(d);
+        });
+    };
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
 
@@ -208,6 +239,17 @@ const CrearSolicitud = () => {
                         <label>Contrato</label>
                         <input type="text"
                         className="form-control mx-sm-3" />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Importar datos desde un Excel</label>
+                        <input type="file"
+                        className="form-control mx-sm-3"
+                        onChange={(e)   =>  {
+                            const file  =   e.target.files[0];
+                            readExcel   (file);
+                        }}
+                        />
                     </div>
           
                 <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100  mt-3">Guardar</button>
