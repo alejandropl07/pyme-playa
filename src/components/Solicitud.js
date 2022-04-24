@@ -34,12 +34,11 @@ const Solicitud  =   ({solicitud})  =>{
 
     return(
         <tr>
-            <td>{solicitud.nombre}</td>
-            <td>   <span    className="font-weight-bold">$ {solicitud.precio}</span></td>
+            <td>{solicitud.descrip_solicitud}</td>
             <td className="acciones">
-                <Link   to={`/solicitudes/editar/${solicitud.id}`} className="btn btn-primary mr-2">Editar</Link>
+                <Link   to={`/solicitudes/editar/${solicitud.id_solicitud}`} className="btn btn-primary mr-2">Editar</Link>
                 <button className="btn btn-danger"
-                onClick={() => confirmarEliminarSolicitud(solicitud.id)}>
+                onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}>
                     Eliminar
                     </button>
                 </td>

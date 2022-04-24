@@ -15,13 +15,13 @@ export  function obtenerSolicitudesAction() {
         dispatch(obtenerSolicitudesComienzo());
 
         //Consultar la API
-   /*     solicitudAxios.get('/solicitudes')
+        clienteAxios.get('/solicitudes')
         .then(respuesta =>  {
             dispatch(descargaSolicitudesExito(respuesta.data))
         })
         .catch(error    =>{
             dispatch(descargaSolicitudesError())
-        })*/
+        })
         
     }
 }

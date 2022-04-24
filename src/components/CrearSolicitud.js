@@ -67,6 +67,20 @@ const CrearSolicitud = () => {
         });
     };
 
+    const   [id_division, guardarDivision]   =   useState('');
+    const   [id_sucursal, guardarSucursal]   =   useState('');
+    const   [id_proveedor, guardarProveedor]   =   useState('');
+    const   [id_clase_pedido, guardarClasePedido]   =   useState('');
+    const   [id_embarque, guardarEmbarque]   =   useState('');
+    const   [id_cliente, guardarCliente]   =   useState('');
+    const   [fecha_entrega, guardarFechaEntrega]   =   useState('');
+    const   [referencia, guardarReferencia]   =   useState('');
+    const   [id_destino, guardarDestino]   =   useState('');
+    const   [id_tipo_producto, guardarTipoProducto]   =   useState('');
+    const   [valor_solicitud, guardarValor]   =   useState('');
+    const   [id_moneda, guardarMoneda]   =   useState('');
+    const   [contrato_solicitud, guardarContrato]   =   useState('');
+
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
 
   //Obtener los datos del state
@@ -91,7 +105,25 @@ const CrearSolicitud = () => {
   const {monedas} =   useSelector((state) =>  state.monedas.monedas);
     
   const submitCrearSolicitud =  e   =>{
+    e.preventDefault();
     agregarSolicitud({
+        id_division,
+        id_sucursal,
+        id_proveedor,
+        id_clase_pedido,
+        id_embarque,
+        id_cliente,
+        fecha_entrega,
+        descrip_solicitud:  referencia,
+        id_destino,
+        id_tipo_producto,
+        valor_solicitud,
+        id_moneda,
+        contrato_solicitud,
+        fecha_finalizada:   fecha_entrega,
+        fecha_aprobada:   fecha_entrega,
+        fecha_revisada:   fecha_entrega,
+        id_comercial:   3,
   });
 }
 
@@ -103,7 +135,7 @@ const CrearSolicitud = () => {
                 <form onSubmit={submitCrearSolicitud}>
                     <div className="form-group">
                         <label>División</label>
-                        <select className="form-select" aria-label="División">
+                        <select className="form-select" aria-label="División"   onChange={e =>  guardarDivision(e.target.value)}>
                             <option defaultValue>Seleccione la división</option>
                             {loadingDivisiones  ?
                             <option value="0">División</option>  
@@ -116,7 +148,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Sucursal</label>
-                        <select className="form-select" aria-label="Sucursal">
+                        <select className="form-select" aria-label="Sucursal"   onChange={e =>  guardarSucursal(e.target.value)}>
                             <option defaultValue>Seleccione la sucursal</option>
                             {loadingSucursal  ?
                             <option value="0">Sucursal</option>  
@@ -129,7 +161,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Proveedor</label>
-                        <select className="form-select" aria-label="Proveedor">
+                        <select className="form-select" aria-label="Proveedor"  onChange={e =>  guardarProveedor(e.target.value)}>
                             <option defaultValue>Seleccione el proveedor</option>
                             {loadingProveedores  ?
                             <option value="0">Proveedor</option>  
@@ -142,7 +174,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Clase de pedido</label>
-                        <select className="form-select" aria-label="ClasePedido">
+                        <select className="form-select" aria-label="ClasePedido"    onChange={e =>  guardarClasePedido(e.target.value)}>
                             <option defaultValue>Seleccione la clase de pedido</option>
                             {loadingPedidos  ?
                             <option value="0">Clase pedido</option>  
@@ -155,7 +187,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Embarque</label>
-                        <select className="form-select" aria-label="Embarque">
+                        <select className="form-select" aria-label="Embarque"   onChange={e =>  guardarEmbarque(e.target.value)}>
                             <option defaultValue>Seleccione el embarque</option>
                             {loadingEmbarques  ?
                             <option value="0">Embarque</option>  
@@ -168,7 +200,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Cliente</label>
-                        <select className="form-select" aria-label="Cliente">
+                        <select className="form-select" aria-label="Cliente"    onChange={e =>  guardarCliente(e.target.value)}>
                             <option defaultValue>Seleccione el cliente</option>
                             {loadingClientes  ?
                             <option value="0">Cliente</option>  
@@ -181,18 +213,20 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Fecha de entrega</label>
-                        <input type="date" />
+                        <input type="date" 
+                        onChange={e =>  guardarFechaEntrega(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Referencia</label>
                         <input type="text"
-                        className="form-control mx-sm-3" />
+                        className="form-control mx-sm-3" 
+                        onChange={e =>  guardarReferencia(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Destino</label>
-                        <select className="form-select" aria-label="Destino">
+                        <select className="form-select" aria-label="Destino"    onChange={e =>  guardarDestino(e.target.value)}>
                             <option defaultValue>Seleccione el destino</option>
                             {loadingDestinos  ?
                             <option value="0">Destino</option>  
@@ -205,7 +239,7 @@ const CrearSolicitud = () => {
 
                     <div className="form-group">
                         <label>Tipo de producto</label>
-                        <select className="form-select" aria-label="TipoProducto">
+                        <select className="form-select" aria-label="TipoProducto"   onChange={e =>  guardarTipoProducto(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de producto</option>
                             {loadingProductos  ?
                             <option value="0">Producto</option>  
@@ -219,12 +253,13 @@ const CrearSolicitud = () => {
                     <div className="form-group">
                         <label>Valor</label>
                         <input type="text"
-                        className="form-control mx-sm-3" />
+                        className="form-control mx-sm-3" 
+                        onChange={e =>  guardarValor(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Moneda</label>
-                        <select className="form-select" aria-label="Moneda">
+                        <select className="form-select" aria-label="Moneda" onChange={e =>  guardarMoneda(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de moneda</option>
                             {loadingMonedas  ?
                             <option value="0">Moneda</option>  
@@ -238,7 +273,8 @@ const CrearSolicitud = () => {
                     <div className="form-group">
                         <label>Contrato</label>
                         <input type="text"
-                        className="form-control mx-sm-3" />
+                        className="form-control mx-sm-3" 
+                        onChange={e =>  guardarContrato(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
