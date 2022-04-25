@@ -5,6 +5,12 @@ import {
     AGREGAR_SOLICITUD,
     AGREGAR_SOLICITUD_EXITO,
     AGREGAR_SOLICITUD_ERROR,
+    OBTENER_SOLICITUD_EDITAR,
+    SOLICITUD_EDITAR_ERROR,
+    SOLICITUD_EDITAR_EXITO,
+    COMENZAR_EDICION_SOLICITUD,
+    SOLICITUD_EDITADO_EXITO,
+    SOLICITUD_EDITADO_ERROR,
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -12,7 +18,7 @@ import {
   const initialState = {
     solicitudes: [],
     error: null,
-    loading: false,
+    loading: true,
     solicitud: {},
   };
   
@@ -60,6 +66,42 @@ import {
           error: action.payload,
           solicitud: {},
         };
+
+        case OBTENER_SOLICITUD_EDITAR:
+          return {
+            ...state,
+            error: null,
+          };
+        case SOLICITUD_EDITAR_EXITO:
+          return {
+            ...state,
+            error: null,
+            solicitud: action.payload,
+          };
+    
+        case SOLICITUD_EDITAR_ERROR:
+          return {
+            ...state,
+            error: true,
+          };
+    
+        case COMENZAR_EDICION_SOLICITUD:
+          return {
+            ...state,
+            error: null,
+          };
+        case SOLICITUD_EDITADO_EXITO:
+          return {
+            ...state,
+            error: null,
+            solicitudes: state.solicitudes.map(solicitud =>  solicitud.id === action.payload.id ? solicitud  = action.payload  : solicitud),
+          };
+    
+        case SOLICITUD_EDITADO_ERROR:
+          return {
+            ...state,
+            error: true,
+          };
   
       default:
         return state;

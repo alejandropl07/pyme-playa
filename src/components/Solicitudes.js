@@ -16,7 +16,7 @@ const Solicitudes = () => {
 
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
-  const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
+  const {solicitudes} = useSelector(state=> state.solicitudes.solicitudes);
 
   return (
     <React.Fragment>
@@ -33,15 +33,16 @@ const Solicitudes = () => {
           </tr>
         </thead>
         <tbody>
-        {solicitudes.map( solicitud => (
-                        <Solicitud
-                            key={solicitud.id}
-                            solicitud={solicitud}
-                        />
-              ))}
+        {loading  ? 
+        "Cargando solicitudes"  : 
+        solicitudes.map( solicitud => (
+          <Solicitud
+              key={solicitud.id}
+              solicitud={solicitud}
+          />
+       ))}
         </tbody>
       </table>
-      {loading  ? "Cargando solicitudes"  : null}
     </React.Fragment>
   );
 };

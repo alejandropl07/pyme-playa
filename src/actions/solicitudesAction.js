@@ -5,6 +5,12 @@ import {
     AGREGAR_SOLICITUD,
     AGREGAR_SOLICITUD_EXITO,
     AGREGAR_SOLICITUD_ERROR,
+    OBTENER_SOLICITUD_EDITAR,
+    SOLICITUD_EDITAR_ERROR,
+    SOLICITUD_EDITAR_EXITO,
+    COMENZAR_EDICION_SOLICITUD,
+    SOLICITUD_EDITADO_EXITO,
+    SOLICITUD_EDITADO_ERROR,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -89,4 +95,73 @@ export  const agregarSolicitudExito =   (solicitud)  =>  ({
 export  const agregarSolicitudError =   (error)  =>  ({
     type:   AGREGAR_SOLICITUD_ERROR,
     payload:    error
+});
+
+
+// Obtener solicitud a editar
+
+export  function obtenerSolicitudAction(id) {
+    return(dispatch)    =>  {
+        dispatch(obtenerSolicitudEditar());
+
+        clienteAxios.get(`/solicitudes/${id}`)
+        .then(respuesta =>  {
+            dispatch(editarSolicitudExito(respuesta.data))
+        })
+        .catch(error    =>{
+            dispatch(editarSolicitudError())
+        })
+        
+    }
+}
+
+export  const obtenerSolicitudEditar =   ()  =>  ({
+    type:   OBTENER_SOLICITUD_EDITAR,
+});
+
+export  const editarSolicitudExito =   (solicitud)  =>  ({
+    type:   SOLICITUD_EDITAR_EXITO,
+    payload:    solicitud,
+});
+
+export  const editarSolicitudError =   ()  =>  ({
+    type:   SOLICITUD_EDITAR_ERROR,
+});
+
+
+
+// Editar solicitud
+
+export  function editarSolicitudAction(solicitud) {
+    return(dispatch)    =>  {
+        dispatch(comenzarSolicitudEditar());
+
+        clienteAxios.put(`/solicitudes/${solicitud.id_solicitud}`, solicitud)
+        .then(respuesta =>  {
+            dispatch(solicitudEditadoExito(respuesta.data))
+
+            Swal.fire(
+                'Almacenado',
+                'La solicitud se actualizó correctamente',
+                'success'
+            )
+        })
+        .catch(error    =>{
+            dispatch(solicitudEditadoError())
+        })
+        
+    }
+}
+
+export  const comenzarSolicitudEditar =   ()  =>  ({
+    type:   COMENZAR_EDICION_SOLICITUD,
+});
+
+export  const solicitudEditadoExito =   (solicitud)  =>  ({
+    type:   SOLICITUD_EDITADO_EXITO,
+    payload:    solicitud,
+});
+
+export  const solicitudEditadoError =   ()  =>  ({
+    type:   SOLICITUD_EDITADO_ERROR,
 });
