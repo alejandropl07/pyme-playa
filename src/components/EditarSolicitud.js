@@ -110,6 +110,7 @@ const EditarSolicitud = () => {
   const {monedas} =   useSelector((state) =>  state.monedas.monedas);
 
   const error = useSelector((state) =>  state.error.error);
+  const loading = useSelector((state) =>  state.solicitudes.loading);
   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
 
   if(!solicitud)   return 'Cargando...';
@@ -146,7 +147,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>División</label>
                         <select className="form-select" aria-label="División"   ref={id_division_ref}>
-                            <option defaultValue={solicitud.id_division}>{solicitud.descrip_division}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            : 
+                            <option defaultValue={solicitud.id_division}>{solicitud.tc_division.descrip_division}</option>
+                        }
                             {loadingDivisiones  ?
                             <option value="0">División</option>  
                             : 
@@ -156,10 +161,15 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                     <div className="form-group">
                         <label>Sucursal</label>
                         <select className="form-select" aria-label="Sucursal"   ref={id_sucursal_ref}>
-                            <option defaultValue={solicitud.id_sucursal}>{solicitud.descrip_sucursal}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_sucursal}>{solicitud.tc_sucursal.descrip_sucursal}</option>
+                        }
+                        
                             {loadingSucursal  ?
                             <option value="0">Sucursal</option>  
                             : 
@@ -172,7 +182,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Proveedor</label>
                         <select className="form-select" aria-label="Proveedor"  ref={id_proveedor_ref}>
-                            <option defaultValue={solicitud.id_proveedor}>{solicitud.descrip_proveedor}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_proveedor}>{solicitud.tc_proveedor.descrip_proveedor}</option>
+                        }
                             {loadingProveedores  ?
                             <option value="0">Proveedor</option>  
                             : 
@@ -185,7 +199,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Clase de pedido</label>
                         <select className="form-select" aria-label="ClasePedido"    ref={id_clase_pedido_ref}>
-                            <option defaultValue={solicitud.id_clase_pedido}>{solicitud.descrip_clase_pedido}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_clase_pedido}>{solicitud.tc_clase_pedido.descrip_clase_pedido}</option>
+                        }
                             {loadingPedidos  ?
                             <option value="0">Clase pedido</option>  
                             : 
@@ -198,7 +216,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Embarque</label>
                         <select className="form-select" aria-label="Embarque"   ref={id_embarque_ref}>
-                            <option defaultValue={solicitud.id_embarque}>{solicitud.descrip_embarque}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_embarque}>{solicitud.tc_embarque.descrip_embarque}</option>
+                        }
                             {loadingEmbarques  ?
                             <option value="0">Embarque</option>  
                             : 
@@ -211,7 +233,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Cliente</label>
                         <select className="form-select" aria-label="Cliente"    ref={id_cliente_ref}>
-                            <option defaultValue={solicitud.id_cliente}>{solicitud.descrip_cliente}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_cliente}>{solicitud.tc_cliente.descrip_cliente}</option>
+                        }
                             {loadingClientes  ?
                             <option value="0">Cliente</option>  
                             : 
@@ -239,7 +265,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Destino</label>
                         <select className="form-select" aria-label="Destino"    ref={id_destino_ref}>
-                            <option defaultValue={solicitud.id_destino}>{solicitud.descrip_destino}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_destino}>{solicitud.tc_destino.descrip_destino}</option>
+                        }
                             {loadingDestinos  ?
                             <option value="0">Destino</option>  
                             : 
@@ -252,7 +282,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Tipo de producto</label>
                         <select className="form-select" aria-label="TipoProducto"   ref={id_tipo_producto_ref}>
-                            <option defaultValue={solicitud.id_tipo_producto}>{solicitud.descrip_tipo_producto}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_tipo_producto}>{solicitud.tc_tipo_producto.descrip_tipo_producto}</option>
+                        }
                             {loadingProductos  ?
                             <option value="0">Producto</option>  
                             : 
@@ -273,7 +307,11 @@ const EditarSolicitud = () => {
                     <div className="form-group">
                         <label>Moneda</label>
                         <select className="form-select" aria-label="Moneda" ref={id_moneda_ref}>
-                            <option defaultValue={solicitud.id_moneda}>{solicitud.descrip_moneda}</option>
+                        {loading  ?
+                            <option defaultValue="0"></option>  
+                            :
+                            <option defaultValue={solicitud.id_moneda}>{solicitud.tc_moneda.descrip_moneda}</option>
+                        }
                             {loadingMonedas  ?
                             <option value="0">Moneda</option>  
                             : 
@@ -301,7 +339,6 @@ const EditarSolicitud = () => {
                         }}
                         />
                     </div>
-          
                 <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100  mt-3">Guardar</button>
                 </form>
 

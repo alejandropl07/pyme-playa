@@ -71,12 +71,14 @@ import {
           return {
             ...state,
             error: null,
+            loading: true
           };
         case SOLICITUD_EDITAR_EXITO:
           return {
             ...state,
             error: null,
             solicitud: action.payload,
+            loading: false
           };
     
         case SOLICITUD_EDITAR_ERROR:
