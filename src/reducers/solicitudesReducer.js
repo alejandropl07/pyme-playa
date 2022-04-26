@@ -19,6 +19,7 @@ import {
     solicitudes: [],
     error: null,
     loading: true,
+    loadingSolicitud: true,
     solicitud: {},
   };
   
@@ -29,6 +30,7 @@ import {
           ...state,
           loading: true,
           solicitud: {},
+          loadingSolicitud: true,
         };
       case DESCARGA_SOLICITUDES_EXITO:
         return {
@@ -36,6 +38,7 @@ import {
           solicitudes: action.payload,
           loading: false,
           error: false,
+          loadingSolicitud: true,
           solicitud: {},
         };
   
@@ -45,6 +48,7 @@ import {
           solicitudes: [],
           error: true,
           loading: false,
+          loadingSolicitud: true,
           solicitud: {},
         };
 
@@ -71,14 +75,14 @@ import {
           return {
             ...state,
             error: null,
-            loading: true
+            loadingSolicitud: true,
           };
         case SOLICITUD_EDITAR_EXITO:
           return {
             ...state,
             error: null,
             solicitud: action.payload,
-            loading: false
+            loadingSolicitud: false,
           };
     
         case SOLICITUD_EDITAR_ERROR:

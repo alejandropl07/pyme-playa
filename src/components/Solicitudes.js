@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +10,17 @@ import Solicitud from "./Solicitud";
 const Solicitudes = () => {
   const   dispatch    =   useDispatch();
 
+  const params =   useParams();
+  const id  = params.id;
+
   useEffect(()  =>  {
-    const   obtenerSolicitudes = ()    => dispatch(obtenerSolicitudesAction()) ;
-    obtenerSolicitudes();
-  },[]);
+    dispatch(obtenerSolicitudesAction(id)) ;
+    console.log(id);
+  },[dispatch,id]);
 
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
-  const {solicitudes} = useSelector(state=> state.solicitudes.solicitudes);
+  const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
 
   return (
     <React.Fragment>
@@ -34,10 +38,10 @@ const Solicitudes = () => {
         </thead>
         <tbody>
         {loading  ? 
-        "Cargando solicitudes"  : 
+        null  : 
         solicitudes.map( solicitud => (
           <Solicitud
-              key={solicitud.id}
+              key={solicitud.id_solicitud}
               solicitud={solicitud}
           />
        ))}

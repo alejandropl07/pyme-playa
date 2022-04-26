@@ -27,7 +27,6 @@ const Solicitud  =   ({solicitud})  =>{
                 'Se ha eliminado la solicitud.',
                 'success'
               )
-            console.log(id);
             }
           })    
     }

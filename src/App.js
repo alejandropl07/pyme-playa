@@ -19,7 +19,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<CrearSolicitud/>} /> 
                 <Route exact path="/crearcliente" element={<CrearCliente/>} />
-                <Route exact path="/solicitudes" element={<Solicitudes/>} />
+                <Route exact path="/solicitudes/usuario/:id" element={<Solicitudes/>} />
                 <Route exact path="/solicitudes/editar/:id" element={<EditarSolicitud/>} />
                 <Route exact path="/pdf" element={<PDFViewer  style={{width:"100%", height:"90vh"}}><PDF/></PDFViewer>} />  
             </Routes>

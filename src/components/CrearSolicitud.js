@@ -13,6 +13,7 @@ import { obtenerDestinosAction } from "../actions/destinosAction";
 import { obtenerProductosAction } from "../actions/tipoProductoAction";
 import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const CrearSolicitud = () => {
     const   dispatch    =   useDispatch();
@@ -134,151 +135,151 @@ const CrearSolicitud = () => {
             <div className="card-body">
                 <form onSubmit={submitCrearSolicitud}>
                     <div className="form-group">
-                        <label>División</label>
+                        <label><strong> División </strong> </label>
                         <select className="form-select" aria-label="División"   onChange={e =>  guardarDivision(e.target.value)}>
                             <option defaultValue>Seleccione la división</option>
                             {loadingDivisiones  ?
                             <option value="0">División</option>  
                             : 
                             divisiones.map(    division    => (
-                                <option value={division.id_division}>{division.descrip_division}</option>
+                                <option key={division.id_division} value={division.id_division}>{division.descrip_division}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Sucursal</label>
+                        <label> <strong>Sucursal</strong> </label>
                         <select className="form-select" aria-label="Sucursal"   onChange={e =>  guardarSucursal(e.target.value)}>
                             <option defaultValue>Seleccione la sucursal</option>
                             {loadingSucursal  ?
                             <option value="0">Sucursal</option>  
                             : 
                             sucursal.map(    sucursal    => (
-                                <option value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
+                                <option key={sucursal.id_sucursal} value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Proveedor</label>
+                        <label><strong>Proveedor</strong></label>
                         <select className="form-select" aria-label="Proveedor"  onChange={e =>  guardarProveedor(e.target.value)}>
                             <option defaultValue>Seleccione el proveedor</option>
                             {loadingProveedores  ?
                             <option value="0">Proveedor</option>  
                             : 
                             proveedores.map(    proveedor    => (
-                                <option value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
+                                <option key={proveedor.id_proveedor} value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Clase de pedido</label>
+                        <label><strong>Clase de pedido</strong></label>
                         <select className="form-select" aria-label="ClasePedido"    onChange={e =>  guardarClasePedido(e.target.value)}>
                             <option defaultValue>Seleccione la clase de pedido</option>
                             {loadingPedidos  ?
                             <option value="0">Clase pedido</option>  
                             : 
                             clasesPedido.map(    pedido    => (
-                                <option value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
+                                <option key={pedido.id_clase_pedido} value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Embarque</label>
+                        <label><strong>Embarque</strong></label>
                         <select className="form-select" aria-label="Embarque"   onChange={e =>  guardarEmbarque(e.target.value)}>
                             <option defaultValue>Seleccione el embarque</option>
                             {loadingEmbarques  ?
                             <option value="0">Embarque</option>  
                             : 
                             embarques.map(    embarque    => (
-                                <option value={embarque.id_embarque}>{embarque.descrip_embarque}</option>
+                                <option key={embarque.id_embarque} value={embarque.id_embarque}>{embarque.descrip_embarque}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Cliente</label>
+                        <label><strong>Cliente</strong></label>
                         <select className="form-select" aria-label="Cliente"    onChange={e =>  guardarCliente(e.target.value)}>
                             <option defaultValue>Seleccione el cliente</option>
                             {loadingClientes  ?
                             <option value="0">Cliente</option>  
                             : 
                             clientes.map(    cliente    => (
-                                <option value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
+                                <option key={cliente.id_cliente} value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Fecha de entrega</label>
+                        <label><strong>Fecha de entrega</strong></label>
                         <input type="date" 
                         onChange={e =>  guardarFechaEntrega(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Referencia</label>
+                        <label> <strong>Referencia</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarReferencia(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Destino</label>
+                        <label><strong>Destino</strong></label>
                         <select className="form-select" aria-label="Destino"    onChange={e =>  guardarDestino(e.target.value)}>
                             <option defaultValue>Seleccione el destino</option>
                             {loadingDestinos  ?
                             <option value="0">Destino</option>  
                             : 
                             destinos.map(    destino    => (
-                                <option value={destino.id_destino}>{destino.descrip_destino}</option>
+                                <option key={destino.id_destino} value={destino.id_destino}>{destino.descrip_destino}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Tipo de producto</label>
+                        <label><strong>Tipo de producto</strong></label>
                         <select className="form-select" aria-label="TipoProducto"   onChange={e =>  guardarTipoProducto(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de producto</option>
                             {loadingProductos  ?
                             <option value="0">Producto</option>  
                             : 
                             tiposProducto.map(    producto    => (
-                                <option value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
+                                <option key={producto.id_tipo_producto} value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Valor</label>
+                        <label><strong>Valor</strong></label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarValor(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Moneda</label>
+                        <label><strong>Moneda</strong></label>
                         <select className="form-select" aria-label="Moneda" onChange={e =>  guardarMoneda(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de moneda</option>
                             {loadingMonedas  ?
                             <option value="0">Moneda</option>  
                             : 
                             monedas.map(    moneda    => (
-                                <option value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
+                                <option key={moneda.id_moneda} value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Contrato</label>
+                        <label><strong>Contrato</strong></label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarContrato(e.target.value)}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Importar datos desde un Excel</label>
+                        <label><strong>Importar datos desde un Excel</strong></label>
                         <input type="file"
                         className="form-control mx-sm-3"
                         onChange={(e)   =>  {
@@ -292,6 +293,8 @@ const CrearSolicitud = () => {
                 </form>
 
                 {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
+                
+                <Link   to={`/solicitudes/usuario/3`} className="btn btn-primary mt-3   mb-2">Ver todas las solicitudes</Link>
 
             </div>
         </div>

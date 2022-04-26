@@ -27,7 +27,7 @@ const EditarSolicitud = () => {
     const   id_destino_ref    =   useRef('');
     const   id_tipo_producto_ref   =   useRef('');
     const   valor_solicitud_ref   =   useRef('');
-    const   id_moneda_ref   =   useState('');
+    const   id_moneda_ref   =   useRef('');
     const   contrato_solicitud_ref   =   useRef('');
 
     const   dispatch    =   useDispatch();
@@ -110,7 +110,7 @@ const EditarSolicitud = () => {
   const {monedas} =   useSelector((state) =>  state.monedas.monedas);
 
   const error = useSelector((state) =>  state.error.error);
-  const loading = useSelector((state) =>  state.solicitudes.loading);
+  const loading = useSelector((state) =>  state.solicitudes.loadingSolicitud);
   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
 
   if(!solicitud)   return 'Cargando...';
@@ -145,7 +145,7 @@ const EditarSolicitud = () => {
             <div className="card-body">
                 <form onSubmit={submitEditarSolicitud}>
                     <div className="form-group">
-                        <label>División</label>
+                        <label> <strong>División</strong> </label>
                         <select className="form-select" aria-label="División"   ref={id_division_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -156,13 +156,13 @@ const EditarSolicitud = () => {
                             <option value="0">División</option>  
                             : 
                             divisiones.map(    division    => (
-                                <option value={division.id_division}>{division.descrip_division}</option>
+                                <option key={division.id_division} value={division.id_division}>{division.descrip_division}</option>
                             ) )}
                         </select>
                     </div>
 
                      <div className="form-group">
-                        <label>Sucursal</label>
+                        <label> <strong>Sucursal</strong> </label>
                         <select className="form-select" aria-label="Sucursal"   ref={id_sucursal_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -174,13 +174,13 @@ const EditarSolicitud = () => {
                             <option value="0">Sucursal</option>  
                             : 
                             sucursal.map(    sucursal    => (
-                                <option value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
+                                <option key={sucursal.id_sucursal} value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Proveedor</label>
+                        <label> <strong>Proveedor</strong> </label>
                         <select className="form-select" aria-label="Proveedor"  ref={id_proveedor_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -191,13 +191,13 @@ const EditarSolicitud = () => {
                             <option value="0">Proveedor</option>  
                             : 
                             proveedores.map(    proveedor    => (
-                                <option value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
+                                <option key={proveedor.id_proveedor} value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Clase de pedido</label>
+                        <label> <strong>Clase de pedido</strong> </label>
                         <select className="form-select" aria-label="ClasePedido"    ref={id_clase_pedido_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -208,13 +208,13 @@ const EditarSolicitud = () => {
                             <option value="0">Clase pedido</option>  
                             : 
                             clasesPedido.map(    pedido    => (
-                                <option value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
+                                <option key={pedido.id_clase_pedido} value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Embarque</label>
+                        <label> <strong>Embarque</strong> </label>
                         <select className="form-select" aria-label="Embarque"   ref={id_embarque_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -225,13 +225,13 @@ const EditarSolicitud = () => {
                             <option value="0">Embarque</option>  
                             : 
                             embarques.map(    embarque    => (
-                                <option value={embarque.id_embarque}>{embarque.descrip_embarque}</option>
+                                <option key={embarque.id_embarque} value={embarque.id_embarque}>{embarque.descrip_embarque}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Cliente</label>
+                        <label> <strong>Cliente</strong> </label>
                         <select className="form-select" aria-label="Cliente"    ref={id_cliente_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -242,20 +242,20 @@ const EditarSolicitud = () => {
                             <option value="0">Cliente</option>  
                             : 
                             clientes.map(    cliente    => (
-                                <option value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
+                                <option key={cliente.id_cliente} value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Fecha de entrega</label>
+                        <label> <strong>Fecha de entrega</strong> </label>
                         <input type="date" 
-                        defaultValue={solicitud.fecha_entrega}
+                        value={solicitud.fecha_entrega}
                         ref={fecha_entrega_ref}/>
                     </div>
 
                     <div className="form-group">
-                        <label>Referencia</label>
+                        <label> <strong>Referencia</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         defaultValue={solicitud.descrip_solicitud}
@@ -263,7 +263,7 @@ const EditarSolicitud = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Destino</label>
+                        <label> <strong>Destino</strong> </label>
                         <select className="form-select" aria-label="Destino"    ref={id_destino_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -274,13 +274,13 @@ const EditarSolicitud = () => {
                             <option value="0">Destino</option>  
                             : 
                             destinos.map(    destino    => (
-                                <option value={destino.id_destino}>{destino.descrip_destino}</option>
+                                <option key={destino.id_destino} value={destino.id_destino}>{destino.descrip_destino}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Tipo de producto</label>
+                        <label> <strong>Tipo de producto</strong> </label>
                         <select className="form-select" aria-label="TipoProducto"   ref={id_tipo_producto_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -291,13 +291,13 @@ const EditarSolicitud = () => {
                             <option value="0">Producto</option>  
                             : 
                             tiposProducto.map(    producto    => (
-                                <option value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
+                                <option key={producto.id_tipo_producto} value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Valor</label>
+                        <label> <strong>Valor</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         defaultValue={solicitud.valor_solicitud}
@@ -305,7 +305,7 @@ const EditarSolicitud = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Moneda</label>
+                        <label> <strong>Moneda</strong> </label>
                         <select className="form-select" aria-label="Moneda" ref={id_moneda_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -316,13 +316,13 @@ const EditarSolicitud = () => {
                             <option value="0">Moneda</option>  
                             : 
                             monedas.map(    moneda    => (
-                                <option value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
+                                <option key={moneda.id_moneda} value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
                             ) )}
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label>Contrato</label>
+                        <label> <strong>Contrato</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3"
                         defaultValue={solicitud.contrato_solicitud} 
@@ -330,7 +330,7 @@ const EditarSolicitud = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Importar datos desde un Excel</label>
+                        <label> <strong>Importar datos desde un Excel</strong> </label>
                         <input type="file"
                         className="form-control mx-sm-3"
                         onChange={(e)   =>  {

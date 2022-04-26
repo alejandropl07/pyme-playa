@@ -16,12 +16,12 @@ import {
   import clienteAxios from "../config/axios";
   import Swal from "sweetalert2";
 
-export  function obtenerSolicitudesAction() {
+export  function obtenerSolicitudesAction(id) {
     return(dispatch)    =>  {
         dispatch(obtenerSolicitudesComienzo());
 
         //Consultar la API
-        clienteAxios.get('/solicitudes')
+        clienteAxios.get(`/solicitudes/usuario/${id}`)
         .then(respuesta =>  {
             dispatch(descargaSolicitudesExito(respuesta.data))
         })
