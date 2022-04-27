@@ -10,6 +10,7 @@ import embarquesReducer from "./embarquesReducer";
 import destinosReducer from "./destinosReducer";
 import tipoProductoReducer from "./tipoProductoReducer";
 import monedasReducer from "./monedasReducer";
+import productosReducer from "./productosReducer";
 
 export default  combineReducers ({
     error:  validacionReducer,
@@ -23,4 +24,5 @@ export default  combineReducers ({
     destinos:   destinosReducer,
     productos:  tipoProductoReducer,
     monedas:  monedasReducer,
+    productosSolicitud: productosReducer,
 });

@@ -2,6 +2,7 @@ import React,   {useEffect, useState} from "react";
 import *    as  XLSX from "xlsx";
 
 //Redux
+import { obtenerProductosExcelAction } from "../actions/productosAction";
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
@@ -39,6 +40,7 @@ const CrearSolicitud = () => {
     },[]);
 
     const   [items, setItems]   =   useState([]);
+    const   obtenerProductosExcel = (productosExcel)    => dispatch(obtenerProductosExcelAction(productosExcel)) ;
 
     const readExcel   =   (file)  =>  {
         const promise =   new Promise ((resolve,  reject) =>  {
@@ -65,6 +67,7 @@ const CrearSolicitud = () => {
         promise.then((d)  =>  {
             console.log(d);
             setItems(d);
+            obtenerProductosExcel(d);
         });
     };
 
@@ -134,7 +137,7 @@ const CrearSolicitud = () => {
         <div className="card">
             <div className="card-body">
                 <form onSubmit={submitCrearSolicitud}>
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label><strong> División </strong> </label>
                         <select className="form-select" aria-label="División"   onChange={e =>  guardarDivision(e.target.value)}>
                             <option defaultValue>Seleccione la división</option>
@@ -147,7 +150,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Sucursal</strong> </label>
                         <select className="form-select" aria-label="Sucursal"   onChange={e =>  guardarSucursal(e.target.value)}>
                             <option defaultValue>Seleccione la sucursal</option>
@@ -160,7 +163,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Proveedor</strong></label>
                         <select className="form-select" aria-label="Proveedor"  onChange={e =>  guardarProveedor(e.target.value)}>
                             <option defaultValue>Seleccione el proveedor</option>
@@ -173,7 +176,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Clase de pedido</strong></label>
                         <select className="form-select" aria-label="ClasePedido"    onChange={e =>  guardarClasePedido(e.target.value)}>
                             <option defaultValue>Seleccione la clase de pedido</option>
@@ -186,7 +189,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Embarque</strong></label>
                         <select className="form-select" aria-label="Embarque"   onChange={e =>  guardarEmbarque(e.target.value)}>
                             <option defaultValue>Seleccione el embarque</option>
@@ -199,7 +202,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Cliente</strong></label>
                         <select className="form-select" aria-label="Cliente"    onChange={e =>  guardarCliente(e.target.value)}>
                             <option defaultValue>Seleccione el cliente</option>
@@ -210,22 +213,23 @@ const CrearSolicitud = () => {
                                 <option key={cliente.id_cliente} value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
                             ) )}
                         </select>
+                        <Link   to={`/crearcliente`} className="btn btn-primary mt-3   mb-2">Crear cliente</Link>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Fecha de entrega</strong></label>
-                        <input type="date" 
+                        <input type="date"
                         onChange={e =>  guardarFechaEntrega(e.target.value)}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label> <strong>Referencia</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarReferencia(e.target.value)}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Destino</strong></label>
                         <select className="form-select" aria-label="Destino"    onChange={e =>  guardarDestino(e.target.value)}>
                             <option defaultValue>Seleccione el destino</option>
@@ -238,7 +242,7 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Tipo de producto</strong></label>
                         <select className="form-select" aria-label="TipoProducto"   onChange={e =>  guardarTipoProducto(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de producto</option>
@@ -251,14 +255,14 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Valor</strong></label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarValor(e.target.value)}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Moneda</strong></label>
                         <select className="form-select" aria-label="Moneda" onChange={e =>  guardarMoneda(e.target.value)}>
                             <option defaultValue>Seleccione el tipo de moneda</option>
@@ -271,14 +275,14 @@ const CrearSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Contrato</strong></label>
                         <input type="text"
                         className="form-control mx-sm-3" 
                         onChange={e =>  guardarContrato(e.target.value)}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mb-2">
                         <label><strong>Importar datos desde un Excel</strong></label>
                         <input type="file"
                         className="form-control mx-sm-3"
@@ -295,6 +299,47 @@ const CrearSolicitud = () => {
                 {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
                 
                 <Link   to={`/solicitudes/usuario/3`} className="btn btn-primary mt-3   mb-2">Ver todas las solicitudes</Link>
+            
+                <div    className="mt-5">
+                <h3>Productos</h3>
+                <table className="table table-striped   mt-2">
+                    <thead className="bg-primary table-light">
+                    <tr>
+                        <th scope="col">Pfx</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Cantidad</th>
+                    </tr>
+                    </thead>
+                
+                    <tbody>
+                        {items.map(    item    => (
+                            <tr key={item.Pfx}>
+                                <td>{item.Pfx}</td>
+                                <td>{item.Código}</td>
+                                <td>{item.Cantidad}</td>
+                            </tr>
+                        ))} 
+                    </tbody> 
+                </table>
+                </div>
+
+                <form className="row g-4">
+                <div className="col-auto">
+                    <label className="visually-hidden">Pfx</label>
+                    <input type="text" className="form-control" placeholder="Pfx"/>
+                </div>
+                <div className="col-auto">
+                    <label className="visually-hidden">Código</label>
+                    <input type="text" className="form-control" placeholder="Código"/>
+                </div>
+                <div className="col-auto">
+                    <label className="visually-hidden">Cantidad</label>
+                    <input type="number" className="form-control" placeholder="Cantidad"/>
+                </div>
+                <div className="col-auto">
+                    <button type="submit" className="btn btn-primary mb-3">Agregar producto</button>
+                </div>
+                </form>
 
             </div>
         </div>
