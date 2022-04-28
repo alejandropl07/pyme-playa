@@ -1,8 +1,11 @@
 import React,   {useEffect, useState,   useRef} from "react";
 import { useParams } from "react-router-dom";
 import *    as  XLSX from "xlsx";
+import Producto from "./Producto";
 
 //Redux
+import { agregarProductoAction, obtenerProductosExcelAction } from "../actions/productosAction";
+import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
 import { obtenerSolicitudAction,    editarSolicitudAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
@@ -87,7 +90,17 @@ const EditarSolicitud = () => {
         });
     };
 
+    
+    const   [Pfx, guardarPfx]   =   useState('');
+    const   [Código, guardarCodigo]   =   useState('');
+    const   [Cantidad, guardarCantidad]   =   useState('');
+
   const   editarSolicitud = (solicitud)    => dispatch(editarSolicitudAction(solicitud)) ;
+  const   agregarProducto = (producto)    => dispatch(agregarProductoAction(producto)) ;
+
+  const   validarFormulario = ()    => dispatch(validarFormularioAction()) ;
+  const   exitoValidacion = ()    => dispatch(validacionExito()) ;
+  const   errorValidacion = ()    => dispatch(validacionError()) ;
 
   //Obtener los datos del state
   const loadingDivisiones =   useSelector((state) =>  state.divisiones.loading);
@@ -112,6 +125,7 @@ const EditarSolicitud = () => {
   const error = useSelector((state) =>  state.error.error);
   const loading = useSelector((state) =>  state.solicitudes.loadingSolicitud);
   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
+  const productos =   useSelector((state) =>  state.productosSolicitud.productos);
 
   if(!solicitud)   return 'Cargando...';
     
@@ -138,13 +152,35 @@ const EditarSolicitud = () => {
   });
 }
 
+
+const submitAgregarProducto =  e   =>{
+    e.preventDefault();
+    validarFormulario();
+
+    //Validar
+    if(Pfx.trim() === ''  ||  Código.trim()===''    ||  Cantidad.trim()===''){
+        errorValidacion();
+        return;
+    }
+    
+    //Si pasa la validadacion
+    exitoValidacion();
+
+    //Crear el nuevo producto
+    agregarProducto({
+        Pfx,
+        Código,
+        Cantidad
+  });
+}
+
   return (
     <div className="row justify-content-center mt-5">
     <div className="col-md-8">
         <div className="card">
             <div className="card-body">
                 <form onSubmit={submitEditarSolicitud}>
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>División</strong> </label>
                         <select className="form-select" aria-label="División"   ref={id_division_ref}>
                         {loading  ?
@@ -161,7 +197,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                     <div className="form-group">
+                     <div className="form-group mb-2">
                         <label> <strong>Sucursal</strong> </label>
                         <select className="form-select" aria-label="Sucursal"   ref={id_sucursal_ref}>
                         {loading  ?
@@ -179,7 +215,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Proveedor</strong> </label>
                         <select className="form-select" aria-label="Proveedor"  ref={id_proveedor_ref}>
                         {loading  ?
@@ -196,7 +232,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Clase de pedido</strong> </label>
                         <select className="form-select" aria-label="ClasePedido"    ref={id_clase_pedido_ref}>
                         {loading  ?
@@ -213,7 +249,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Embarque</strong> </label>
                         <select className="form-select" aria-label="Embarque"   ref={id_embarque_ref}>
                         {loading  ?
@@ -230,7 +266,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Cliente</strong> </label>
                         <select className="form-select" aria-label="Cliente"    ref={id_cliente_ref}>
                         {loading  ?
@@ -247,14 +283,14 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Fecha de entrega</strong> </label>
                         <input type="date" 
                         value={solicitud.fecha_entrega}
                         ref={fecha_entrega_ref}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Referencia</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
@@ -262,7 +298,7 @@ const EditarSolicitud = () => {
                         ref={referencia_ref}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Destino</strong> </label>
                         <select className="form-select" aria-label="Destino"    ref={id_destino_ref}>
                         {loading  ?
@@ -279,7 +315,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Tipo de producto</strong> </label>
                         <select className="form-select" aria-label="TipoProducto"   ref={id_tipo_producto_ref}>
                         {loading  ?
@@ -296,7 +332,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Valor</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3" 
@@ -304,7 +340,7 @@ const EditarSolicitud = () => {
                         ref={valor_solicitud_ref}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Moneda</strong> </label>
                         <select className="form-select" aria-label="Moneda" ref={id_moneda_ref}>
                         {loading  ?
@@ -321,7 +357,7 @@ const EditarSolicitud = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Contrato</strong> </label>
                         <input type="text"
                         className="form-control mx-sm-3"
@@ -329,7 +365,7 @@ const EditarSolicitud = () => {
                         ref={contrato_solicitud_ref}/>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group  mb-2">
                         <label> <strong>Importar datos desde un Excel</strong> </label>
                         <input type="file"
                         className="form-control mx-sm-3"
@@ -340,6 +376,46 @@ const EditarSolicitud = () => {
                         />
                     </div>
                 <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100  mt-3">Guardar</button>
+                </form>
+
+                <div    className="mt-5">
+                <h3>Productos</h3>
+                <table className="table table-striped   mt-2">
+                    <thead className="bg-primary table-light">
+                    <tr>
+                        <th scope="col">Pfx</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Cantidad</th>
+                    </tr>
+                    </thead>
+                
+                    <tbody>
+                        {productos.map(    producto    => (
+                            <Producto
+                            key={producto.Código}
+                            producto={producto}
+                        />
+                        ))} 
+                    </tbody> 
+                </table>
+                </div>
+
+                <form className="row g-4"   onSubmit={submitAgregarProducto}>
+                <div className="col-auto">
+                    <label className="visually-hidden">Pfx</label>
+                    <input type="text" className="form-control" placeholder="Pfx"   value={Pfx}    onChange={e =>  guardarPfx(e.target.value)}/>
+                </div>
+                <div className="col-auto">
+                    <label className="visually-hidden">Código</label>
+                    <input type="text" className="form-control" placeholder="Código"    value={Código}     onChange={e =>  guardarCodigo(e.target.value)}/>
+                </div>
+                <div className="col-auto">
+                    <label className="visually-hidden">Cantidad</label>
+                    <input type="number" className="form-control" placeholder="Cantidad"    value={Cantidad}     onChange={e =>  guardarCantidad(e.target.value)}/>
+                </div>
+                <div className="col-auto">
+                    <button type="submit" className="btn btn-primary mb-3">Agregar producto</button>
+                </div>
                 </form>
 
                 {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
