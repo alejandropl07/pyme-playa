@@ -2,7 +2,8 @@ import React,   {useEffect, useState} from "react";
 import *    as  XLSX from "xlsx";
 
 //Redux
-import { obtenerProductosExcelAction } from "../actions/productosAction";
+import { agregarProductoAction, obtenerProductosExcelAction } from "../actions/productosAction";
+import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
 import { agregarSolicitudAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
@@ -37,7 +38,7 @@ const CrearSolicitud = () => {
         obtenerDestinos();
         obtenerProductos();
         obtenerMonedas();
-    },[]);
+    },[dispatch]);
 
     const   [items, setItems]   =   useState([]);
     const   obtenerProductosExcel = (productosExcel)    => dispatch(obtenerProductosExcelAction(productosExcel)) ;
@@ -85,7 +86,16 @@ const CrearSolicitud = () => {
     const   [id_moneda, guardarMoneda]   =   useState('');
     const   [contrato_solicitud, guardarContrato]   =   useState('');
 
+    const   [Pfx, guardarPfx]   =   useState('');
+    const   [Código, guardarCodigo]   =   useState('');
+    const   [Cantidad, guardarCantidad]   =   useState('');
+
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
+  const   agregarProducto = (producto)    => dispatch(agregarProductoAction(producto)) ;
+
+  const   validarFormulario = ()    => dispatch(validarFormularioAction()) ;
+  const   exitoValidacion = ()    => dispatch(validacionExito()) ;
+  const   errorValidacion = ()    => dispatch(validacionError()) ;
 
   //Obtener los datos del state
   const error = useSelector((state) =>  state.error.error);
@@ -107,6 +117,8 @@ const CrearSolicitud = () => {
   const {tiposProducto} =   useSelector((state) =>  state.productos.productos);
   const loadingMonedas =   useSelector((state) =>  state.monedas.loading);
   const {monedas} =   useSelector((state) =>  state.monedas.monedas);
+
+  const productos =   useSelector((state) =>  state.productosSolicitud.productos);
     
   const submitCrearSolicitud =  e   =>{
     e.preventDefault();
@@ -128,6 +140,28 @@ const CrearSolicitud = () => {
         fecha_aprobada:   fecha_entrega,
         fecha_revisada:   fecha_entrega,
         id_comercial:   3,
+        productos
+  });
+}
+
+const submitAgregarProducto =  e   =>{
+    e.preventDefault();
+    validarFormulario();
+
+    //Validar
+    if(Pfx.trim() === ''  ||  Código.trim()===''    ||  Cantidad.trim()===''){
+        errorValidacion();
+        return;
+    }
+    
+    //Si pasa la validadacion
+    exitoValidacion();
+
+    //Crear el nuevo producto
+    agregarProducto({
+        Pfx,
+        Código,
+        Cantidad
   });
 }
 
@@ -295,8 +329,6 @@ const CrearSolicitud = () => {
           
                 <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100  mt-3">Guardar</button>
                 </form>
-
-                {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
                 
                 <Link   to={`/solicitudes/usuario/3`} className="btn btn-primary mt-3   mb-2">Ver todas las solicitudes</Link>
             
@@ -312,7 +344,7 @@ const CrearSolicitud = () => {
                     </thead>
                 
                     <tbody>
-                        {items.map(    item    => (
+                        {productos.map(    item    => (
                             <tr key={item.Pfx}>
                                 <td>{item.Pfx}</td>
                                 <td>{item.Código}</td>
@@ -323,23 +355,25 @@ const CrearSolicitud = () => {
                 </table>
                 </div>
 
-                <form className="row g-4">
+                <form className="row g-4"   onSubmit={submitAgregarProducto}>
                 <div className="col-auto">
                     <label className="visually-hidden">Pfx</label>
-                    <input type="text" className="form-control" placeholder="Pfx"/>
+                    <input type="text" className="form-control" placeholder="Pfx"   value={Pfx}    onChange={e =>  guardarPfx(e.target.value)}/>
                 </div>
                 <div className="col-auto">
                     <label className="visually-hidden">Código</label>
-                    <input type="text" className="form-control" placeholder="Código"/>
+                    <input type="text" className="form-control" placeholder="Código"    value={Código}     onChange={e =>  guardarCodigo(e.target.value)}/>
                 </div>
                 <div className="col-auto">
                     <label className="visually-hidden">Cantidad</label>
-                    <input type="number" className="form-control" placeholder="Cantidad"/>
+                    <input type="number" className="form-control" placeholder="Cantidad"    value={Cantidad}     onChange={e =>  guardarCantidad(e.target.value)}/>
                 </div>
                 <div className="col-auto">
                     <button type="submit" className="btn btn-primary mb-3">Agregar producto</button>
                 </div>
                 </form>
+
+                {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
 
             </div>
         </div>
