@@ -1,5 +1,6 @@
 import React,   {useEffect, useState} from "react";
 import *    as  XLSX from "xlsx";
+import Producto from "./Producto";
 
 //Redux
 import { agregarProductoAction, obtenerProductosExcelAction } from "../actions/productosAction";
@@ -344,12 +345,11 @@ const submitAgregarProducto =  e   =>{
                     </thead>
                 
                     <tbody>
-                        {productos.map(    item    => (
-                            <tr key={item.Pfx}>
-                                <td>{item.Pfx}</td>
-                                <td>{item.Código}</td>
-                                <td>{item.Cantidad}</td>
-                            </tr>
+                        {productos.map(    producto    => (
+                            <Producto
+                            key={producto.Código}
+                            producto={producto}
+                        />
                         ))} 
                     </tbody> 
                 </table>

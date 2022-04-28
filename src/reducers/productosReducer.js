@@ -4,7 +4,10 @@ import {
     OBTENER_PRODUCTOS_EXCEL_ERROR,
     AGREGAR_PRODUCTO,
     AGREGAR_PRODUCTO_EXITO,
-    AGREGAR_PRODUCTO_ERROR
+    AGREGAR_PRODUCTO_ERROR,
+    ELIMINAR_PRODUCTO,
+    ELIMINAR_PRODUCTO_EXITO,
+    ELIMINAR_PRODUCTO_ERROR
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -25,7 +28,7 @@ import {
       case OBTENER_PRODUCTOS_EXCEL_EXITO:
         return {
           ...state,
-          productos: action.payload,
+          productos: [...state.productos, action.payload],
           loading: false,
           error: false,
         };
@@ -54,6 +57,26 @@ import {
         return {
           ...state,
           error: action.payload,
+        };
+
+      case ELIMINAR_PRODUCTO:
+        return {
+          ...state,
+          error: null,
+        };
+      case ELIMINAR_PRODUCTO_EXITO:
+        return {
+        ...state,
+        error: null,
+        productos: state.productos.filter(
+          (producto) => producto.Código !== action.payload
+        ),
+      };
+
+      case ELIMINAR_PRODUCTO_ERROR:
+        return {
+          ...state,
+          error: true,
         };
   
       default:

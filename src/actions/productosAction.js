@@ -4,7 +4,10 @@ import {
     OBTENER_PRODUCTOS_EXCEL_ERROR,
     AGREGAR_PRODUCTO,
     AGREGAR_PRODUCTO_EXITO,
-    AGREGAR_PRODUCTO_ERROR
+    AGREGAR_PRODUCTO_ERROR,
+    ELIMINAR_PRODUCTO,
+    ELIMINAR_PRODUCTO_EXITO,
+    ELIMINAR_PRODUCTO_ERROR,
   } from "../types";
 
 export  function obtenerProductosExcelAction(productosExcel) {
@@ -58,4 +61,30 @@ export  const agregarProductoExito =   (producto)  =>  ({
 export  const agregarProductoError =   (error)  =>  ({
     type:   AGREGAR_PRODUCTO_ERROR,
     payload:    error
+});
+
+
+export  function eliminarProductoAction(id) {
+    return(dispatch)    =>  {
+        dispatch(eliminarProducto());
+
+        try {
+            dispatch(eliminarProductoExito(id))
+        } catch (error) {
+            dispatch(eliminarProductoError())
+        }
+    }
+}
+
+export  const eliminarProducto =   ()  =>  ({
+    type:   ELIMINAR_PRODUCTO,
+});
+
+export  const eliminarProductoExito =   (id)  =>  ({
+    type:   ELIMINAR_PRODUCTO_EXITO,
+    payload:    id,
+});
+
+export  const eliminarProductoError =   ()  =>  ({
+    type:   ELIMINAR_PRODUCTO_ERROR,
 });
