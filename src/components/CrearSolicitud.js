@@ -3,9 +3,8 @@ import *    as  XLSX from "xlsx";
 import Producto from "./Producto";
 
 //Redux
-import { agregarProductoAction, obtenerProductosExcelAction } from "../actions/productosAction";
 import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
-import { agregarSolicitudAction } from "../actions/solicitudesAction";
+import { agregarSolicitudAction,    agregarProductoAction, obtenerProductosExcelAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
 import { obtenerProveedoresAction } from "../actions/proveedoresAction";
@@ -17,6 +16,7 @@ import { obtenerProductosAction } from "../actions/tipoProductoAction";
 import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CrearSolicitud = () => {
     const   dispatch    =   useDispatch();
@@ -41,7 +41,6 @@ const CrearSolicitud = () => {
         obtenerMonedas();
     },[dispatch]);
 
-    const   [items, setItems]   =   useState([]);
     const   obtenerProductosExcel = (productosExcel)    => dispatch(obtenerProductosExcelAction(productosExcel)) ;
 
     const readExcel   =   (file)  =>  {
@@ -67,8 +66,6 @@ const CrearSolicitud = () => {
             };
         });
         promise.then((d)  =>  {
-            console.log(d);
-            setItems(d);
             obtenerProductosExcel(d);
         });
     };
@@ -90,6 +87,8 @@ const CrearSolicitud = () => {
     const   [Pfx, guardarPfx]   =   useState('');
     const   [Código, guardarCodigo]   =   useState('');
     const   [Cantidad, guardarCantidad]   =   useState('');
+
+    const navigate    =   useNavigate();
 
   const   agregarSolicitud = (solicitud)    => dispatch(agregarSolicitudAction(solicitud)) ;
   const   agregarProducto = (producto)    => dispatch(agregarProductoAction(producto)) ;
@@ -119,10 +118,23 @@ const CrearSolicitud = () => {
   const loadingMonedas =   useSelector((state) =>  state.monedas.loading);
   const {monedas} =   useSelector((state) =>  state.monedas.monedas);
 
-  const productos =   useSelector((state) =>  state.productosSolicitud.productos);
+  const productos =   useSelector((state) =>  state.solicitudes.productos);
     
   const submitCrearSolicitud =  e   =>{
     e.preventDefault();
+    validarFormulario();
+    //Validar
+    if(id_division.trim() === ''  ||  id_sucursal.trim()===''    ||  id_proveedor.trim()===''   ||  id_clase_pedido.trim()==='' 
+    ||  id_embarque.trim()==='' ||  id_cliente.trim()===''  ||  fecha_entrega.trim()===''   ||  referencia.trim()===''
+    ||  id_destino.trim()===''  ||  id_tipo_producto.trim()===''    ||  valor_solicitud.trim()==='' ||  id_moneda.trim()===''
+    ||  contrato_solicitud.trim()===''  ||  productos.length ===    0){
+        errorValidacion();
+        return;
+    }
+    
+    //Si pasa la validadacion
+    exitoValidacion();
+
     agregarSolicitud({
         id_division,
         id_sucursal,
@@ -143,6 +155,7 @@ const CrearSolicitud = () => {
         id_comercial:   3,
         productos
   });
+  navigate('/solicitudes/usuario/3')
 }
 
 const submitAgregarProducto =  e   =>{

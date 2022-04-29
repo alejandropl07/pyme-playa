@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
-import { eliminarProductoAction } from "../actions/productosAction";
+import { eliminarProductoAction } from "../actions/solicitudesAction";
 
 const Producto  =   ({producto})  =>{
     const dispatch  = useDispatch();

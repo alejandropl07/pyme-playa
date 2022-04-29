@@ -11,6 +11,19 @@ import {
     COMENZAR_EDICION_SOLICITUD,
     SOLICITUD_EDITADO_EXITO,
     SOLICITUD_EDITADO_ERROR,
+    OBTENER_PRODUCTOS_EXCEL,
+    OBTENER_PRODUCTOS_EXCEL_EXITO,
+    OBTENER_PRODUCTOS_EXCEL_ERROR,
+    AGREGAR_PRODUCTO,
+    AGREGAR_PRODUCTO_EXITO,
+    AGREGAR_PRODUCTO_ERROR,
+    ELIMINAR_PRODUCTO,
+    ELIMINAR_PRODUCTO_EXITO,
+    ELIMINAR_PRODUCTO_ERROR,
+    OBTENER_PRODUCTOS_SOLICITUD,
+    OBTENER_PRODUCTOS_SOLICITUD_EXITO,
+    OBTENER_PRODUCTOS_SOLICITUD_ERROR,
+    ELIMINAR_PRODUCTO_EDITAR_EXITO,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -63,7 +76,7 @@ export  function agregarSolicitudAction(solicitud) {
                 showConfirmButton: true,
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Aceptar',            
+                confirmButtonText: 'Aceptar',       
               });
         })
         .catch(error    =>{
@@ -103,13 +116,17 @@ export  const agregarSolicitudError =   (error)  =>  ({
 export  function obtenerSolicitudAction(id) {
     return(dispatch)    =>  {
         dispatch(obtenerSolicitudEditar());
+        dispatch(obtenerProductosSolicitud());
 
         clienteAxios.get(`/solicitudes/${id}`)
         .then(respuesta =>  {
             dispatch(editarSolicitudExito(respuesta.data))
+            console.log(respuesta.data);
+            dispatch(obtenerProductosSolicitudExito(respuesta.data.tc_solicitud_productos))
         })
         .catch(error    =>{
             dispatch(editarSolicitudError())
+            dispatch(obtenerProductosSolicitudError())
         })
         
     }
@@ -126,6 +143,20 @@ export  const editarSolicitudExito =   (solicitud)  =>  ({
 
 export  const editarSolicitudError =   ()  =>  ({
     type:   SOLICITUD_EDITAR_ERROR,
+});
+
+
+export  const obtenerProductosSolicitud =   ()  =>  ({
+    type:   OBTENER_PRODUCTOS_SOLICITUD,
+});
+
+export  const obtenerProductosSolicitudExito =   (productos)  =>  ({
+    type:   OBTENER_PRODUCTOS_SOLICITUD_EXITO,
+    payload:    productos,
+});
+
+export  const obtenerProductosSolicitudError =   ()  =>  ({
+    type:   OBTENER_PRODUCTOS_SOLICITUD_ERROR,
 });
 
 
@@ -164,4 +195,103 @@ export  const solicitudEditadoExito =   (solicitud)  =>  ({
 
 export  const solicitudEditadoError =   ()  =>  ({
     type:   SOLICITUD_EDITADO_ERROR,
+});
+
+
+export  function obtenerProductosExcelAction(productosExcel) {
+    return(dispatch)    =>  {
+        dispatch(obtenerProductosExcel());
+
+        try {
+            dispatch(obtenerProductosExcelExito(productosExcel))
+        } catch (error) {
+            dispatch(obtenerProductosExcelError())
+        }        
+    }
+}
+
+export  const obtenerProductosExcel =   ()  =>  ({
+    type:   OBTENER_PRODUCTOS_EXCEL,
+});
+
+export  const obtenerProductosExcelExito =   (productosExcel)  =>  ({
+    type:   OBTENER_PRODUCTOS_EXCEL_EXITO,
+    payload:    productosExcel,
+});
+
+export  const obtenerProductosExcelError =   ()  =>  ({
+    type:   OBTENER_PRODUCTOS_EXCEL_ERROR,
+});
+
+
+// AGREGAR PRODUCTO AL STATE
+export  function agregarProductoAction(producto) {
+    return(dispatch)    =>  {
+        dispatch(agregarProductoComienzo());
+        
+        try {
+            dispatch(agregarProductoExito(producto))
+        } catch (error) {
+            dispatch(agregarProductoError(error))
+        }        
+    }
+}
+
+export  const agregarProductoComienzo =   ()  =>  ({
+    type:   AGREGAR_PRODUCTO,
+});
+
+export  const agregarProductoExito =   (producto)  =>  ({
+    type:   AGREGAR_PRODUCTO_EXITO,
+    payload:    producto
+});
+
+export  const agregarProductoError =   (error)  =>  ({
+    type:   AGREGAR_PRODUCTO_ERROR,
+    payload:    error
+});
+
+
+export  function eliminarProductoAction(id) {
+    return(dispatch)    =>  {
+        dispatch(eliminarProducto());
+
+        try {
+            dispatch(eliminarProductoExito(id))
+        } catch (error) {
+            dispatch(eliminarProductoError())
+        }
+    }
+}
+
+
+export  function eliminarProductoEditarAction(id) {
+    return(dispatch)    =>  {
+        dispatch(eliminarProducto());
+
+        try {
+            dispatch(eliminarProductoEditarExito(id))
+        } catch (error) {
+            dispatch(eliminarProductoError())
+        }
+    }
+}
+
+export  const eliminarProducto =   ()  =>  ({
+    type:   ELIMINAR_PRODUCTO,
+});
+
+export  const eliminarProductoExito =   (id)  =>  ({
+    type:   ELIMINAR_PRODUCTO_EXITO,
+    payload:    id,
+});
+
+
+export  const eliminarProductoEditarExito =   (id)  =>  ({
+    type:   ELIMINAR_PRODUCTO_EDITAR_EXITO,
+    payload:    id,
+});
+
+export  const eliminarProductoError =   ()  =>  ({
+    type:   ELIMINAR_PRODUCTO_ERROR,
 });

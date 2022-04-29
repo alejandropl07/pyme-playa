@@ -1,12 +1,11 @@
 import React,   {useEffect, useState,   useRef} from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import *    as  XLSX from "xlsx";
-import Producto from "./Producto";
+import ProductoEditarSolicitud from "./ProductoEditarSolicitud";
 
 //Redux
-import { agregarProductoAction, obtenerProductosExcelAction } from "../actions/productosAction";
 import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
-import { obtenerSolicitudAction,    editarSolicitudAction } from "../actions/solicitudesAction";
+import { obtenerSolicitudAction,    editarSolicitudAction,  agregarProductoAction, obtenerProductosExcelAction } from "../actions/solicitudesAction";
 import { obtenerDivisionAction } from "../actions/divisionAction";
 import { obtenerSucursalesAction } from "../actions/sucursalesAction";
 import { obtenerProveedoresAction } from "../actions/proveedoresAction";
@@ -60,7 +59,7 @@ const EditarSolicitud = () => {
         dispatch(obtenerSolicitudAction(id));
     },[dispatch, id]);
 
-    const   [items, setItems]   =   useState([]);
+    const   obtenerProductosExcel = (productosExcel)    => dispatch(obtenerProductosExcelAction(productosExcel)) ;
 
     const readExcel   =   (file)  =>  {
         const promise =   new Promise ((resolve,  reject) =>  {
@@ -85,11 +84,11 @@ const EditarSolicitud = () => {
             };
         });
         promise.then((d)  =>  {
-            console.log(d);
-            setItems(d);
+            obtenerProductosExcel(d);
         });
     };
 
+    const navigate    =   useNavigate();
     
     const   [Pfx, guardarPfx]   =   useState('');
     const   [Código, guardarCodigo]   =   useState('');
@@ -125,7 +124,7 @@ const EditarSolicitud = () => {
   const error = useSelector((state) =>  state.error.error);
   const loading = useSelector((state) =>  state.solicitudes.loadingSolicitud);
   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
-  const productos =   useSelector((state) =>  state.productosSolicitud.productos);
+  const productos =   useSelector((state) =>  state.solicitudes.productos);
 
   if(!solicitud)   return 'Cargando...';
     
@@ -150,6 +149,7 @@ const EditarSolicitud = () => {
         fecha_revisada:   fecha_entrega_ref.current.value,
         id_comercial:   3,
   });
+  navigate('/solicitudes/usuario/3')
 }
 
 
@@ -391,8 +391,8 @@ const submitAgregarProducto =  e   =>{
                 
                     <tbody>
                         {productos.map(    producto    => (
-                            <Producto
-                            key={producto.Código}
+                            <ProductoEditarSolicitud
+                            key={producto.id_producto}
                             producto={producto}
                         />
                         ))} 

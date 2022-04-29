@@ -11,6 +11,19 @@ import {
     COMENZAR_EDICION_SOLICITUD,
     SOLICITUD_EDITADO_EXITO,
     SOLICITUD_EDITADO_ERROR,
+    OBTENER_PRODUCTOS_EXCEL,
+    OBTENER_PRODUCTOS_EXCEL_EXITO,
+    OBTENER_PRODUCTOS_EXCEL_ERROR,
+    AGREGAR_PRODUCTO,
+    AGREGAR_PRODUCTO_EXITO,
+    AGREGAR_PRODUCTO_ERROR,
+    ELIMINAR_PRODUCTO,
+    ELIMINAR_PRODUCTO_EXITO,
+    ELIMINAR_PRODUCTO_ERROR,
+    OBTENER_PRODUCTOS_SOLICITUD,
+    OBTENER_PRODUCTOS_SOLICITUD_EXITO,
+    OBTENER_PRODUCTOS_SOLICITUD_ERROR,
+    ELIMINAR_PRODUCTO_EDITAR_EXITO
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -21,6 +34,9 @@ import {
     loading: true,
     loadingSolicitud: true,
     solicitud: {},
+    productos: [],
+    errorProducto: null,
+    loadingProducto: true,
   };
   
   export default function (state = initialState, action) {
@@ -108,6 +124,98 @@ import {
             ...state,
             error: true,
           };
+
+
+          case OBTENER_PRODUCTOS_EXCEL:
+        return {
+          ...state,
+          loadingProducto: true,
+        };
+      case OBTENER_PRODUCTOS_EXCEL_EXITO:
+        return {
+          ...state,
+          productos: [...state.productos, action.payload],
+          loadingProducto: false,
+          errorProducto: false,
+        };
+  
+      case OBTENER_PRODUCTOS_EXCEL_ERROR:
+        return {
+          ...state,
+          productos: [],
+          errorProducto: true,
+          loadingProducto: false,
+        };
+
+
+        case AGREGAR_PRODUCTO:
+        return {
+          ...state,
+          errorProducto: false,
+        };
+      case AGREGAR_PRODUCTO_EXITO:
+        return {
+          ...state,
+          errorProducto: false,
+          productos: [...state.productos, action.payload],
+        };
+  
+      case AGREGAR_PRODUCTO_ERROR:
+        return {
+          ...state,
+          errorProducto: action.payload,
+        };
+
+      case ELIMINAR_PRODUCTO:
+        return {
+          ...state,
+          errorProducto: null,
+        };
+      case ELIMINAR_PRODUCTO_EXITO:
+        return {
+        ...state,
+        errorProducto: null,
+        productos: state.productos.filter(
+          (producto) => producto.Código !== action.payload
+        ),
+      };
+
+      case ELIMINAR_PRODUCTO_EDITAR_EXITO:
+        return {
+        ...state,
+        errorProducto: null,
+        productos: state.productos.filter(
+          (producto) => producto.id_producto !== action.payload
+        ),
+      };
+
+      case ELIMINAR_PRODUCTO_ERROR:
+        return {
+          ...state,
+          errorProducto: true,
+        };
+
+
+        case OBTENER_PRODUCTOS_SOLICITUD:
+        return {
+          ...state,
+          loadingProducto: true,
+          errorProducto: false,
+        };
+      case OBTENER_PRODUCTOS_SOLICITUD_EXITO:
+        return {
+          ...state,
+          productos: action.payload,
+          loadingProducto: false,
+          errorProducto: false,
+        };
+  
+      case OBTENER_PRODUCTOS_SOLICITUD_ERROR:
+        return {
+          ...state,
+          loadingProducto: false,
+          errorProducto: true,
+        };
   
       default:
         return state;
