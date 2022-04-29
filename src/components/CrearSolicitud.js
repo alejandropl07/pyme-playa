@@ -177,6 +177,9 @@ const submitAgregarProducto =  e   =>{
         Código,
         Cantidad
   });
+  guardarPfx('')
+  guardarCodigo('')
+  guardarCantidad('')
 }
 
   return (
