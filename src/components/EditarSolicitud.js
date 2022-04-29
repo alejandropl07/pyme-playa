@@ -1,7 +1,7 @@
 import React,   {useEffect, useState,   useRef} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import *    as  XLSX from "xlsx";
-import ProductoEditarSolicitud from "./ProductoEditarSolicitud";
+import Producto from "./Producto";
 
 //Redux
 import { validarFormularioAction, validacionExito, validacionError } from "../actions/validacionAction";
@@ -391,8 +391,8 @@ const submitAgregarProducto =  e   =>{
                 
                     <tbody>
                         {productos.map(    producto    => (
-                            <ProductoEditarSolicitud
-                            key={producto.id_producto}
+                            <Producto
+                            key={producto.Código}
                             producto={producto}
                         />
                         ))} 

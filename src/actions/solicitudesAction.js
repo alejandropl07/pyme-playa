@@ -23,7 +23,6 @@ import {
     OBTENER_PRODUCTOS_SOLICITUD,
     OBTENER_PRODUCTOS_SOLICITUD_EXITO,
     OBTENER_PRODUCTOS_SOLICITUD_ERROR,
-    ELIMINAR_PRODUCTO_EDITAR_EXITO,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -265,30 +264,12 @@ export  function eliminarProductoAction(id) {
 }
 
 
-export  function eliminarProductoEditarAction(id) {
-    return(dispatch)    =>  {
-        dispatch(eliminarProducto());
-
-        try {
-            dispatch(eliminarProductoEditarExito(id))
-        } catch (error) {
-            dispatch(eliminarProductoError())
-        }
-    }
-}
-
 export  const eliminarProducto =   ()  =>  ({
     type:   ELIMINAR_PRODUCTO,
 });
 
 export  const eliminarProductoExito =   (id)  =>  ({
     type:   ELIMINAR_PRODUCTO_EXITO,
-    payload:    id,
-});
-
-
-export  const eliminarProductoEditarExito =   (id)  =>  ({
-    type:   ELIMINAR_PRODUCTO_EDITAR_EXITO,
     payload:    id,
 });
 

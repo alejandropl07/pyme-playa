@@ -23,7 +23,6 @@ import {
     OBTENER_PRODUCTOS_SOLICITUD,
     OBTENER_PRODUCTOS_SOLICITUD_EXITO,
     OBTENER_PRODUCTOS_SOLICITUD_ERROR,
-    ELIMINAR_PRODUCTO_EDITAR_EXITO
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -177,15 +176,6 @@ import {
         errorProducto: null,
         productos: state.productos.filter(
           (producto) => producto.Código !== action.payload
-        ),
-      };
-
-      case ELIMINAR_PRODUCTO_EDITAR_EXITO:
-        return {
-        ...state,
-        errorProducto: null,
-        productos: state.productos.filter(
-          (producto) => producto.id_producto !== action.payload
         ),
       };
 
