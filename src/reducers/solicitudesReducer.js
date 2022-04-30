@@ -23,6 +23,9 @@ import {
     OBTENER_PRODUCTOS_SOLICITUD,
     OBTENER_PRODUCTOS_SOLICITUD_EXITO,
     OBTENER_PRODUCTOS_SOLICITUD_ERROR,
+    APROBAR_SOLICITUD,
+    APROBAR_SOLICITUD_EXITO,
+    APROBAR_SOLICITUD_ERROR,
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -206,6 +209,25 @@ import {
           loadingProducto: false,
           errorProducto: true,
         };
+
+
+        case APROBAR_SOLICITUD:
+          return {
+            ...state,
+            error: null,
+          };
+        case APROBAR_SOLICITUD_EXITO:
+          return {
+            ...state,
+            error: null,
+          //  solicitudes: state.solicitudes.map(solicitud =>  solicitud.id === action.payload.id ? solicitud  = action.payload  : solicitud),
+          };
+    
+        case APROBAR_SOLICITUD_ERROR:
+          return {
+            ...state,
+            error: true,
+          };
   
       default:
         return state;

@@ -23,6 +23,9 @@ import {
     OBTENER_PRODUCTOS_SOLICITUD,
     OBTENER_PRODUCTOS_SOLICITUD_EXITO,
     OBTENER_PRODUCTOS_SOLICITUD_ERROR,
+    APROBAR_SOLICITUD,
+    APROBAR_SOLICITUD_EXITO,
+    APROBAR_SOLICITUD_ERROR,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -275,4 +278,35 @@ export  const eliminarProductoExito =   (id)  =>  ({
 
 export  const eliminarProductoError =   ()  =>  ({
     type:   ELIMINAR_PRODUCTO_ERROR,
+});
+
+
+// Aprobar solicitud
+
+export  function aprobarSolicitudAction(id) {
+    return(dispatch)    =>  {
+        dispatch(aprobarSolicitud());
+
+        clienteAxios.put(`/solicitudes/aprobarSolicitud/${id}`)
+        .then(respuesta =>  {
+            dispatch(aprobarSolicitudExito(respuesta.data))
+        })
+        .catch(error    =>{
+            dispatch(aprobarSolicitudError())
+        })
+        
+    }
+}
+
+export  const aprobarSolicitud =   ()  =>  ({
+    type:   APROBAR_SOLICITUD,
+});
+
+export  const aprobarSolicitudExito =   (solicitud)  =>  ({
+    type:   APROBAR_SOLICITUD_EXITO,
+    payload:    solicitud,
+});
+
+export  const aprobarSolicitudError =   ()  =>  ({
+    type:   APROBAR_SOLICITUD_ERROR,
 });

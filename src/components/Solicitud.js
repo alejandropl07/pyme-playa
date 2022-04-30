@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-//import { eliminarSolicitudAction } from "../actions/solicitudesAction";
+import { aprobarSolicitudAction } from "../actions/solicitudesAction";
 
 const Solicitud = ({ solicitud }) => {
   const dispatch = useDispatch();
   const { isDirector } = useSelector((state) => state.rol);
+
+  const   aprobarSolicitud = (id)    => dispatch(aprobarSolicitudAction(id)) ;
 
   const confirmarEliminarSolicitud = (id) => {
     // Confirmacion de Sweet Alert
@@ -28,6 +30,27 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
+
+  const submitAprobarSolicitud = (id) => {
+    // Confirmacion de Sweet Alert
+
+    Swal.fire({
+      title: "Está seguro?",
+      text: "No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        aprobarSolicitud (id);
+        Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
+      }
+    });
+  };
+
   return (
     <tr>
       <td>{solicitud.descrip_solicitud}</td>
@@ -35,7 +58,7 @@ const Solicitud = ({ solicitud }) => {
         {isDirector ? (
           <button
             className="btn btn-success"
-            onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}
+            onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
           >
             Aprobar
           </button>
