@@ -38,6 +38,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { crearClienteAction } from "../actions/clientesAction";
+import Swal from "sweetalert2";
 
 const CrearSolicitud = () => {
   const dispatch = useDispatch();
@@ -240,12 +241,30 @@ const CrearSolicitud = () => {
     //Si pasa la validadacion
     exitoValidacion();
 
+    if(productos.some((producto)    =>  (
+        producto.Código === Código
+    ))){
+        Swal.fire({
+            title: "Error",
+            text: `Ya existe un producto con ese código`,
+            position: "center",
+            background: "white",
+            showConfirmButton: true,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar',            
+          });
+    }
+    else{
+
     //Crear el nuevo producto
     agregarProducto({
       Pfx,
       Código,
       Cantidad,
     });
+    }
+
     guardarPfx("");
     guardarCodigo("");
     guardarCantidad("");
