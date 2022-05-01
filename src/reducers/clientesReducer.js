@@ -22,6 +22,7 @@ import {
         return {
           ...state,
           cliente: {},
+          error: false
         };
       case CREAR_CLIENTE_EXITO:
         return {
@@ -33,7 +34,7 @@ import {
       case CREAR_CLIENTE_ERROR:
         return {
           ...state,
-          error: action.payload,
+          error: true,
           cliente: {},
         };
 
@@ -41,6 +42,7 @@ import {
         return {
           ...state,
           loading: true,
+          error:  false
         };
       case OBTENER_CLIENTES_EXITO:
         return {

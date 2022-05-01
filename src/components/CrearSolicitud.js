@@ -146,6 +146,8 @@ const CrearSolicitud = () => {
   const loadingMonedas = useSelector((state) => state.monedas.loading);
   const { monedas } = useSelector((state) => state.monedas.monedas);
 
+  const errorCliente    =   useSelector((state) => state.clientes.error);
+
   const productos = useSelector((state) => state.solicitudes.productos);
 
   const submitCrearCliente =  e   =>{
@@ -167,7 +169,10 @@ const CrearSolicitud = () => {
       descrip_cliente
   });
 
-  setModal(false);
+  if(!errorCliente){
+    setModal(false);
+  }
+  
   guardar_descrip("");
 
 }
