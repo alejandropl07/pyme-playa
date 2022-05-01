@@ -10,6 +10,7 @@ import {
   import clienteAxios from "../config/axios";
   import Swal from "sweetalert2";
 
+
 export  function crearClienteAction(cliente) {
     return(dispatch)    =>  {
         dispatch(crearClienteComienzo());
@@ -18,6 +19,7 @@ export  function crearClienteAction(cliente) {
         clienteAxios.post('/clientes', cliente)
         .then(respuesta =>  {
             dispatch(crearClienteExito(cliente))
+            dispatch(obtenerClientesAction())
             Swal.fire({
                 title: "Crear cliente",
                 text: `El cliente ha sido creado`,
