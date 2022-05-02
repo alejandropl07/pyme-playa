@@ -4,7 +4,8 @@ import {
     CREAR_CLIENTE_ERROR,
     OBTENER_CLIENTES,
     OBTENER_CLIENTES_EXITO,
-    OBTENER_CLIENTES_ERROR
+    OBTENER_CLIENTES_ERROR,
+    FINALIZAR_CREAR_CLIENTE
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -14,6 +15,7 @@ import {
     error: null,
     cliente: {},
     loading: true,
+    modal:  false
   };
   
   export default function (state = initialState, action) {
@@ -22,13 +24,15 @@ import {
         return {
           ...state,
           cliente: {},
-          error: false
+          error: false,
+          modal:  true,
         };
       case CREAR_CLIENTE_EXITO:
         return {
           ...state,
           error: false,
           cliente: action.payload,
+          modal:  false,
         };
   
       case CREAR_CLIENTE_ERROR:
@@ -36,6 +40,14 @@ import {
           ...state,
           error: true,
           cliente: {},
+        };
+
+        case FINALIZAR_CREAR_CLIENTE:
+        return {
+          ...state,
+          cliente: {},
+          error: false,
+          modal:  false,
         };
 
         case OBTENER_CLIENTES:

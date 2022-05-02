@@ -35,7 +35,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { crearClienteAction } from "../actions/clientesAction";
+import { crearClienteAction,  crearClienteComienzo, crearClienteFinal
+ } from "../actions/clientesAction";
 import Swal from "sweetalert2";
 
 const CrearSolicitud = () => {
@@ -123,6 +124,8 @@ const CrearSolicitud = () => {
   const errorValidacion = () => dispatch(validacionError());
 
   const   agregarCliente  =   (cliente)  =>  dispatch(crearClienteAction(cliente));
+  const   comenzarCrearCliente  =   ()  =>  dispatch(crearClienteComienzo());
+  const   finalizarCrearCliente  =   ()  =>  dispatch(crearClienteFinal());
 
   //Obtener los datos del state
   const error = useSelector((state) => state.error.error);
@@ -146,6 +149,7 @@ const CrearSolicitud = () => {
   const { monedas } = useSelector((state) => state.monedas.monedas);
 
   const errorCliente    =   useSelector((state) => state.clientes.error);
+  const modalCliente    =   useSelector((state) => state.clientes.modal);
 
   const productos = useSelector((state) => state.solicitudes.productos);
 
@@ -166,10 +170,6 @@ const CrearSolicitud = () => {
     agregarCliente({
       descrip_cliente
   });
-
-  if(!errorCliente){
-    setModal(false);
-  }
   
   guardar_descrip("");
 
@@ -452,7 +452,7 @@ const CrearSolicitud = () => {
                     </select>
                   </div>
                   <div className="col-md-3">
-                    <Button color="success" onClick={()=>setModal(true)}>Crear cliente</Button>
+                    <Button color="success" onClick={()=> comenzarCrearCliente()}>Crear cliente</Button>
                   </div>
                   
                 </div>
@@ -709,7 +709,7 @@ const CrearSolicitud = () => {
 
         </div>
       </div>
-      <Modal isOpen={modal}>
+      <Modal isOpen={modalCliente}>
           <ModalHeader>
            <div><h3>Insertar cliente</h3></div>
           </ModalHeader>
@@ -746,7 +746,7 @@ const CrearSolicitud = () => {
             </Button>
             <Button
               className="btn btn-danger"
-              onClick={() => setModal(false)}
+              onClick={() => finalizarCrearCliente()}
               
               
             >

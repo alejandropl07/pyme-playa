@@ -5,6 +5,7 @@ import {
     OBTENER_CLIENTES,
     OBTENER_CLIENTES_EXITO,
     OBTENER_CLIENTES_ERROR,
+    FINALIZAR_CREAR_CLIENTE,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -60,6 +61,10 @@ export  const crearClienteExito =   (cliente)  =>  ({
 export  const crearClienteError =   (error)  =>  ({
     type:   CREAR_CLIENTE_ERROR,
     payload:    error
+});
+
+export  const crearClienteFinal =   ()  =>  ({
+    type:   FINALIZAR_CREAR_CLIENTE,
 });
 
 
