@@ -75,8 +75,11 @@ const Producto  =   ({producto})  =>{
 
         <ModalBody>
           <FormGroup>
+          <div className="form-group mb-2 row">
           <div className="col-md-2">
                   <label    className="my-2">   <strong>Pfx</strong>    </label>
+                  </div>
+                  <div className="col-md-3">
                   <input
                     type="text"
                     required
@@ -85,10 +88,15 @@ const Producto  =   ({producto})  =>{
                     defaultValue={producto.Pfx}
                     ref={pfx_ref}
                   />
+                  </div>
                 </div>
+
+                <div className="form-group mb-2 row">
                 
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <label    className="my-2">   <strong>Cantidad</strong>   </label>
+                  </div>
+                  <div className="col-md-3">
                   <input
                     type="number"
                     required
@@ -98,7 +106,9 @@ const Producto  =   ({producto})  =>{
                     defaultValue={producto.Cantidad}
                     ref={cantidad_ref}
                   />
-                </div>
+                  </div>
+                  </div>
+                
           </FormGroup>
 
           {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
