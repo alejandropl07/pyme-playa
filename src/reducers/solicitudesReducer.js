@@ -220,7 +220,7 @@ import {
           return {
             ...state,
             error: null,
-          //  solicitudes: state.solicitudes.map(solicitud =>  solicitud.id === action.payload.id ? solicitud  = action.payload  : solicitud),
+            solicitudes: state.solicitudes.map(solicitud =>  solicitud.id_solicitud === action.payload.id_solicitud ? solicitud  = action.payload  : solicitud),
           };
     
         case APROBAR_SOLICITUD_ERROR:
