@@ -26,6 +26,9 @@ import {
     APROBAR_SOLICITUD,
     APROBAR_SOLICITUD_EXITO,
     APROBAR_SOLICITUD_ERROR,
+    EDITAR_PRODUCTO,
+    EDITAR_PRODUCTO_EXITO,
+    EDITAR_PRODUCTO_ERROR,
   } from "../types";
   
   // Cada reducer tiene su propio state
@@ -167,6 +170,26 @@ import {
           ...state,
           errorProducto: action.payload,
         };
+
+
+        case EDITAR_PRODUCTO:
+        return {
+          ...state,
+          errorProducto: null,
+        };
+      case EDITAR_PRODUCTO_EXITO:
+        return {
+        ...state,
+        errorProducto: null,
+        productos: state.productos.map(producto =>  producto.Código === action.payload.Código ? producto  = action.payload  : producto)
+      };
+
+      case EDITAR_PRODUCTO_ERROR:
+        return {
+          ...state,
+          errorProducto: true,
+        };
+
 
       case ELIMINAR_PRODUCTO:
         return {

@@ -26,6 +26,9 @@ import {
     APROBAR_SOLICITUD,
     APROBAR_SOLICITUD_EXITO,
     APROBAR_SOLICITUD_ERROR,
+    EDITAR_PRODUCTO,
+    EDITAR_PRODUCTO_EXITO,
+    EDITAR_PRODUCTO_ERROR,
   } from "../types";
 
   import clienteAxios from "../config/axios";
@@ -251,6 +254,33 @@ export  const agregarProductoExito =   (producto)  =>  ({
 export  const agregarProductoError =   (error)  =>  ({
     type:   AGREGAR_PRODUCTO_ERROR,
     payload:    error
+});
+
+//Editar producto
+export  function editarProductoAction(producto) {
+    return(dispatch)    =>  {
+        dispatch(editarProducto());
+
+        try {
+            dispatch(editarProductoExito(producto))
+        } catch (error) {
+            dispatch(editarProductoError())
+        }
+    }
+}
+
+
+export  const editarProducto =   ()  =>  ({
+    type:   EDITAR_PRODUCTO,
+});
+
+export  const editarProductoExito =   (producto)  =>  ({
+    type:   EDITAR_PRODUCTO_EXITO,
+    payload:    producto,
+});
+
+export  const editarProductoError =   ()  =>  ({
+    type:   EDITAR_PRODUCTO_ERROR,
 });
 
 
