@@ -149,7 +149,7 @@ const CrearSolicitud = () => {
 
   const productos = useSelector((state) => state.solicitudes.productos);
 
-  const submitCrearCliente =  e   =>{
+  const  submitCrearCliente =  e   =>{
     e.preventDefault();
 
     //Validar
@@ -167,7 +167,7 @@ const CrearSolicitud = () => {
       descrip_cliente
   });
 
-  if(errorCliente){
+  if(!errorCliente){
     setModal(false);
   }
   
