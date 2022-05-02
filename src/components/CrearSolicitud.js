@@ -3,9 +3,7 @@ import * as XLSX from "xlsx";
 import Producto from "./Producto";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  Table,
   Button,
-  Container,
   Modal,
   ModalHeader,
   ModalBody,
@@ -158,7 +156,6 @@ const CrearSolicitud = () => {
     validarFormulario();
   
     if(descrip_cliente.trim() === ''){
-      console.log("Error");
       errorValidacion();
       return;  
   }
@@ -170,7 +167,7 @@ const CrearSolicitud = () => {
       descrip_cliente
   });
 
-  if(!errorCliente){
+  if(errorCliente){
     setModal(false);
   }
   
@@ -732,7 +729,11 @@ const CrearSolicitud = () => {
                 
               />
             </FormGroup>
-            
+            {error ? (
+            <div className="font-weight-bold alert alert-danger text-center mt-4">
+              Campos vacíos
+            </div>
+          ) : null}
           </ModalBody>
 
           <ModalFooter>

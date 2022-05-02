@@ -139,7 +139,7 @@ import {
       case OBTENER_PRODUCTOS_EXCEL_EXITO:
         return {
           ...state,
-          productos: [...state.productos, action.payload],
+          productos: state.productos.concat(action.payload),
           loadingProducto: false,
           errorProducto: false,
         };
