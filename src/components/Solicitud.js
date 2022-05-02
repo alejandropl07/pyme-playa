@@ -52,10 +52,10 @@ const Solicitud = ({ solicitud }) => {
   };
 
   return (
-    <tr>
+    <tr className={solicitud.fecha_aprobada !== null ? "table-success" : "table-danger"}>
       <td>{solicitud.descrip_solicitud}</td>
       <td className="acciones">
-        {isDirector ? (
+        {isDirector &&  solicitud.fecha_aprobada  === null ? (
           <button
             className="btn btn-success"
             onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}

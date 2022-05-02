@@ -30,7 +30,7 @@ const Solicitudes = () => {
       }
       <h2 className="text-center my-5">Listado de solicitudes</h2>
 
-      <table className="table table-striped">
+      <table className="table">
         <thead className="bg-primary table-light">
           <tr>
             <th scope="col">Solicitud</th>
