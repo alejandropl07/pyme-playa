@@ -180,12 +180,18 @@ const submitAgregarProducto =  e   =>{
 
   return (
     <div className="row justify-content-center mt-5">
-    <div className="col-md-8">
         <div className="card">
             <div className="card-body">
+            <h2 align="center">Editar solicitud</h2>
+                <hr></hr>
+                <div className="row">
+                <div className="col-md-6">
                 <form onSubmit={submitEditarSolicitud}>
-                    <div className="form-group  mb-2">
+                    <div className="form-group  mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>División</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="División"   ref={id_division_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -199,10 +205,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={division.id_division} value={division.id_division}>{division.descrip_division}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                     <div className="form-group mb-2">
+                     <div className="form-group mb-2 row">
+                     <div className="col-md-3 mt-1">
                         <label> <strong>Sucursal</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Sucursal"   ref={id_sucursal_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -217,10 +227,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={sucursal.id_sucursal} value={sucursal.id_sucursal}>{sucursal.descrip_sucursal}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group  mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Proveedor</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Proveedor"  ref={id_proveedor_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -234,10 +248,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={proveedor.id_proveedor} value={proveedor.id_proveedor}>{proveedor.descrip_proveedor}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group  mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Clase de pedido</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="ClasePedido"    ref={id_clase_pedido_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -251,10 +269,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={pedido.id_clase_pedido} value={pedido.id_clase_pedido}>{pedido.descrip_clase_pedido}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Embarque</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Embarque"   ref={id_embarque_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -268,10 +290,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={embarque.id_embarque} value={embarque.id_embarque}>{embarque.descrip_embarque}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Cliente</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Cliente"    ref={id_cliente_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -285,25 +311,37 @@ const submitAgregarProducto =  e   =>{
                                 <option key={cliente.id_cliente} value={cliente.id_cliente}>{cliente.descrip_cliente}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Fecha de entrega</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <input type="date" 
                         value={solicitud.fecha_entrega}
                         ref={fecha_entrega_ref}/>
                     </div>
+                    </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Referencia</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <input type="text"
-                        className="form-control mx-sm-3" 
+                        className="form-control" 
                         defaultValue={solicitud.descrip_solicitud}
                         ref={referencia_ref}/>
                     </div>
+                    </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Destino</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Destino"    ref={id_destino_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -317,10 +355,14 @@ const submitAgregarProducto =  e   =>{
                                 <option key={destino.id_destino} value={destino.id_destino}>{destino.descrip_destino}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                        <div className="col-md-3 mt-1">
                         <label> <strong>Tipo de producto</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="TipoProducto"   ref={id_tipo_producto_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -334,18 +376,26 @@ const submitAgregarProducto =  e   =>{
                                 <option key={producto.id_tipo_producto} value={producto.id_tipo_producto}>{producto.descrip_tipo_producto}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Valor</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <input type="text"
-                        className="form-control mx-sm-3" 
+                        className="form-control" 
                         defaultValue={solicitud.valor_solicitud}
                         ref={valor_solicitud_ref}/>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Moneda</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <select className="form-select" aria-label="Moneda" ref={id_moneda_ref}>
                         {loading  ?
                             <option defaultValue="0"></option>  
@@ -359,17 +409,30 @@ const submitAgregarProducto =  e   =>{
                                 <option key={moneda.id_moneda} value={moneda.id_moneda}>{moneda.descrip_moneda}</option>
                             ) )}
                         </select>
+                        </div>
                     </div>
 
-                    <div className="form-group  mb-2">
+                    <div className="form-group mb-2 row">
+                    <div className="col-md-3 mt-1">
                         <label> <strong>Contrato</strong> </label>
+                        </div>
+                        <div className="col-md-6">
                         <input type="text"
-                        className="form-control mx-sm-3"
+                        className="form-control"
                         defaultValue={solicitud.contrato_solicitud} 
                         ref={contrato_solicitud_ref}/>
                     </div>
+                    </div>
 
-                    <div className="form-group  mb-2">
+                    <button type="submit" className="btn btn-primary font-weight-bold d-block w-100  mt-3">Guardar solicitud</button>
+
+               
+                </form>
+                </div>
+
+                <div className="col-md-6" >
+                <h3 align="center">Productos</h3>
+                <div className="form-group mb-2">
                         <label> <strong>Importar datos desde un Excel</strong> </label>
                         <input type="file"
                         className="form-control mx-sm-3"
@@ -379,12 +442,9 @@ const submitAgregarProducto =  e   =>{
                         }}
                         />
                     </div>
-                <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100  mt-3">Guardar</button>
-                </form>
 
-                <div    className="mt-5">
-                <h3>Productos</h3>
-                <table className="table table-striped   mt-2">
+                    <div className="col-md-8">
+                <table className="table  mt-2">
                     <thead className="bg-primary table-light">
                     <tr>
                         <th scope="col">Pfx</th>
@@ -403,30 +463,33 @@ const submitAgregarProducto =  e   =>{
                     </tbody> 
                 </table>
                 </div>
+                
+               
 
-                <form className="row g-4"   onSubmit={submitAgregarProducto}>
-                <div className="col-auto">
+                <form className="row g-2"   onSubmit={submitAgregarProducto}>
+                <div className="col-md-2">
                     <label className="visually-hidden">Pfx</label>
-                    <input type="text" className="form-control" placeholder="Pfx"   value={Pfx}    onChange={e =>  guardarPfx(e.target.value)}/>
+                    <input type="text" required className="form-control" placeholder="Pfx"   value={Pfx}    onChange={e =>  guardarPfx(e.target.value)}/>
                 </div>
-                <div className="col-auto">
+                <div className="col-md-2">
                     <label className="visually-hidden">Código</label>
-                    <input type="text" className="form-control" placeholder="Código"    value={Código}     onChange={e =>  guardarCodigo(e.target.value)}/>
+                    <input type="text" required className="form-control" placeholder="Código"    value={Código}     onChange={e =>  guardarCodigo(e.target.value)}/>
                 </div>
-                <div className="col-auto">
+                <div className="col-md-3">
                     <label className="visually-hidden">Cantidad</label>
-                    <input type="number" className="form-control" placeholder="Cantidad"    value={Cantidad}     onChange={e =>  guardarCantidad(e.target.value)}/>
+                    <input type="number" required min= "1" className="form-control" placeholder="Cantidad"    value={Cantidad}     onChange={e =>  guardarCantidad(e.target.value)}/>
                 </div>
-                <div className="col-auto">
-                    <button type="submit" className="btn btn-primary mb-3">Agregar producto</button>
+                <div className="col-md-4">
+                    <button type="submit" required className="btn btn-primary mb-3">Agregar producto</button>
                 </div>
                 </form>
+                </div>
+                </div>
 
                 {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Campos vacíos</div>  :null}
 
             </div>
         </div>
-    </div>
 </div>
 
   );
