@@ -68,7 +68,7 @@ const Solicitudes = () => {
      
        { error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Error al cargar las solicitudes</div>
       : null }
-
+<div className="container">
       { solicitudes.length === 0 && isDirector
       ? <h2 className="text-center my-5">No hay solicitudes finalizadas</h2> 
       : solicitudes.length === 0 && !isDirector 
@@ -86,14 +86,16 @@ const Solicitudes = () => {
         onChange={obtenerSolicitud}
       />
     </div> 
-   
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button className="btn btn-primary" onClick={paginaAnterior}> Anteriores</button> 
     &nbsp;&nbsp;
     <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
     </React.Fragment> )
     : null }
-   
-      <div className="col-md-10">
+
+      
+    <div className="row justify-content-center">
+      <div className="col-auto">
       <table className="table" >
         <thead className="bg-primary table-light">
           <tr>
@@ -113,8 +115,8 @@ const Solicitudes = () => {
         </tbody>
       </table>
       </div>
-      
-     
+      </div>
+      </div>
       
       
     </React.Fragment>
