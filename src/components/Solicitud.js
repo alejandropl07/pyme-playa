@@ -77,7 +77,10 @@ const Solicitud = ({ solicitud }) => {
   return (
     <tr
       className={
-        solicitud.fecha_aprobada !== null ? "table-success" : "table-danger"
+        (isDirector && solicitud.fecha_aprobada !== null) ||
+        (!isDirector && solicitud.fecha_finalizada !== null)
+          ? "table-success"
+          : "table-danger"
       }
     >
       <td>{solicitud.descrip_solicitud}</td>
