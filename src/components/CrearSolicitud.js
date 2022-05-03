@@ -87,9 +87,31 @@ const CrearSolicitud = () => {
         reject(error);
       };
     });
-    promise.then((d) => {
-      obtenerProductosExcel(d);
-    });
+    promise.then((d) => {var stop    =   false;
+      for (let i = 0; i < productos.length    &&  !stop; i++) {
+          for (let j = 0; j < d.length   &&  !stop; j++) {
+              if(productos[i].Código ==  d[j].Código){
+                  stop    =   true;
+              }
+              
+          }
+      }
+      if(!stop){
+          obtenerProductosExcel(d);
+      }
+      else{
+          Swal.fire({
+              title: "Error al cargar los datos",
+              text: `Existen productos con el mismo código`,
+              position: "center",
+              background: "white",
+              showConfirmButton: true,
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Aceptar',            
+            });
+      }
+      });
   };
 
   const [id_division, guardarDivision] = useState("");
@@ -109,7 +131,6 @@ const CrearSolicitud = () => {
   const [Pfx, guardarPfx] = useState("");
   const [Código, guardarCodigo] = useState("");
   const [Cantidad, guardarCantidad] = useState("");
-  const [modal, setModal] = useState(false);
   const [descrip_cliente, guardar_descrip]  = useState("");
 
   const navigate = useNavigate();
@@ -148,7 +169,6 @@ const CrearSolicitud = () => {
   const loadingMonedas = useSelector((state) => state.monedas.loading);
   const { monedas } = useSelector((state) => state.monedas.monedas);
 
-  const errorCliente    =   useSelector((state) => state.clientes.error);
   const modalCliente    =   useSelector((state) => state.clientes.modal);
 
   const productos = useSelector((state) => state.solicitudes.productos);
@@ -239,7 +259,7 @@ const CrearSolicitud = () => {
     exitoValidacion();
 
     if(productos.some((producto)    =>  (
-        producto.Código === Código
+      producto.Código  ==  Código 
     ))){
         Swal.fire({
             title: "Error",

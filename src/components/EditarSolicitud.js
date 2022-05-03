@@ -16,6 +16,7 @@ import { obtenerDestinosAction } from "../actions/destinosAction";
 import { obtenerProductosAction } from "../actions/tipoProductoAction";
 import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const EditarSolicitud = () => {
     const   id_division_ref   =   useRef('');
@@ -84,7 +85,30 @@ const EditarSolicitud = () => {
             };
         });
         promise.then((d)  =>  {
+            var stop    =   false;
+        for (let i = 0; i < productos.length    &&  !stop; i++) {
+            for (let j = 0; j < d.length   &&  !stop; j++) {
+                if(productos[i].Código ==  d[j].Código){
+                    stop    =   true;
+                }
+                
+            }
+        }
+        if(!stop){
             obtenerProductosExcel(d);
+        }
+        else{
+            Swal.fire({
+                title: "Error al cargar los datos",
+                text: `Existen productos con el mismo código`,
+                position: "center",
+                background: "white",
+                showConfirmButton: true,
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar',            
+              });
+        }
         });
     };
 
@@ -153,30 +177,47 @@ const EditarSolicitud = () => {
 }
 
 
-const submitAgregarProducto =  e   =>{
+const submitAgregarProducto = (e) => {
     e.preventDefault();
     validarFormulario();
 
     //Validar
-    if(Pfx.trim() === ''  ||  Código.trim()===''    ||  Cantidad.trim()===''){
-        errorValidacion();
-        return;
+    if (Pfx.trim() === "" || Código.trim() === "" || Cantidad.trim() === "") {
+      errorValidacion();
+      return;
     }
-    
+
     //Si pasa la validadacion
     exitoValidacion();
 
+    if(productos.some((producto)    =>  (
+        producto.Código  ==  Código 
+    ))){
+        Swal.fire({
+            title: "Error",
+            text: `Ya existe un producto con ese código`,
+            position: "center",
+            background: "white",
+            showConfirmButton: true,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar',            
+          });
+    }
+    else{
+
     //Crear el nuevo producto
     agregarProducto({
-        Pfx,
-        Código,
-        Cantidad
-  });
+      Pfx,
+      Código,
+      Cantidad,
+    });
+    }
 
-  guardarPfx('')
-  guardarCodigo('')
-  guardarCantidad('')
-}
+    guardarPfx("");
+    guardarCodigo("");
+    guardarCantidad("");
+  };
 
   return (
     <div className="row justify-content-center mt-5">
