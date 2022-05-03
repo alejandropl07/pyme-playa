@@ -10,6 +10,7 @@ import Solicitud from "./Solicitud";
 
 const Solicitudes = () => {
   const   dispatch    =   useDispatch();
+  
 
   const params =   useParams();
   const id  = params.id;
@@ -22,6 +23,7 @@ const Solicitudes = () => {
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
   const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
+  const { isDirector } = useSelector((state) => state.rol);
 
   const [paginaActual, setPaginaActual] = useState(0);
   const [busqueda, setBusqueda ] = useState('');
@@ -64,26 +66,34 @@ const Solicitudes = () => {
     
     <React.Fragment>
      
-       {error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Error al cargar las solicitudes</div>
-      : null
-      }
-      <h2 className="text-center my-5">Listado de solicitudes</h2>
+       { error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Error al cargar las solicitudes</div>
+      : null }
 
-      <div className="col-md-4">
-       <input 
-          type="text" 
-          className="mb-2 form-control" 
-          placeholder="Buscar solicitud"
-          value={busqueda}
-          onChange={obtenerSolicitud}
-       />
-      </div>
-
-      <button className="btn btn-primary" onClick={paginaAnterior}> Anteriores</button>
-      &nbsp;&nbsp;
-      <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
-
-      <div className=" col-md-10">
+      { solicitudes.length === 0 && isDirector
+      ? <h2 className="text-center my-5">No hay solicitudes finalizadas</h2> 
+      : solicitudes.length === 0 && !isDirector 
+      ? <h2 className="text-center my-5">No hay solicitudes credadas</h2> 
+      : <h2 className="text-center my-5">Listado de solicitudes</h2> } 
+      
+    { solicitudes.length > 0 
+      ? (<React.Fragment><div className="col-md-4" >
+        
+      <input 
+        type="text" 
+        className="mb-2 form-control " 
+        placeholder="Buscar solicitud"
+        value={busqueda}
+        onChange={obtenerSolicitud}
+      />
+    </div> 
+   
+    <button className="btn btn-primary" onClick={paginaAnterior}> Anteriores</button> 
+    &nbsp;&nbsp;
+    <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
+    </React.Fragment> )
+    : null }
+   
+      <div className="col-md-10">
       <table className="table" >
         <thead className="bg-primary table-light">
           <tr>
@@ -103,6 +113,10 @@ const Solicitudes = () => {
         </tbody>
       </table>
       </div>
+      
+     
+      
+      
     </React.Fragment>
   );
 };
