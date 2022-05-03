@@ -69,6 +69,7 @@ const Solicitud = ({ solicitud }) => {
         >
           Editar
         </Link>
+        &nbsp;
         <button
           className="btn btn-danger"
           onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}
