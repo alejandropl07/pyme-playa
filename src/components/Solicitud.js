@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { aprobarSolicitudAction } from "../actions/solicitudesAction";
+import {
+  aprobarSolicitudAction,
+  finalizarSolicitudAction,
+} from "../actions/solicitudesAction";
 
 const Solicitud = ({ solicitud }) => {
   const dispatch = useDispatch();
   const { isDirector } = useSelector((state) => state.rol);
 
-  const   aprobarSolicitud = (id)    => dispatch(aprobarSolicitudAction(id)) ;
+  const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
+  const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
 
   const confirmarEliminarSolicitud = (id) => {
     // Confirmacion de Sweet Alert
@@ -30,7 +34,6 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
-
   const submitAprobarSolicitud = (id) => {
     // Confirmacion de Sweet Alert
 
@@ -45,22 +48,55 @@ const Solicitud = ({ solicitud }) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        aprobarSolicitud (id);
+        aprobarSolicitud(id);
         Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
       }
     });
   };
 
+  const submitFinalizarSolicitud = (id) => {
+    // Confirmacion de Sweet Alert
+
+    Swal.fire({
+      title: "Está seguro?",
+      text: "No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        finalizarSolicitud(id);
+        Swal.fire("Finalizada!", "Se ha completado la solicitud.", "success");
+      }
+    });
+  };
+
   return (
-    <tr className={solicitud.fecha_aprobada !== null ? "table-success" : "table-danger"}>
+    <tr
+      className={
+        solicitud.fecha_aprobada !== null ? "table-success" : "table-danger"
+      }
+    >
       <td>{solicitud.descrip_solicitud}</td>
       <td className="acciones">
-        {isDirector &&  solicitud.fecha_aprobada  === null ? (
+        {isDirector && solicitud.fecha_aprobada === null ? (
           <button
             className="btn btn-success"
             onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
           >
             Aprobar
+          </button>
+        ) : null}
+        &nbsp;&nbsp;
+        {!isDirector && solicitud.fecha_finalizada === null ? (
+          <button
+            className="btn btn-success"
+            onClick={() => submitFinalizarSolicitud(solicitud.id_solicitud)}
+          >
+            Finalizar
           </button>
         ) : null}
         &nbsp;&nbsp;
