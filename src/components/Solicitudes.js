@@ -80,9 +80,9 @@ const Solicitudes = () => {
       </div>
 
       <button className="btn btn-primary" onClick={paginaAnterior}> Anteriores</button>
-      &nbsp;
+      &nbsp;&nbsp;
       <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
-      
+
       <div className=" col-md-10">
       <table className="table" >
         <thead className="bg-primary table-light">

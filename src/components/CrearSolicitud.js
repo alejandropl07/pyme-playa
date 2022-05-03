@@ -236,9 +236,6 @@ const CrearSolicitud = () => {
       valor_solicitud,
       id_moneda,
       contrato_solicitud,
-      fecha_finalizada: fecha_entrega,
-      fecha_aprobada: fecha_entrega,
-      fecha_revisada: fecha_entrega,
       id_comercial: 3,
       productos,
     });

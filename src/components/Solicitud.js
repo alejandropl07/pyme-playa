@@ -63,13 +63,14 @@ const Solicitud = ({ solicitud }) => {
             Aprobar
           </button>
         ) : null}
+        &nbsp;&nbsp;
         <Link
           to={`/solicitudes/editar/${solicitud.id_solicitud}`}
           className="btn btn-primary mr-2"
         >
           Editar
         </Link>
-        &nbsp;
+        &nbsp;&nbsp;
         <button
           className="btn btn-danger"
           onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}
