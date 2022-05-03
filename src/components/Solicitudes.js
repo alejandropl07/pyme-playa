@@ -26,7 +26,9 @@ const Solicitudes = () => {
   const [paginaActual, setPaginaActual] = useState(0);
   const [busqueda, setBusqueda ] = useState('');
 
-  const filtro = solicitudes.filter (solicitud => (solicitud.descrip_solicitud.toUpperCase()).includes (busqueda.toUpperCase()));
+  const filtro = () => {
+    return solicitudes.filter (solicitud => (solicitud.descrip_solicitud.toUpperCase()).includes (busqueda.toUpperCase()));
+  }
 
   const filtrarSolicitudes = () =>{
 
@@ -36,16 +38,15 @@ const Solicitudes = () => {
       resultado = solicitudes.slice(paginaActual, paginaActual + 10);
     
       else{
-        resultado = filtro.slice(paginaActual, paginaActual + 10);
+        resultado = filtro().slice(paginaActual, paginaActual + 10);
       }
 
       return resultado;
   }
 
-  
   const paginaSiguiente = () => {
     
-   if(filtro.length > paginaActual + 10)
+   if(filtro().length > paginaActual + 10)
      setPaginaActual(paginaActual + 10);      
   }
 
