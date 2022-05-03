@@ -19,18 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 const EditarSolicitud = () => {
-    const   id_division_ref   =   useRef('');
-    const   id_sucursal_ref  =   useRef('');
-    const   id_proveedor_ref   =   useRef('');
-    const   id_clase_pedido_ref   =   useRef('');
-    const   id_embarque_ref   =   useRef('');
-    const   id_cliente_ref   =   useRef('');
     const   fecha_entrega_ref   =   useRef('');
     const   referencia_ref   =   useRef('');
-    const   id_destino_ref    =   useRef('');
-    const   id_tipo_producto_ref   =   useRef('');
     const   valor_solicitud_ref   =   useRef('');
-    const   id_moneda_ref   =   useRef('');
     const   contrato_solicitud_ref   =   useRef('');
 
     const   dispatch    =   useDispatch();
@@ -112,6 +103,7 @@ const EditarSolicitud = () => {
         });
     };
 
+
     const navigate    =   useNavigate();
     
     const   [Pfx, guardarPfx]   =   useState('');
@@ -150,30 +142,39 @@ const EditarSolicitud = () => {
   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
   const productos =   useSelector((state) =>  state.solicitudes.productos);
 
+  const [id_division, guardarDivision] = useState(solicitud.id_division);
+  const [id_sucursal, guardarSucursal] = useState(solicitud.id_sucursal);
+  const [id_proveedor, guardarProveedor] = useState(solicitud.id_proveedor);
+  const [id_clase_pedido, guardarClasePedido] = useState(solicitud.id_clase_pedido);
+  const [id_embarque, guardarEmbarque] = useState(solicitud.id_embarque);
+  const [id_cliente, guardarCliente] = useState(solicitud.id_cliente);
+  const [id_destino, guardarDestino] = useState(solicitud.id_destino);
+  const [id_tipo_producto, guardarTipoProducto] = useState(solicitud.id_tipo_producto);
+  const [id_moneda, guardarMoneda] = useState(solicitud.id_moneda);
+
   if(!solicitud)   return 'Cargando...';
     
   const submitEditarSolicitud =  e   =>{
     e.preventDefault();
     editarSolicitud({
-        id_division:   id_division_ref.current.value ,
-        id_sucursal:    id_sucursal_ref.current.value,
-        id_proveedor:   id_proveedor_ref.current.value,
-        id_clase_pedido:    id_clase_pedido_ref.current.value,
-        id_embarque:    id_embarque_ref.current.value,
-        id_cliente:     id_cliente_ref.current.value,
+        id_solicitud:   solicitud.id_solicitud,
+        id_division ,
+        id_sucursal,
+        id_proveedor,
+        id_clase_pedido,
+        id_embarque,
+        id_cliente,
         fecha_entrega:  fecha_entrega_ref.current.value,
         descrip_solicitud:  referencia_ref.current.value,
-        id_destino:     id_destino_ref.current.value,
-        id_tipo_producto:   id_tipo_producto_ref.current.value,
+        id_destino,
+        id_tipo_producto,
         valor_solicitud:    valor_solicitud_ref.current.value,
-        id_moneda:      id_moneda_ref.current.value,
+        id_moneda,
         contrato_solicitud:     contrato_solicitud_ref.current.value,
-        fecha_finalizada:   fecha_entrega_ref.current.value,
-        fecha_aprobada:   fecha_entrega_ref.current.value,
-        fecha_revisada:   fecha_entrega_ref.current.value,
         id_comercial:   3,
+        productos
   });
-  navigate('/solicitudes/usuario/3')
+ // navigate('/solicitudes/usuario/3')
 }
 
 
@@ -233,7 +234,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>División</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="División"   ref={id_division_ref}>
+                        <select className="form-select" aria-label="División"   onChange={(e) => guardarDivision(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             : 
@@ -254,7 +255,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Sucursal</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Sucursal"   ref={id_sucursal_ref}>
+                        <select className="form-select" aria-label="Sucursal"   onChange={(e) => guardarSucursal(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -276,7 +277,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Proveedor</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Proveedor"  ref={id_proveedor_ref}>
+                        <select className="form-select" aria-label="Proveedor"  onChange={(e) => guardarProveedor(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -297,7 +298,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Clase de pedido</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="ClasePedido"    ref={id_clase_pedido_ref}>
+                        <select className="form-select" aria-label="ClasePedido"   onChange={(e) => guardarClasePedido(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -318,7 +319,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Embarque</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Embarque"   ref={id_embarque_ref}>
+                        <select className="form-select" aria-label="Embarque"   onChange={(e) => guardarEmbarque(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -339,7 +340,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Cliente</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Cliente"    ref={id_cliente_ref}>
+                        <select className="form-select" aria-label="Cliente"    onChange={(e) => guardarCliente(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -383,7 +384,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Destino</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Destino"    ref={id_destino_ref}>
+                        <select className="form-select" aria-label="Destino"   onChange={(e) => guardarDestino(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -404,7 +405,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Tipo de producto</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="TipoProducto"   ref={id_tipo_producto_ref}>
+                        <select className="form-select" aria-label="TipoProducto"   onChange={(e) => guardarTipoProducto(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
@@ -437,7 +438,7 @@ const submitAgregarProducto = (e) => {
                         <label> <strong>Moneda</strong> </label>
                         </div>
                         <div className="col-md-6">
-                        <select className="form-select" aria-label="Moneda" ref={id_moneda_ref}>
+                        <select className="form-select" aria-label="Moneda" onChange={(e) => guardarMoneda(e.target.value)}>
                         {loading  ?
                             <option defaultValue="0"></option>  
                             :
