@@ -95,7 +95,7 @@ const Solicitud = ({ solicitud }) => {
         {!isDirector && solicitud.fecha_finalizada !== null ? (
           <Link
             to={`/pdf/${solicitud.id_solicitud}`}
-            className="btn btn-success"
+            className="btn btn-secondary"
           >
             Imprimir
           </Link>
