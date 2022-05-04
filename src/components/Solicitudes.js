@@ -65,20 +65,23 @@ const Solicitudes = () => {
   return (
     
     <React.Fragment>
-
-     
+      
        { error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Error al cargar las solicitudes</div>
       : null }
-
+      <div className="row justify-content-left mt-5 col-md-12">
+        <div className="card ">
+        <div className="card-body">
       { solicitudes.length === 0 && isDirector
-      ? <h2 className="text-center my-5">No hay solicitudes finalizadas</h2> 
+      ? <h2 className="text-center">No hay solicitudes finalizadas</h2> 
       : solicitudes.length === 0 && !isDirector 
-      ? <h2 className="text-center my-5">No hay solicitudes creadas</h2> 
-      : <h2 className="text-center my-5">Listado de solicitudes</h2> } 
+      ? <h2 className="text-center">No hay solicitudes creadas</h2> 
+      : <h2 className="text-center">Listado de solicitudes</h2> } 
+
+        <hr></hr>
       
       <div className="offset-1">
     { solicitudes.length > 0 
-      ? (<React.Fragment><div className="col-md-4 " >
+      ? (<React.Fragment><div className="col-md-4" >
         
       <input 
         type="text" 
@@ -88,7 +91,7 @@ const Solicitudes = () => {
         onChange={obtenerSolicitud}
       />
     </div> 
-    <div className="mb-2 " style={{float:"left"}}>
+    <div className="mb-2 floatLeft" style={{float:"left"}}>
     <button className="btn btn-primary me-2" onClick={paginaAnterior}> Anteriores</button> 
    
     <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
@@ -98,15 +101,23 @@ const Solicitudes = () => {
 
     </div>
 
-    {!isDirector 
+    {!isDirector && solicitudes.length > 0
       ?<Link
      to={`/`}
      className="btn btn-success "
      style={{marginLeft: 710}}
    >
     Crear solicitud
-  </Link>
-    :null }
+    </Link>
+      : !isDirector && solicitudes.length === 0
+      ?<Link
+    to={`/`}
+    className="btn btn-success "
+    style={{marginLeft: 1020}}
+  >
+    Crear solicitud
+    </Link> 
+    : null }
  
     <div className="row justify-content-center" style={{width:1280}}>
       <div className="col-10">
@@ -139,9 +150,10 @@ const Solicitudes = () => {
       </div>
       </div>
       
+      </div>
+      </div>
       
-      
-      
+      </div>
     </React.Fragment>
   );
 };
