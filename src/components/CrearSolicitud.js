@@ -236,10 +236,10 @@ const CrearSolicitud = () => {
       valor_solicitud,
       id_moneda,
       contrato_solicitud,
-      id_comercial: 3,
+      id_comercial: 1,
       productos,
     });
-    navigate("/solicitudes/usuario/3");
+    navigate("/solicitudes/usuario/1");
   };
 
   const submitAgregarProducto = (e) => {
@@ -632,7 +632,7 @@ const CrearSolicitud = () => {
               </form>
 
               <Link
-                to={`/solicitudes/usuario/3`}
+                to={`/solicitudes/usuario/1`}
                 className="btn btn-primary mt-3   mb-2"
               >
                 Ver todas las solicitudes

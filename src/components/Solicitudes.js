@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -76,8 +76,9 @@ const Solicitudes = () => {
       ? <h2 className="text-center my-5">No hay solicitudes creadas</h2> 
       : <h2 className="text-center my-5">Listado de solicitudes</h2> } 
       
+      <div className="offset-1">
     { solicitudes.length > 0 
-      ? (<React.Fragment><div className="col-md-4 offset-1" >
+      ? (<React.Fragment><div className="col-md-4 " >
         
       <input 
         type="text" 
@@ -87,7 +88,7 @@ const Solicitudes = () => {
         onChange={obtenerSolicitud}
       />
     </div> 
-    <div className="offset-1 mb-2">
+    <div className="mb-2 " style={{float:"left"}}>
     <button className="btn btn-primary me-2" onClick={paginaAnterior}> Anteriores</button> 
    
     <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
@@ -95,7 +96,17 @@ const Solicitudes = () => {
     </React.Fragment> )
     : null }
 
+    </div>
 
+    {!isDirector 
+      ?<Link
+     to={`/`}
+     className="btn btn-success "
+     style={{marginLeft: 710}}
+   >
+    Crear solicitud
+  </Link>
+    :null }
  
     <div className="row justify-content-center" style={{width:1280}}>
       <div className="col-10">
