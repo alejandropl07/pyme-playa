@@ -65,18 +65,19 @@ const Solicitudes = () => {
   return (
     
     <React.Fragment>
+
      
        { error  ? <div  className="font-weight-bold alert alert-danger text-center mt-4">Error al cargar las solicitudes</div>
       : null }
-<div className="container">
+
       { solicitudes.length === 0 && isDirector
       ? <h2 className="text-center my-5">No hay solicitudes finalizadas</h2> 
       : solicitudes.length === 0 && !isDirector 
-      ? <h2 className="text-center my-5">No hay solicitudes credadas</h2> 
+      ? <h2 className="text-center my-5">No hay solicitudes creadas</h2> 
       : <h2 className="text-center my-5">Listado de solicitudes</h2> } 
       
     { solicitudes.length > 0 
-      ? (<React.Fragment><div className="col-md-4" >
+      ? (<React.Fragment><div className="col-md-4 offset-1" >
         
       <input 
         type="text" 
@@ -86,14 +87,16 @@ const Solicitudes = () => {
         onChange={obtenerSolicitud}
       />
     </div> 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button className="btn btn-primary" onClick={paginaAnterior}> Anteriores</button> 
-    &nbsp;&nbsp;
+    <div className="offset-1 mb-2">
+    <button className="btn btn-primary me-2" onClick={paginaAnterior}> Anteriores</button> 
+   
     <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>
+    </div>
     </React.Fragment> )
     : null }
 
-      
+
+ 
     <div className="row justify-content-center">
       <div className="col-auto">
       <table className="table" >
@@ -116,7 +119,8 @@ const Solicitudes = () => {
       </table>
       </div>
       </div>
-      </div>
+      
+      
       
       
     </React.Fragment>

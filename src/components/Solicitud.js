@@ -87,29 +87,29 @@ const Solicitud = ({ solicitud }) => {
       <td className="acciones">
         {isDirector && solicitud.fecha_aprobada === null ? (
           <button
-            className="btn btn-success"
+            className="btn btn-success me-2"
             onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
           >
             Aprobar
           </button>
         ) : null}
-        &nbsp;&nbsp;
+        
         {!isDirector && solicitud.fecha_finalizada === null ? (
           <button
-            className="btn btn-success"
+            className="btn btn-success me-2"
             onClick={() => submitFinalizarSolicitud(solicitud.id_solicitud)}
           >
             Finalizar
           </button>
         ) : null}
-        &nbsp;&nbsp;
+        
         <Link
           to={`/solicitudes/editar/${solicitud.id_solicitud}`}
-          className="btn btn-primary mr-2"
+          className="btn btn-primary me-2"
         >
           Editar
         </Link>
-        &nbsp;&nbsp;
+        
         <button
           className="btn btn-danger"
           onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}

@@ -469,7 +469,7 @@ const CrearSolicitud = () => {
                     </select>
                   </div>
                   <div className="col-md-3">
-                    <Button color="success" onClick={()=> comenzarCrearCliente()}>Crear cliente</Button>
+                    <Button color="primary" onClick={()=> comenzarCrearCliente()}>Crear cliente</Button>
                   </div>
                   
                 </div>
