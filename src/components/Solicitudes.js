@@ -97,13 +97,21 @@ const Solicitudes = () => {
 
 
  
-    <div className="row justify-content-center">
-      <div className="col-auto">
+    <div className="row justify-content-center" style={{width:1280}}>
+      <div className="col-10">
       <table className="table" >
         <thead className="bg-primary table-light">
           <tr>
+            {isDirector ? ( <React.Fragment>
+            <th style={{width:1000}}scope="col">Solicitud</th>
+            <th style={{width:100}}scope="col">Acciones</th>
+            </React.Fragment>)
+          :  (<React.Fragment>
             <th style={{width:800}}scope="col">Solicitud</th>
-            <th scope="col">Acciones</th>
+            <th style={{width:170}}scope="col">Acciones</th>
+          </React.Fragment>)
+          }
+           
           </tr>
         </thead>
         <tbody>

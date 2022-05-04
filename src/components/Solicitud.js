@@ -56,7 +56,7 @@ const Solicitud = ({ solicitud }) => {
   };
 
   return (
-    <tr
+    <tr 
       className={
         (isDirector && solicitud.fecha_aprobada !== null) ||
         (!isDirector && solicitud.fecha_finalizada !== null)
@@ -75,6 +75,14 @@ const Solicitud = ({ solicitud }) => {
           </button>
         ) : null}
         
+        {!isDirector ? ( <Link
+          to={`/solicitudes/editar/${solicitud.id_solicitud}`}
+          className="btn btn-primary me-2"
+        >
+          Editar
+        </Link>): null}
+       
+
         {!isDirector && solicitud.fecha_finalizada === null ? (
           <button
             className="btn btn-success me-2"
@@ -83,13 +91,6 @@ const Solicitud = ({ solicitud }) => {
             Finalizar
           </button>
         ) : null}
-        
-        <Link
-          to={`/solicitudes/editar/${solicitud.id_solicitud}`}
-          className="btn btn-primary me-2"
-        >
-          Editar
-        </Link>
 
         {!isDirector && solicitud.fecha_finalizada !== null ? (
           <Link
