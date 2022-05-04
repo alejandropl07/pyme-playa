@@ -1,8 +1,23 @@
-import React from "react";
+import React,   {useEffect} from "react";
+import { useParams } from "react-router-dom";
 import { Document, Page, Text, View }   from    "@react-pdf/renderer";
-import reducers from "../reducers";
 
-const PDF = ({solicitud}) => {
+import { obtenerSolicitudImprimirAction } from "../actions/solicitudesAction";
+import { useDispatch, useSelector } from "react-redux";
+
+const PDF = () => {
+   //const   dispatch    =   useDispatch();
+
+   const params =   useParams();
+  // const id  = params.id;
+
+  //   useEffect(()  =>  {
+  //       dispatch(obtenerSolicitudImprimirAction(id));
+  //   },[dispatch, id]);
+
+  //   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
+
+
   return (
     <Document>
         <Page   size="A4">

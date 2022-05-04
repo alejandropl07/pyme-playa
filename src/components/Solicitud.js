@@ -15,25 +15,6 @@ const Solicitud = ({ solicitud }) => {
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
 
-  const confirmarEliminarSolicitud = (id) => {
-    // Confirmacion de Sweet Alert
-
-    Swal.fire({
-      title: "Está seguro?",
-      text: "No podrá revertir esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar!",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Eliminado!", "Se ha eliminado la solicitud.", "success");
-      }
-    });
-  };
-
   const submitAprobarSolicitud = (id) => {
     // Confirmacion de Sweet Alert
 
@@ -109,18 +90,11 @@ const Solicitud = ({ solicitud }) => {
         >
           Editar
         </Link>
-        
-        <button
-          className="btn btn-danger"
-          onClick={() => confirmarEliminarSolicitud(solicitud.id_solicitud)}
-        >
-          Eliminar
-        </button>
 
-        {solicitud.fecha_finalizada !== null ? (
+        {!isDirector && solicitud.fecha_finalizada !== null ? (
           <Link
             to={`/pdf/${solicitud.id_solicitud}`}
-            className="btn btn-success mx-2"
+            className="btn btn-success"
           >
             Imprimir
           </Link>
