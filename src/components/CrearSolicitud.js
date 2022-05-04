@@ -631,12 +631,6 @@ const CrearSolicitud = () => {
                 </button>
               </form>
 
-              <Link
-                to={`/solicitudes/usuario/1`}
-                className="btn btn-primary mt-3   mb-2"
-              >
-                Ver todas las solicitudes
-              </Link>
             </div>
 
             <div className="col-md-6" >
