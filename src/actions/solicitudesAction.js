@@ -32,6 +32,9 @@ import {
   FINALIZAR_SOLICITUD,
   FINALIZAR_SOLICITUD_EXITO,
   FINALIZAR_SOLICITUD_ERROR,
+  OBTENER_SOLICITUD_IMPRIMIR,
+  SOLICITUD_IMPRIMIR_EXITO,
+  SOLICITUD_IMPRIMIR_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/axios";
@@ -363,4 +366,35 @@ export const finalizarSolicitudExito = (solicitud) => ({
 
 export const finalizarSolicitudError = () => ({
   type: FINALIZAR_SOLICITUD_ERROR,
+});
+
+
+// Obtener solicitud a imprimir
+
+export function obtenerSolicitudImprimirAction(id) {
+  return (dispatch) => {
+    dispatch(obtenerSolicitudImprimir());
+
+    clienteAxios
+      .get(`/solicitudes/${id}`)
+      .then((respuesta) => {
+        dispatch(imprimirSolicitudExito(respuesta.data));
+      })
+      .catch((error) => {
+        dispatch(imprimirSolicitudError());
+      });
+  };
+}
+
+export const obtenerSolicitudImprimir = () => ({
+  type: OBTENER_SOLICITUD_IMPRIMIR,
+});
+
+export const imprimirSolicitudExito = (solicitud) => ({
+  type: SOLICITUD_IMPRIMIR_EXITO,
+  payload: solicitud,
+});
+
+export const imprimirSolicitudError = () => ({
+  type: SOLICITUD_IMPRIMIR_ERROR,
 });
