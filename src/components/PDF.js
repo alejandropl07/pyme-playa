@@ -1,19 +1,57 @@
 import React from "react";
 import { Document, Page, Text, View }   from    "@react-pdf/renderer";
+import reducers from "../reducers";
 
 const PDF = ({solicitud}) => {
   return (
     <Document>
         <Page   size="A4">
-            <View>
-                <Text style={{
-                  display:  "flex",
-                  flexDirection:  "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}>Anexo 1 - Modelo de Solicitud de Pedidos</Text>
-                <Text>División</Text>
-                <Text>Sucursal</Text>
+
+        <View style={{
+               fontSize: "15px",
+               marginTop: "20px",
+               marginLeft: "55px",
+            }}>
+                <Text >PROCEDIMIENTO DE COMPRA VENTA INTERNACIONAL</Text>
+
+              </View>
+
+          <View style={{
+            height: "1px",
+            backgroundColor: "black",
+            marginTop: "10px",
+            marginLeft: "50px",
+            marginRight: "50px",
+          }}>
+
+          </View>
+
+            <View style={{
+               display:  "flex",
+               flexDirection:  "column",
+               justifyContent: "center",
+               alignItems: "center",
+               marginTop: "20px",
+               marginBottom: "20px",
+            }}>
+                <Text >Anexo 1 - Modelo de Solicitud de Pedidos</Text>
+
+              </View>
+              <View style={{
+                marginLeft: "50px",
+              }}>
+              <Text>División:</Text>
+             
+              </View>
+              <View style={{
+                marginLeft: "50px",
+
+              }}>
+              <Text>Sucursal</Text>
+             
+              </View>
+              
+                
                 <Text>Se requiere la aprovación de los recursos en las cantidades y códigos que se anexan 
                   a este modelo y en las condiciones que a continuación se especifican.
                 </Text>
@@ -24,7 +62,7 @@ const PDF = ({solicitud}) => {
 
                 <Text>Cliente</Text>
                 <Text>Referencia</Text>
-            </View>
+            
         </Page>
     </Document>
   );
