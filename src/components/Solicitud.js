@@ -116,6 +116,15 @@ const Solicitud = ({ solicitud }) => {
         >
           Eliminar
         </button>
+
+        {solicitud.fecha_finalizada !== null ? (
+          <Link
+            to={`/pdf/${solicitud.id_solicitud}`}
+            className="btn btn-success mx-2"
+          >
+            Imprimir
+          </Link>
+        ) : null}
       </td>
     </tr>
   );

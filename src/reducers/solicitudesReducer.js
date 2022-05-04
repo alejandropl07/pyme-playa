@@ -32,6 +32,9 @@ import {
   FINALIZAR_SOLICITUD,
   FINALIZAR_SOLICITUD_EXITO,
   FINALIZAR_SOLICITUD_ERROR,
+  OBTENER_SOLICITUD_IMPRIMIR,
+  SOLICITUD_IMPRIMIR_EXITO,
+  SOLICITUD_IMPRIMIR_ERROR,
 } from "../types";
 
 // Cada reducer tiene su propio state
@@ -278,6 +281,27 @@ export default function (state = initialState, action) {
       };
 
     case FINALIZAR_SOLICITUD_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
+
+      case OBTENER_SOLICITUD_IMPRIMIR:
+      return {
+        ...state,
+        error: null,
+        loadingSolicitud: true,
+      };
+    case SOLICITUD_IMPRIMIR_EXITO:
+      return {
+        ...state,
+        error: null,
+        solicitud: action.payload,
+        loadingSolicitud: false,
+      };
+
+    case SOLICITUD_IMPRIMIR_ERROR:
       return {
         ...state,
         error: true,
