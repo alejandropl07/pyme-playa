@@ -1,7 +1,6 @@
 import {Provider} from  'react-redux';
 import store from './store'; 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { PDFViewer } from '@react-pdf/renderer';
 
 // Componentes
 import CrearSolicitud from "./components/CrearSolicitud";
@@ -21,7 +20,7 @@ function App() {
                 <Route exact path="/crearcliente" element={<CrearCliente/>} />
                 <Route exact path="/solicitudes/usuario/:id" element={<Solicitudes/>} />
                 <Route exact path="/solicitudes/editar/:id" element={<EditarSolicitud/>} />
-                <Route exact path="/pdf/:id" element={<PDFViewer  style={{width:"100%", height:"90vh"}}><PDF/></PDFViewer>} />  
+                <Route exact path="/pdf/:id" element={<PDF/>} />  
             </Routes>
         </div>
     </Provider>

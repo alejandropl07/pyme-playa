@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { obtenerSolicitudesAction } from "../actions/solicitudesAction";
 
 import {
   aprobarSolicitudAction,
@@ -10,10 +11,13 @@ import {
 
 const Solicitud = ({ solicitud }) => {
   const dispatch = useDispatch();
+  const params =   useParams();
+  const idUsuario  = params.id;
   const { isDirector } = useSelector((state) => state.rol);
 
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
+  const obtenerSolicitudes  = (id)  =>  dispatch(obtenerSolicitudesAction(id));
 
   const submitAprobarSolicitud = (id) => {
     // Confirmacion de Sweet Alert
@@ -30,6 +34,7 @@ const Solicitud = ({ solicitud }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         aprobarSolicitud(id);
+        obtenerSolicitudes(idUsuario);
         Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
       }
     });

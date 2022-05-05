@@ -1,24 +1,25 @@
 import React,   {useEffect} from "react";
 import { useParams } from "react-router-dom";
-import { Document, Page, Text, View }   from    "@react-pdf/renderer";
+import { PDFViewer, Document, Page, Text, View }   from    "@react-pdf/renderer";
 
 import { obtenerSolicitudImprimirAction } from "../actions/solicitudesAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const PDF = () => {
-   //const   dispatch    =   useDispatch();
+   const   dispatch    =   useDispatch();
 
    const params =   useParams();
-  // const id  = params.id;
+   const id  = params.id;
 
-  //   useEffect(()  =>  {
-  //       dispatch(obtenerSolicitudImprimirAction(id));
-  //   },[dispatch, id]);
+     useEffect(()  =>  {
+         dispatch(obtenerSolicitudImprimirAction(id));
+     },[dispatch, id]);
 
-  //   const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
+     const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
 
 
   return (
+    <PDFViewer  style={{width:"100%", height:"90vh"}}>
     <Document>
         <Page   size="A4">
 
@@ -80,6 +81,7 @@ const PDF = () => {
             
         </Page>
     </Document>
+    </PDFViewer>
   );
 };
 
