@@ -16,6 +16,7 @@ const PDF = () => {
      },[dispatch, id]);
 
      const solicitud = useSelector((state) =>  state.solicitudes.solicitud);
+     console.log(solicitud);
 
 
   return (
@@ -23,8 +24,10 @@ const PDF = () => {
     <Document>
         <Page   size="A4">
 
+      <View style={{
+        fontSize: "12"
+      }}>
         <View style={{
-               fontSize: "15px",
                marginTop: "20px",
                marginLeft: "55px",
             }}>
@@ -53,31 +56,42 @@ const PDF = () => {
                 <Text >Anexo 1 - Modelo de Solicitud de Pedidos</Text>
 
               </View>
+
+              
               <View style={{
-                marginLeft: "50px",
+                marginLeft: "40px",  
+                
               }}>
-              <Text>División:</Text>
+              <Text>División: {solicitud.id_division}</Text>
              
               </View>
               <View style={{
-                marginLeft: "50px",
+               
+                left:"40%",
+                bottom: "15",
 
               }}>
-              <Text>Sucursal</Text>
+              <Text>Sucursal: {solicitud.id_sucursal}</Text>
              
               </View>
-              
-                
-                <Text>Se requiere la aprovación de los recursos en las cantidades y códigos que se anexan 
+
+                <Text style={{
+                marginLeft: "40px",
+                marginRight: "40px",
+              }}>Se requiere la aprobación de los recursos en las cantidades y códigos que se anexan 
                   a este modelo y en las condiciones que a continuación se especifican.
                 </Text>
-                <Text>Pedido No.</Text>
-                <Text>Valor y moneda</Text>
-                <Text>Proveedor</Text>
-                <Text>Contrato(Nr)</Text>
+                
+                <Text style={{marginLeft: "40px", marginTop: "10"}}>Pedido No:</Text>
+                <Text style={{left:"40%",bottom: "15"}}>Valor y moneda: {solicitud.valor_solicitud}, {solicitud.id_moneda} </Text>
+                <Text style={{marginLeft:"40px"}}>Proveedor: {solicitud.id_proveedor}</Text>
+                <Text style={{left:"40%",bottom: "15"}}>Contrato (Nr.): {solicitud.contrato_solicitud}</Text>
+                <Text style={{marginLeft: "40px"}}>Pedido: {solicitud.id_clase_pedido}</Text>
+                <Text style={{left:"40%",bottom: "15"}}>Embarque: {solicitud.id_embarque}</Text>
+                <Text style={{marginLeft: "40px"}}>Cliente: {solicitud.id_cliente}</Text>
+                <Text style={{marginLeft: "40px", marginTop: "10"}}>Referencia</Text>
 
-                <Text>Cliente</Text>
-                <Text>Referencia</Text>
+                </View>
             
         </Page>
     </Document>

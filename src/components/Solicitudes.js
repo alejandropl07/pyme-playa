@@ -91,7 +91,7 @@ const Solicitudes = () => {
         onChange={obtenerSolicitud}
       />
     </div> 
-    <div className="mb-2 floatLeft" style={{float:"left"}}>
+    <div className="mb-2" style={{float:"left"}}>
     <button className="btn btn-primary me-2" onClick={paginaAnterior}> Anteriores</button> 
    
     <button className="btn btn-primary" onClick={paginaSiguiente}> Siguientes</button>

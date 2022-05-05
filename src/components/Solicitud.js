@@ -34,8 +34,8 @@ const Solicitud = ({ solicitud }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         aprobarSolicitud(id);
-        obtenerSolicitudes(idUsuario);
         Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
+        obtenerSolicitudes(idUsuario);
       }
     });
   };

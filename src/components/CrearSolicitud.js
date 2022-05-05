@@ -32,7 +32,6 @@ import { obtenerDestinosAction } from "../actions/destinosAction";
 import { obtenerProductosAction } from "../actions/tipoProductoAction";
 import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { crearClienteAction,  crearClienteComienzo, crearClienteFinal
