@@ -35,6 +35,9 @@ import {
   OBTENER_SOLICITUD_IMPRIMIR,
   SOLICITUD_IMPRIMIR_EXITO,
   SOLICITUD_IMPRIMIR_ERROR,
+  RECHAZAR_SOLICITUD,
+  RECHAZAR_SOLICITUD_EXITO,
+  RECHAZAR_SOLICITUD_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/axios";
@@ -336,6 +339,37 @@ export const aprobarSolicitudExito = (solicitud) => ({
 
 export const aprobarSolicitudError = () => ({
   type: APROBAR_SOLICITUD_ERROR,
+});
+
+
+// Rechazar solicitud
+
+export function rechazarSolicitudAction(id) {
+  return (dispatch) => {
+    dispatch(rechazarSolicitud());
+
+    clienteAxios
+      .put(`/solicitudes/rechazarSolicitud/${id}`)
+      .then((respuesta) => {
+        dispatch(rechazarSolicitudExito(respuesta.data));
+      })
+      .catch((error) => {
+        dispatch(rechazarSolicitudError());
+      });
+  };
+}
+
+export const rechazarSolicitud = () => ({
+  type: RECHAZAR_SOLICITUD,
+});
+
+export const rechazarSolicitudExito = (solicitud) => ({
+  type: RECHAZAR_SOLICITUD_EXITO,
+  payload: solicitud,
+});
+
+export const rechazarSolicitudError = () => ({
+  type: RECHAZAR_SOLICITUD_ERROR,
 });
 
 // Finalizar solicitud

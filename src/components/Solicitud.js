@@ -6,6 +6,7 @@ import { obtenerSolicitudesAction } from "../actions/solicitudesAction";
 
 import {
   aprobarSolicitudAction,
+  rechazarSolicitudAction,
   finalizarSolicitudAction,
 } from "../actions/solicitudesAction";
 
@@ -16,6 +17,7 @@ const Solicitud = ({ solicitud }) => {
   const { isDirector } = useSelector((state) => state.rol);
 
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
+  const rechazarSolicitud = (id) => dispatch(rechazarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
   const obtenerSolicitudes  = (id)  =>  dispatch(obtenerSolicitudesAction(id));
 
@@ -35,6 +37,28 @@ const Solicitud = ({ solicitud }) => {
       if (result.isConfirmed) {
         aprobarSolicitud(id);
         Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
+        obtenerSolicitudes(idUsuario);
+      }
+    });
+  };
+
+
+  const submitRechazarSolicitud = (id) => {
+    // Confirmacion de Sweet Alert
+
+    Swal.fire({
+      title: "Está seguro?",
+      text: "No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        rechazarSolicitud(id);
+        Swal.fire("Rechazada!", "Se ha rechazado la solicitud.", "success");
         obtenerSolicitudes(idUsuario);
       }
     });
@@ -71,7 +95,7 @@ const Solicitud = ({ solicitud }) => {
     >
       <td>{solicitud.descrip_solicitud}</td>
       <td className="acciones">
-        {isDirector && solicitud.fecha_aprobada === null ? (
+        {isDirector && solicitud.fecha_aprobada === null  && solicitud.fecha_rechazada === null ? (
           <button
             className="btn btn-success me-2"
             onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
@@ -79,8 +103,17 @@ const Solicitud = ({ solicitud }) => {
             Aprobar
           </button>
         ) : null}
+
+        {isDirector && solicitud.fecha_rechazada === null && solicitud.fecha_aprobada === null ? (
+          <button
+            className="btn btn-danger me-2"
+            onClick={() => submitRechazarSolicitud(solicitud.id_solicitud)}
+          >
+            Rechazar
+          </button>
+        ) : null}
         
-        {!isDirector ? ( <Link
+        {!isDirector  && solicitud.fecha_finalizada === null ? ( <Link
           to={`/solicitudes/editar/${solicitud.id_solicitud}`}
           className="btn btn-primary me-2"
         >

@@ -30,6 +30,7 @@ import Swal from "sweetalert2";
 const EditarSolicitud = () => {
   const fecha_entrega_ref = useRef("");
   const referencia_ref = useRef("");
+  const descrip_ref = useRef("");
   const valor_solicitud_ref = useRef("");
   const contrato_solicitud_ref = useRef("");
 
@@ -178,7 +179,8 @@ const EditarSolicitud = () => {
       id_embarque,
       id_cliente,
       fecha_entrega: fecha_entrega_ref.current.value,
-      descrip_solicitud: referencia_ref.current.value,
+      referencia: referencia_ref.current.value,
+      descrip_solicitud: descrip_ref.current.value,
       id_destino,
       id_tipo_producto,
       valor_solicitud: valor_solicitud_ref.current.value,
@@ -187,7 +189,7 @@ const EditarSolicitud = () => {
       id_comercial: 1,
       productos,
     });
-    // navigate('/solicitudes/usuario/3')
+     navigate('/solicitudes/usuario/1')
   };
 
   const submitAgregarProducto = (e) => {
@@ -481,11 +483,29 @@ const EditarSolicitud = () => {
                     <input
                       type="text"
                       className="form-control"
-                      defaultValue={solicitud.descrip_solicitud}
+                      defaultValue={solicitud.referencia}
                       ref={referencia_ref}
                     />
                   </div>
                 </div>
+
+                <div className="form-group mb-2 row">
+                  <div className="col-md-3 mt-1">
+                    <label>
+                      {" "}
+                      <strong>Descripción</strong>{" "}
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={solicitud.descrip_solicitud}
+                      ref={descrip_ref}
+                    />
+                  </div>
+                </div>
+
 
                 <div className="form-group mb-2 row">
                   <div className="col-md-3 mt-1">

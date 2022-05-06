@@ -35,6 +35,9 @@ import {
   OBTENER_SOLICITUD_IMPRIMIR,
   SOLICITUD_IMPRIMIR_EXITO,
   SOLICITUD_IMPRIMIR_ERROR,
+  RECHAZAR_SOLICITUD,
+  RECHAZAR_SOLICITUD_EXITO,
+  RECHAZAR_SOLICITUD_ERROR,
 } from "../types";
 
 // Cada reducer tiene su propio state
@@ -259,6 +262,29 @@ export default function (state = initialState, action) {
       };
 
     case APROBAR_SOLICITUD_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
+
+      case RECHAZAR_SOLICITUD:
+      return {
+        ...state,
+        error: null,
+      };
+    case RECHAZAR_SOLICITUD_EXITO:
+      return {
+        ...state,
+        error: null,
+        solicitudes: state.solicitudes.map((solicitud) =>
+          solicitud.id_solicitud === action.payload.id_solicitud
+            ? (solicitud = action.payload)
+            : solicitud
+        ),
+      };
+
+    case RECHAZAR_SOLICITUD_ERROR:
       return {
         ...state,
         error: true,

@@ -121,6 +121,7 @@ const CrearSolicitud = () => {
   const [id_cliente, guardarCliente] = useState("");
   const [fecha_entrega, guardarFechaEntrega] = useState("");
   const [referencia, guardarReferencia] = useState("");
+  const [descrip_solicitud, guardarDescrip] = useState("");
   const [id_destino, guardarDestino] = useState("");
   const [id_tipo_producto, guardarTipoProducto] = useState("");
   const [valor_solicitud, guardarValor] = useState("");
@@ -207,6 +208,7 @@ const CrearSolicitud = () => {
       id_cliente.trim() === "" ||
       fecha_entrega.trim() === "" ||
       referencia.trim() === "" ||
+      descrip_solicitud.trim() === "" ||
       id_destino.trim() === "" ||
       id_tipo_producto.trim() === "" ||
       valor_solicitud.trim() === "" ||
@@ -229,7 +231,8 @@ const CrearSolicitud = () => {
       id_embarque,
       id_cliente,
       fecha_entrega,
-      descrip_solicitud: referencia,
+      referencia,
+      descrip_solicitud,
       id_destino,
       id_tipo_producto,
       valor_solicitud,
@@ -499,6 +502,23 @@ const CrearSolicitud = () => {
                       type="text"
                       className="form-control "
                       onChange={(e) => guardarReferencia(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+
+                <div className="form-group mb-2 row">
+                  <div className="col-md-3 mt-1">
+                    <label>
+                      {" "}
+                      <strong>Descripción</strong>{" "}
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      className="form-control "
+                      onChange={(e) => guardarDescrip(e.target.value)}
                     />
                   </div>
                 </div>
