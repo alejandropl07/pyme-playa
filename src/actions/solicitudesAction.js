@@ -137,7 +137,6 @@ export function obtenerSolicitudAction(id) {
       .get(`/solicitudes/${id}`)
       .then((respuesta) => {
         dispatch(editarSolicitudExito(respuesta.data));
-        console.log(respuesta.data);
         dispatch(
           obtenerProductosSolicitudExito(respuesta.data.tc_solicitud_productos)
         );

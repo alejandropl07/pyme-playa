@@ -473,7 +473,22 @@ const CrearSolicitud = () => {
                   <div className="col-md-3">
                     <Button color="primary" onClick={()=> comenzarCrearCliente()}>Crear cliente</Button>
                   </div>
-                  
+                </div>
+
+                <div className="form-group mb-2 row">
+                  <div className="col-md-3 mt-1">
+                    <label>
+                      {" "}
+                      <strong>Descripción</strong>{" "}
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <textarea
+                      type="text"
+                      className="form-control "
+                      onChange={(e) => guardarDescrip(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group mb-2 row">
@@ -502,23 +517,6 @@ const CrearSolicitud = () => {
                       type="text"
                       className="form-control "
                       onChange={(e) => guardarReferencia(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-
-                <div className="form-group mb-2 row">
-                  <div className="col-md-3 mt-1">
-                    <label>
-                      {" "}
-                      <strong>Descripción</strong>{" "}
-                    </label>
-                  </div>
-                  <div className="col-md-6">
-                    <input
-                      type="text"
-                      className="form-control "
-                      onChange={(e) => guardarDescrip(e.target.value)}
                     />
                   </div>
                 </div>

@@ -201,7 +201,7 @@ const Solicitud = ({ solicitud }) => {
           <FormGroup>
             <label>Causa:</label>
 
-            <input
+            <textarea
               className="form-control"
               name="causa_espera"
               type="text"
