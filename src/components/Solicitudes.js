@@ -125,8 +125,8 @@ const Solicitudes = () => {
         <thead className="bg-primary table-light">
           <tr>
             {isDirector ? ( <React.Fragment>
-            <th style={{width:1000}}scope="col">Solicitud</th>
-            <th style={{width:100}}scope="col">Acciones</th>
+            <th style={{width:750}}scope="col">Solicitud</th>
+            <th style={{width:320}}scope="col">Acciones</th>
             </React.Fragment>)
           :  (<React.Fragment>
             <th style={{width:800}}scope="col">Solicitud</th>

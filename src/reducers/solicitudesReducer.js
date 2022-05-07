@@ -38,6 +38,9 @@ import {
   RECHAZAR_SOLICITUD,
   RECHAZAR_SOLICITUD_EXITO,
   RECHAZAR_SOLICITUD_ERROR,
+  ESPERAR_SOLICITUD,
+  ESPERAR_SOLICITUD_EXITO,
+  ESPERAR_SOLICITUD_ERROR,
 } from "../types";
 
 // Cada reducer tiene su propio state
@@ -307,6 +310,29 @@ export default function (state = initialState, action) {
       };
 
     case FINALIZAR_SOLICITUD_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
+
+      case ESPERAR_SOLICITUD:
+      return {
+        ...state,
+        error: null,
+      };
+    case ESPERAR_SOLICITUD_EXITO:
+      return {
+        ...state,
+        error: null,
+        solicitudes: state.solicitudes.map((solicitud) =>
+          solicitud.id_solicitud === action.payload.id_solicitud
+            ? (solicitud = action.payload)
+            : solicitud
+        ),
+      };
+
+    case ESPERAR_SOLICITUD_ERROR:
       return {
         ...state,
         error: true,

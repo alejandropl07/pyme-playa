@@ -38,6 +38,9 @@ import {
   RECHAZAR_SOLICITUD,
   RECHAZAR_SOLICITUD_EXITO,
   RECHAZAR_SOLICITUD_ERROR,
+  ESPERAR_SOLICITUD_EXITO,
+  ESPERAR_SOLICITUD,
+  ESPERAR_SOLICITUD_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/axios";
@@ -400,6 +403,37 @@ export const finalizarSolicitudExito = (solicitud) => ({
 
 export const finalizarSolicitudError = () => ({
   type: FINALIZAR_SOLICITUD_ERROR,
+});
+
+
+// Esperar solicitud
+
+export function esperarSolicitudAction(id) {
+  return (dispatch) => {
+    dispatch(esperarSolicitud());
+
+    clienteAxios
+      .put(`/solicitudes/esperarSolicitud/${id}`)
+      .then((respuesta) => {
+        dispatch(esperarSolicitudExito(respuesta.data));
+      })
+      .catch((error) => {
+        dispatch(esperarSolicitudError());
+      });
+  };
+}
+
+export const esperarSolicitud = () => ({
+  type: ESPERAR_SOLICITUD,
+});
+
+export const esperarSolicitudExito = (solicitud) => ({
+  type: ESPERAR_SOLICITUD_EXITO,
+  payload: solicitud,
+});
+
+export const esperarSolicitudError = () => ({
+  type: ESPERAR_SOLICITUD_ERROR,
 });
 
 
