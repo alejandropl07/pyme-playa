@@ -31,7 +31,7 @@ const Solicitud = ({ solicitud }) => {
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
   const rechazarSolicitud = (id) => dispatch(rechazarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
-  const esperarSolicitud = (id) => dispatch(esperarSolicitudAction(id));
+  const esperarSolicitud = (id) => dispatch(esperarSolicitudAction(id, causa_espera));
   const obtenerSolicitudes = (id) => dispatch(obtenerSolicitudesAction(id));
 
   const submitAprobarSolicitud = (id) => {
@@ -111,7 +111,7 @@ const Solicitud = ({ solicitud }) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        esperarSolicitud(id);
+        esperarSolicitud(id, causa_espera);
         guardar_modal(false);
         Swal.fire("En espera!", "La solicitud se encuentra en espera.", "success");
       }
@@ -122,10 +122,12 @@ const Solicitud = ({ solicitud }) => {
     <React.Fragment>
       <tr
         className={
-          (isDirector && solicitud.fecha_aprobada !== null) ||
-          (!isDirector && solicitud.fecha_finalizada !== null)
-            ? "table-success"
+         
+          (!isDirector) 
+            ? solicitud.fecha_finalizada !== null
+              ? "table-success"
             : "table-danger"
+          : null
         }
       >
         <td>{solicitud.descrip_solicitud}</td>
@@ -217,7 +219,10 @@ const Solicitud = ({ solicitud }) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" onClick={submitEsperarSolicitud(solicitud.id_solicitud)}>
+          <Button color="primary" 
+          onClick={()=>submitEsperarSolicitud(solicitud.id_solicitud)}
+          
+          >
             Insertar
           </Button>
           <Button

@@ -408,12 +408,12 @@ export const finalizarSolicitudError = () => ({
 
 // Esperar solicitud
 
-export function esperarSolicitudAction(id) {
+export function esperarSolicitudAction(id, causa_espera) {
   return (dispatch) => {
     dispatch(esperarSolicitud());
 
     clienteAxios
-      .put(`/solicitudes/esperarSolicitud/${id}`)
+      .put(`/solicitudes/esperarSolicitud/${id}`, {causa_espera})
       .then((respuesta) => {
         dispatch(esperarSolicitudExito(respuesta.data));
       })
