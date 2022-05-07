@@ -126,15 +126,15 @@ const Solicitud = ({ solicitud }) => {
           (!isDirector) 
             ? solicitud.fecha_finalizada !== null
               ? "table-success"
-            : "table-danger"
-          : null
+              : "table-danger"
+            : (isDirector && solicitud.fecha_espera !== null)
+              ? "table-warning"
+              : null
         }
       >
         <td>{solicitud.descrip_solicitud}</td>
         <td className="acciones">
-          {isDirector &&
-          solicitud.fecha_aprobada === null &&
-          solicitud.fecha_rechazada === null ? (
+          {isDirector ? (
             <button
               className="btn btn-success me-2"
               onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
@@ -143,9 +143,7 @@ const Solicitud = ({ solicitud }) => {
             </button>
           ) : null}
 
-          {isDirector &&
-          solicitud.fecha_rechazada === null &&
-          solicitud.fecha_aprobada === null ? (
+          {isDirector ? (
             <button
               className="btn btn-danger me-2"
               onClick={() => submitRechazarSolicitud(solicitud.id_solicitud)}
