@@ -17,6 +17,7 @@ input[type="file"] {
 }
 
 .custom-file-upload {
+  border-radius: 5%;
   border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 10px;
