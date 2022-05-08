@@ -64,7 +64,7 @@ const CrearSolicitud = () => {
   const obtenerProductosExcel = (productosExcel) =>
     dispatch(obtenerProductosExcelAction(productosExcel));
 
-  const readExcel = (file) => {
+  const readExcel = (e, file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsArrayBuffer(file);
@@ -111,6 +111,7 @@ const CrearSolicitud = () => {
             });
       }
       });
+      e.target.value='';
   };
 
   const [id_division, guardarDivision] = useState("");
@@ -660,9 +661,10 @@ const CrearSolicitud = () => {
                 <input
                   type="file"
                   className="form-control mx-sm-3"
+                  accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                   onChange={(e) => {
                     const file = e.target.files[0];
-                    readExcel(file);
+                    readExcel(e, file);
                   }}
                 />
               </div>
