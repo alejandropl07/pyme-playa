@@ -35,7 +35,7 @@ const Producto  =   ({producto})  =>{
     validarFormulario();
 
     //Validar
-     if (pfx_ref.current.value.trim() === "" || cantidad_ref.current.value.trim() === "") {
+     if (cantidad_ref.current.value.trim() === "") {
        errorValidacion();
        return;
      }
@@ -45,7 +45,7 @@ const Producto  =   ({producto})  =>{
 
     //Crear el nuevo producto
     editarProducto({
-      Pfx:  pfx_ref.current.value,
+      Pfx:  producto.Pfx,
       Código:   producto.Código,
       Cantidad: cantidad_ref.current.value,
     });
@@ -75,7 +75,7 @@ const Producto  =   ({producto})  =>{
 
         <ModalBody>
           <FormGroup>
-          <div className="form-group mb-2 row">
+          {/* <div className="form-group mb-2 row">
           <div className="col-md-2">
                   <label    className="my-2">   <strong>Pfx</strong>    </label>
                   </div>
@@ -89,7 +89,7 @@ const Producto  =   ({producto})  =>{
                     ref={pfx_ref}
                   />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="form-group mb-2 row">
                 
