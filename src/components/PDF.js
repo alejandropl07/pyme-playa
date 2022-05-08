@@ -17,7 +17,6 @@ const PDF = () => {
 
   const solicitud = useSelector((state) => state.solicitudes.solicitud);
   const { loadingSolicitud } = useSelector((state) => state.solicitudes);
-  console.log(solicitud);
 
   return (
     <PDFViewer style={{ width: "100%", height: "90vh" }}>
@@ -30,8 +29,8 @@ const PDF = () => {
           >
             <View
               style={{
-                marginTop: "20px",
-                marginLeft: "55px",
+                marginTop: "20",
+                marginLeft: "55",
               }}
             >
               <Text>PROCEDIMIENTO DE COMPRA VENTA INTERNACIONAL</Text>
@@ -39,11 +38,11 @@ const PDF = () => {
 
             <View
               style={{
-                height: "1px",
+                height: "1",
                 backgroundColor: "black",
-                marginTop: "10px",
-                marginLeft: "50px",
-                marginRight: "50px",
+                marginTop: "10",
+                marginLeft: "50",
+                marginRight: "50",
               }}
             ></View>
 
@@ -53,8 +52,8 @@ const PDF = () => {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: "20px",
-                marginBottom: "20px",
+                marginTop: "20",
+                marginBottom: "20",
               }}
             >
               <Text>Anexo 1 - Modelo de Solicitud de Pedidos</Text>
@@ -62,7 +61,7 @@ const PDF = () => {
 
             <View
               style={{
-                marginLeft: "40px",
+                marginLeft: "40",
               }}
             >
               {loadingSolicitud ? (
@@ -80,14 +79,14 @@ const PDF = () => {
               {loadingSolicitud ? (
                 <Text>Sucursal</Text>
               ) : (
-                <Text>Sucursal: {solicitud.id_sucursal}</Text>
+                <Text>Sucursal: {solicitud.tc_sucursal.descrip_sucursal}</Text>
               )}
             </View>
 
             <Text
               style={{
-                marginLeft: "40px",
-                marginRight: "40px",
+                marginLeft: "40",
+                marginRight: "40",
               }}
             >
               Se requiere la aprobación de los recursos en las cantidades y
@@ -95,8 +94,8 @@ const PDF = () => {
               continuación se especifican.
             </Text>
 
-            <Text style={{ marginLeft: "40px", marginTop: "10" }}>
-              Pedido No:
+            <Text style={{ marginLeft: "40", marginTop: "10" }}>
+              Pedido No: {solicitud.id_solicitud}
             </Text>
             {loadingSolicitud ? (
               <Text>Valor y moneda</Text>
@@ -110,7 +109,7 @@ const PDF = () => {
             {loadingSolicitud ? (
               <Text>Proveedor</Text>
             ) : (
-              <Text style={{ marginLeft: "40px" }}>
+              <Text style={{ marginLeft: "40" }}>
                 Proveedor: {solicitud.tc_proveedor.descrip_proveedor}
               </Text>
             )}
@@ -126,7 +125,7 @@ const PDF = () => {
             {loadingSolicitud ? (
               <Text>Pedido</Text>
             ) : (
-              <Text style={{ marginLeft: "40px" }}>
+              <Text style={{ marginLeft: "40" }}>
                 Pedido: {solicitud.tc_clase_pedido.descrip_clase_pedido}
               </Text>
             )}
@@ -141,19 +140,263 @@ const PDF = () => {
 
             {loadingSolicitud ? (
               <Text>Cliente</Text>
-            ) : (
-              <Text style={{ marginLeft: "40px" }}>
+            ) : (   
+              <Text style={{ marginLeft: "40" }}>
                 Cliente: {solicitud.tc_cliente.descrip_cliente}
+              </Text>
+            )}
+
+            {loadingSolicitud ? (
+              <Text>Destino</Text>
+            ) : (
+              <Text style={{ left: "40%", bottom: "15" }}>
+                Destino: {solicitud.tc_destino.descrip_destino}
               </Text>
             )}
 
             {loadingSolicitud ? (
               <Text>Referencia</Text>
             ) : (
-              <Text style={{ marginLeft: "40px", marginTop: "10" }}>
-                Referencia: {solicitud.descrip_solicitud}
+              <Text style={{ marginLeft: "40" }}>
+                Referencia: {solicitud.referencia}
               </Text>
             )}
+
+            {loadingSolicitud ? (
+              <Text>Fecha de entrega acordada con el cliente:</Text>
+            ) : (
+              <Text style={{ marginLeft: "40", marginTop: "15" }}>
+                Fecha de entrega acordada con el cliente: {solicitud.fecha_entrega}
+              </Text>
+            )}
+
+            {loadingSolicitud ? (
+              <Text>Tipo de Producto</Text>
+            ) : (   
+              <Text style={{ marginLeft: "40", marginTop: "15" }}>
+                Tipo de Producto: {solicitud.tc_tipo_producto.descrip_tipo_producto}
+              </Text>
+            )}
+
+           
+              <Text style={{ marginLeft: "40", marginTop: "15"  }}>
+                Nota:
+              </Text>
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "70",
+                marginRight: "270",
+              }}
+            ></View>
+            
+
+              {loadingSolicitud ? (
+              <Text>Elaborado y recibido por</Text>
+            ) : (
+              <Text style={{ marginLeft: "40", marginTop: "15"  }}>
+                Elaborado y recibido por:
+              </Text>
+            )}
+             <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "40",
+                marginRight: "420",
+              }}
+            ></View>
+
+              {loadingSolicitud ? (
+              <Text>Elaborado por</Text>
+            ) : (
+              <Text style={{ marginLeft: "40", marginTop: "8"  }}>
+                Elaborado por: {solicitud.tc_usuario.nombre_usuario}
+              </Text>
+            )}
+
+              <Text style={{ left: "33%", bottom: "15" }}>
+                Visto Bueno:
+              </Text>
+
+              <Text style={{ left: "65%", marginTop: "-28" }}>
+                Revisado inventarios: 
+              </Text>
+          
+              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
+                Especialista Comercial
+              </Text>
+
+              <Text style={{ marginLeft: "33%", marginTop:"-15"  }}>
+                Director de la División, Sucursal
+              </Text>
+
+              <Text style={{ marginLeft: "65%", marginTop:"-13"  }}>
+                Director de Recambios
+              </Text>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Fecha:     {new Date().toLocaleDateString()}
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "77",
+                marginRight: "435",
+              }}
+              ></View>
+
+              <Text style={{ marginLeft: "33%", marginTop: "-15"  }}>
+                Fecha:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "234",
+                marginRight: "280",
+              }}
+              ></View>
+
+               <Text style={{ marginLeft: "65%", marginTop: "-15"  }}>
+                Fecha:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "424",
+                marginRight: "90",
+              }}
+              ></View>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Firma:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "75",
+                marginRight: "435",
+              }}
+            ></View>
+
+              <Text style={{ marginLeft: "33%", marginTop: "-15"  }}>
+                Firma:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "232",
+                marginRight: "280",
+              }}
+            ></View>
+
+            <Text style={{ marginLeft: "65%", marginTop: "-15" }}>
+                Firma:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "422",
+                marginRight: "90",
+              }}
+            ></View>
+
+            <Text style={{ marginLeft: "40", marginTop: "15"  }}>
+                Nota:
+              </Text>
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "70",
+                marginRight: "270",
+              }}
+            ></View>
+
+              <Text style={{ marginLeft: "40", marginTop: "12"  }}>
+                Recibido por:
+              </Text>
+
+              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
+                Especialista en Logística
+              </Text>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Fecha:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "77",
+                marginRight: "435",
+              }}
+              ></View>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Firma:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "75",
+                marginRight: "435",
+              }}
+            ></View>
+
+              <Text style={{ marginLeft: "40", marginTop: "12"  }}>
+                Aprobado por:
+              </Text>
+
+              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
+                Director General
+              </Text>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Fecha:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "77",
+                marginRight: "435",
+              }}
+              ></View>
+
+              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
+                Firma:
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "75",
+                marginRight: "435",
+              }}
+            ></View>
+
+
+           
+
           </View>
         </Page>
       </Document>
