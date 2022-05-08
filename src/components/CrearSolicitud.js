@@ -658,6 +658,7 @@ const CrearSolicitud = () => {
                 <label>
                   <strong>Importar productos</strong>
                 </label>
+                <label className="custom-file-upload">
                 <input
                   type="file"
                   className="form-control mx-sm-3"
@@ -667,6 +668,8 @@ const CrearSolicitud = () => {
                     readExcel(e, file);
                   }}
                 />
+                Subir archivo
+                </label>
               </div>
 
               <div className="col-md-8">

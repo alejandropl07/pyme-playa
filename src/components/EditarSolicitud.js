@@ -64,7 +64,7 @@ const EditarSolicitud = () => {
   const obtenerProductosExcel = (productosExcel) =>
     dispatch(obtenerProductosExcelAction(productosExcel));
 
-  const readExcel = (file) => {
+  const readExcel = (e, file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsArrayBuffer(file);
@@ -110,6 +110,7 @@ const EditarSolicitud = () => {
         });
       }
     });
+    e.target.value='';
   };
 
   const navigate = useNavigate();
@@ -663,16 +664,20 @@ const EditarSolicitud = () => {
               <div className="form-group mb-2">
                 <label>
                   {" "}
-                  <strong>Importar datos desde un Excel</strong>{" "}
+                  <strong>Importar productos</strong>{" "}
                 </label>
+                <label className="custom-file-upload">
                 <input
                   type="file"
                   className="form-control mx-sm-3"
+                  accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                   onChange={(e) => {
                     const file = e.target.files[0];
-                    readExcel(file);
+                    readExcel(e, file);
                   }}
                 />
+                Subir archivo
+                </label>
               </div>
 
               <div className="col-md-8">
