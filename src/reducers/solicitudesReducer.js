@@ -118,6 +118,7 @@ export default function (state = initialState, action) {
         ...state,
         error: null,
         loadingSolicitud: true,
+        productos: [],
       };
     case SOLICITUD_EDITAR_EXITO:
       return {
@@ -125,6 +126,7 @@ export default function (state = initialState, action) {
         error: null,
         solicitud: action.payload,
         loadingSolicitud: false,
+        productos:  action.payload.tc_solicitud_productos,
       };
 
     case SOLICITUD_EDITAR_ERROR:
@@ -143,7 +145,7 @@ export default function (state = initialState, action) {
         ...state,
         error: null,
         solicitudes: state.solicitudes.map((solicitud) =>
-          solicitud.id === action.payload.id
+          solicitud.id_solicitud === action.payload.id_solicitud
             ? (solicitud = action.payload)
             : solicitud
         ),
