@@ -17,6 +17,7 @@ const PDF = () => {
 
   const solicitud = useSelector((state) => state.solicitudes.solicitud);
   const { loadingSolicitud } = useSelector((state) => state.solicitudes);
+  const productos = solicitud.tc_solicitud_productos;
 
   return (
     <PDFViewer style={{ width: "100%", height: "90vh" }}>
@@ -394,11 +395,75 @@ const PDF = () => {
               }}
             ></View>
 
-
-           
-
           </View>
         </Page>
+
+        <Page size="A4">
+          <View
+            style={{
+              fontSize: "12",
+            }}
+          >
+            <View style={{
+                marginTop: "20",
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+            <Text> PRODUCTOS </Text>
+              </View>
+
+            <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginTop: "10",
+                marginLeft: "50",
+                marginRight: "50",
+              }}
+            ></View>
+           
+              <Text style={{ marginLeft: "88", marginTop: "20" }}>
+                Pfx
+              </Text>
+
+              <View
+              style={{
+                height: "1",
+                backgroundColor: "black",
+                marginLeft: "80",
+                marginRight: "190",
+              }}
+            ></View>
+
+              <Text style={{ marginLeft: "220", marginTop: "-14" }}>
+                Código
+              </Text>
+
+              <Text style={{ marginLeft: "350", marginTop: "-14" }}>
+                Cantidad
+              </Text>    
+
+          {loadingSolicitud? null : 
+          productos.map(producto => {
+            return (
+
+              <React.Fragment>
+              <Text style={{ marginLeft: "90", marginTop: "10" }}> 
+              {producto.Pfx}
+               </Text>
+
+              <Text style={{ marginLeft: "235", marginTop: "-14" }}> 
+              {solicitud.tc_solicitud_productos[0].Código}
+              </Text>
+
+              <Text style={{ marginLeft: "365", marginTop: "-14" }}> 
+              {solicitud.tc_solicitud_productos[0].Cantidad}
+              </Text>
+              </React.Fragment>
+          )})}
+         
+          </View>
+          </Page>
       </Document>
     </PDFViewer>
   );
