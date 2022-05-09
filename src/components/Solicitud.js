@@ -1,7 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+//Actions para validar fomulario
+import {
+  validarFormularioAction,
+  validacionExito,
+  validacionError,
+} from "../actions/validacionAction";
 import {
   Button,
   Modal,
@@ -17,29 +23,40 @@ import {
   finalizarSolicitudAction,
   esperarSolicitudAction,
   obtenerSolicitudesAction,
-  aprobarSolicitudLogAction
+  aprobarSolicitudLogAction,
 } from "../actions/solicitudesAction";
 
 const Solicitud = ({ solicitud }) => {
   const dispatch = useDispatch();
+  //Obtener parámetros del URL
   const params = useParams();
   const idUsuario = params.id;
+
+  const validarFormulario = () => dispatch(validarFormularioAction());
+  const exitoValidacion = () => dispatch(validacionExito());
+  const errorValidacion = () => dispatch(validacionError());
+
+  //Obtener datos del state
   const { isDirector } = useSelector((state) => state.rol);
   const { isLogistico } = useSelector((state) => state.rol);
+  const error = useSelector((state) => state.error.error);
 
+  //State inicial causa de espera
   const [causa_espera, guardar_causa] = useState("");
   const [modal_causa, guardar_modal] = useState(false);
 
+  //Actions
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
   const aprobarSolicitudLog = (id) => dispatch(aprobarSolicitudLogAction(id));
   const rechazarSolicitud = (id) => dispatch(rechazarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
-  const esperarSolicitud = (id) => dispatch(esperarSolicitudAction(id, causa_espera));
+  const esperarSolicitud = (id) =>
+    dispatch(esperarSolicitudAction(id, causa_espera));
   const obtenerSolicitudes = (id) => dispatch(obtenerSolicitudesAction(id));
 
+  //Submit para aprobar solicitud director
   const submitAprobarSolicitud = (id) => {
-    // Confirmacion de Sweet Alert
-
+    // Confirmación de Sweet Alert
     Swal.fire({
       title: "Está seguro?",
       text: "No podrá revertir esta acción!",
@@ -58,10 +75,9 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
-
+  //Submit para aprobar solicitud logístico
   const submitAprobarSolicitudLog = (id) => {
-    // Confirmacion de Sweet Alert
-
+    // Confirmación de Sweet Alert
     Swal.fire({
       title: "Está seguro?",
       text: "No podrá revertir esta acción!",
@@ -80,9 +96,9 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
+  //Submit para rechazar solicitud director
   const submitRechazarSolicitud = (id) => {
-    // Confirmacion de Sweet Alert
-
+    // Confirmación de Sweet Alert
     Swal.fire({
       title: "Está seguro?",
       text: "No podrá revertir esta acción!",
@@ -101,9 +117,9 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
+  //Submit para finalizar solicitud comercial
   const submitFinalizarSolicitud = (id) => {
-    // Confirmacion de Sweet Alert
-
+    // Confirmación de Sweet Alert
     Swal.fire({
       title: "Está seguro?",
       text: "No podrá revertir esta acción!",
@@ -121,10 +137,18 @@ const Solicitud = ({ solicitud }) => {
     });
   };
 
-
+  //Submit para poner solicitud en espera
   const submitEsperarSolicitud = (id) => {
-    // Confirmacion de Sweet Alert
+    validarFormulario();
 
+    //Validar
+    if (causa_espera.trim() === "") {
+      errorValidacion();
+      return;
+    }
+    //Si pasa la validadacion
+    exitoValidacion();
+    // Confirmacion de Sweet Alert
     Swal.fire({
       title: "Está seguro?",
       text: "La solicitud se pondrá en espera!",
@@ -138,7 +162,11 @@ const Solicitud = ({ solicitud }) => {
       if (result.isConfirmed) {
         esperarSolicitud(id, causa_espera);
         guardar_modal(false);
-        Swal.fire("En espera!", "La solicitud se encuentra en espera.", "success");
+        Swal.fire(
+          "En espera!",
+          "La solicitud se encuentra en espera.",
+          "success"
+        );
       }
     });
   };
@@ -147,14 +175,13 @@ const Solicitud = ({ solicitud }) => {
     <React.Fragment>
       <tr
         className={
-         
-          (!isDirector) 
+          !isDirector
             ? solicitud.fecha_finalizada !== null
               ? "table-success"
               : "table-danger"
-            : (isDirector && solicitud.fecha_espera !== null)
-              ? "table-warning"
-              : null
+            : isDirector && solicitud.fecha_espera !== null
+            ? "table-warning"
+            : null
         }
       >
         <td>{solicitud.descrip_solicitud}</td>
@@ -213,7 +240,9 @@ const Solicitud = ({ solicitud }) => {
             </button>
           ) : null}
 
-          {!isDirector  &&  !isLogistico && solicitud.fecha_finalizada !== null ? (
+          {!isDirector &&
+          !isLogistico &&
+          solicitud.fecha_finalizada !== null ? (
             <Link
               to={`/pdf/${solicitud.id_solicitud}`}
               className="btn btn-secondary"
@@ -224,6 +253,7 @@ const Solicitud = ({ solicitud }) => {
         </td>
       </tr>
 
+      {/* Ventana causa de espera */}
       <Modal isOpen={modal_causa}>
         <ModalHeader>
           <div>
@@ -234,7 +264,6 @@ const Solicitud = ({ solicitud }) => {
         <ModalBody>
           <FormGroup>
             <label>Causa:</label>
-
             <textarea
               className="form-control"
               name="causa_espera"
@@ -243,17 +272,17 @@ const Solicitud = ({ solicitud }) => {
               onChange={(e) => guardar_causa(e.target.value)}
             />
           </FormGroup>
-          {/* {error ? (
+          {error ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
               Campos vacíos
             </div>
-          ) : null} */}
+          ) : null}
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" 
-          onClick={()=>submitEsperarSolicitud(solicitud.id_solicitud)}
-          
+          <Button
+            color="primary"
+            onClick={() => submitEsperarSolicitud(solicitud.id_solicitud)}
           >
             Aceptar
           </Button>

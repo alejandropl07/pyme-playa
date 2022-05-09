@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 const PDF = () => {
   const dispatch = useDispatch();
 
+  //Obtener parámetros del URL
   const params = useParams();
   const id = params.id;
 
+  //Hook useEffect, se ejecuta al renderizar el PDF
   useEffect(() => {
     dispatch(obtenerSolicitudImprimirAction(id));
   }, [dispatch, id]);
 
+  //Obtener datos del state
   const solicitud = useSelector((state) => state.solicitudes.solicitud);
   const { loadingSolicitud } = useSelector((state) => state.solicitudes);
   const productos = solicitud.tc_solicitud_productos;
@@ -141,7 +144,7 @@ const PDF = () => {
 
             {loadingSolicitud ? (
               <Text>Cliente</Text>
-            ) : (   
+            ) : (
               <Text style={{ marginLeft: "40" }}>
                 Cliente: {solicitud.tc_cliente.descrip_cliente}
               </Text>
@@ -167,23 +170,22 @@ const PDF = () => {
               <Text>Fecha de entrega acordada con el cliente:</Text>
             ) : (
               <Text style={{ marginLeft: "40", marginTop: "15" }}>
-                Fecha de entrega acordada con el cliente: {solicitud.fecha_entrega}
+                Fecha de entrega acordada con el cliente:{" "}
+                {solicitud.fecha_entrega}
               </Text>
             )}
 
             {loadingSolicitud ? (
               <Text>Tipo de Producto</Text>
-            ) : (   
+            ) : (
               <Text style={{ marginLeft: "40", marginTop: "15" }}>
-                Tipo de Producto: {solicitud.tc_tipo_producto.descrip_tipo_producto}
+                Tipo de Producto:{" "}
+                {solicitud.tc_tipo_producto.descrip_tipo_producto}
               </Text>
             )}
 
-           
-              <Text style={{ marginLeft: "40", marginTop: "15"  }}>
-                Nota:
-              </Text>
-              <View
+            <Text style={{ marginLeft: "40", marginTop: "15" }}>Nota:</Text>
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -191,16 +193,15 @@ const PDF = () => {
                 marginRight: "270",
               }}
             ></View>
-            
 
-              {loadingSolicitud ? (
+            {loadingSolicitud ? (
               <Text>Elaborado y recibido por</Text>
             ) : (
-              <Text style={{ marginLeft: "40", marginTop: "15"  }}>
+              <Text style={{ marginLeft: "40", marginTop: "15" }}>
                 Elaborado y recibido por:
               </Text>
             )}
-             <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -209,78 +210,70 @@ const PDF = () => {
               }}
             ></View>
 
-              {loadingSolicitud ? (
+            {loadingSolicitud ? (
               <Text>Elaborado por</Text>
             ) : (
-              <Text style={{ marginLeft: "40", marginTop: "8"  }}>
+              <Text style={{ marginLeft: "40", marginTop: "8" }}>
                 Elaborado por: {solicitud.tc_usuario.nombre_usuario}
               </Text>
             )}
 
-              <Text style={{ left: "33%", bottom: "15" }}>
-                Visto Bueno:
-              </Text>
+            <Text style={{ left: "33%", bottom: "15" }}>Visto Bueno:</Text>
 
-              <Text style={{ left: "65%", marginTop: "-28" }}>
-                Revisado inventarios: 
-              </Text>
-          
-              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
-                Especialista Comercial
-              </Text>
+            <Text style={{ left: "65%", marginTop: "-28" }}>
+              Revisado inventarios:
+            </Text>
 
-              <Text style={{ marginLeft: "33%", marginTop:"-15"  }}>
-                Director de la División, Sucursal
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>
+              Especialista Comercial
+            </Text>
 
-              <Text style={{ marginLeft: "65%", marginTop:"-13"  }}>
-                Director de Recambios
-              </Text>
+            <Text style={{ marginLeft: "33%", marginTop: "-15" }}>
+              Director de la División, Sucursal
+            </Text>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Fecha:     {new Date().toLocaleDateString()}
-              </Text>
+            <Text style={{ marginLeft: "65%", marginTop: "-13" }}>
+              Director de Recambios
+            </Text>
 
-              <View
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>
+              Fecha: {new Date().toLocaleDateString()}
+            </Text>
+
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
                 marginLeft: "77",
                 marginRight: "435",
               }}
-              ></View>
+            ></View>
 
-              <Text style={{ marginLeft: "33%", marginTop: "-15"  }}>
-                Fecha:
-              </Text>
+            <Text style={{ marginLeft: "33%", marginTop: "-15" }}>Fecha:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
                 marginLeft: "234",
                 marginRight: "280",
               }}
-              ></View>
+            ></View>
 
-               <Text style={{ marginLeft: "65%", marginTop: "-15"  }}>
-                Fecha:
-              </Text>
+            <Text style={{ marginLeft: "65%", marginTop: "-15" }}>Fecha:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
                 marginLeft: "424",
                 marginRight: "90",
               }}
-              ></View>
+            ></View>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Firma:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>Firma:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -289,11 +282,9 @@ const PDF = () => {
               }}
             ></View>
 
-              <Text style={{ marginLeft: "33%", marginTop: "-15"  }}>
-                Firma:
-              </Text>
+            <Text style={{ marginLeft: "33%", marginTop: "-15" }}>Firma:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -302,11 +293,9 @@ const PDF = () => {
               }}
             ></View>
 
-            <Text style={{ marginLeft: "65%", marginTop: "-15" }}>
-                Firma:
-              </Text>
+            <Text style={{ marginLeft: "65%", marginTop: "-15" }}>Firma:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -315,10 +304,8 @@ const PDF = () => {
               }}
             ></View>
 
-            <Text style={{ marginLeft: "40", marginTop: "15"  }}>
-                Nota:
-              </Text>
-              <View
+            <Text style={{ marginLeft: "40", marginTop: "15" }}>Nota:</Text>
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -327,32 +314,28 @@ const PDF = () => {
               }}
             ></View>
 
-              <Text style={{ marginLeft: "40", marginTop: "12"  }}>
-                Recibido por:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "12" }}>
+              Recibido por:
+            </Text>
 
-              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
-                Especialista en Logística
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>
+              Especialista en Logística
+            </Text>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Fecha:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>Fecha:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
                 marginLeft: "77",
                 marginRight: "435",
               }}
-              ></View>
+            ></View>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Firma:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>Firma:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -361,32 +344,28 @@ const PDF = () => {
               }}
             ></View>
 
-              <Text style={{ marginLeft: "40", marginTop: "12"  }}>
-                Aprobado por:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "12" }}>
+              Aprobado por:
+            </Text>
 
-              <Text style={{ marginLeft: "40", marginTop:"5"  }}>
-                Director General
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>
+              Director General
+            </Text>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Fecha:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>Fecha:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
                 marginLeft: "77",
                 marginRight: "435",
               }}
-              ></View>
+            ></View>
 
-              <Text style={{ marginLeft: "40", marginTop: "5"  }}>
-                Firma:
-              </Text>
+            <Text style={{ marginLeft: "40", marginTop: "5" }}>Firma:</Text>
 
-              <View
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -394,7 +373,6 @@ const PDF = () => {
                 marginRight: "435",
               }}
             ></View>
-
           </View>
         </Page>
 
@@ -404,13 +382,15 @@ const PDF = () => {
               fontSize: "12",
             }}
           >
-            <View style={{
+            <View
+              style={{
                 marginTop: "20",
                 justifyContent: "center",
                 alignItems: "center",
-              }}>
-            <Text> PRODUCTOS </Text>
-              </View>
+              }}
+            >
+              <Text> PRODUCTOS </Text>
+            </View>
 
             <View
               style={{
@@ -421,12 +401,10 @@ const PDF = () => {
                 marginRight: "50",
               }}
             ></View>
-           
-              <Text style={{ marginLeft: "138", marginTop: "20" }}>
-                Pfx
-              </Text>
 
-              <View
+            <Text style={{ marginLeft: "138", marginTop: "20" }}>Pfx</Text>
+
+            <View
               style={{
                 height: "1",
                 backgroundColor: "black",
@@ -435,35 +413,33 @@ const PDF = () => {
               }}
             ></View>
 
-              <Text style={{ marginLeft: "270", marginTop: "-14" }}>
-                Código
-              </Text>
+            <Text style={{ marginLeft: "270", marginTop: "-14" }}>Código</Text>
 
-              <Text style={{ marginLeft: "400", marginTop: "-14" }}>
-                Cantidad
-              </Text>    
+            <Text style={{ marginLeft: "400", marginTop: "-14" }}>
+              Cantidad
+            </Text>
 
-          {loadingSolicitud? null : 
-          productos.map(producto => {
-            return (
+            {loadingSolicitud
+              ? null
+              : productos.map((producto) => {
+                  return (
+                    <React.Fragment>
+                      <Text style={{ marginLeft: "140", marginTop: "10" }}>
+                        {producto.Pfx}
+                      </Text>
 
-              <React.Fragment>
-              <Text style={{ marginLeft: "140", marginTop: "10" }}> 
-              {producto.Pfx}
-               </Text>
+                      <Text style={{ marginLeft: "285", marginTop: "-14" }}>
+                        {solicitud.tc_solicitud_productos[0].Código}
+                      </Text>
 
-              <Text style={{ marginLeft: "285", marginTop: "-14" }}> 
-              {solicitud.tc_solicitud_productos[0].Código}
-              </Text>
-
-              <Text style={{ marginLeft: "415", marginTop: "-14" }}> 
-              {solicitud.tc_solicitud_productos[0].Cantidad}
-              </Text>
-              </React.Fragment>
-          )})}
-         
+                      <Text style={{ marginLeft: "415", marginTop: "-14" }}>
+                        {solicitud.tc_solicitud_productos[0].Cantidad}
+                      </Text>
+                    </React.Fragment>
+                  );
+                })}
           </View>
-          </Page>
+        </Page>
       </Document>
     </PDFViewer>
   );
