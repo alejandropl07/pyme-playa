@@ -227,7 +227,7 @@ const Solicitud = ({ solicitud }) => {
       <Modal isOpen={modal_causa}>
         <ModalHeader>
           <div>
-            <h3>Causa de la espera</h3>
+            <h3>Solicitud en espera</h3>
           </div>
         </ModalHeader>
 
@@ -255,7 +255,7 @@ const Solicitud = ({ solicitud }) => {
           onClick={()=>submitEsperarSolicitud(solicitud.id_solicitud)}
           
           >
-            Insertar
+            Aceptar
           </Button>
           <Button
             className="btn btn-danger"

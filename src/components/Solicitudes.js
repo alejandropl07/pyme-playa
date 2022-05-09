@@ -18,8 +18,7 @@ const Solicitudes = () => {
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
   const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
-  const { isDirector } = useSelector((state) => state.rol);
-  const { isLogistico } = useSelector((state) => state.rol);
+  const { isDirector, isLogistico } = useSelector((state) => state.rol);
 
   useEffect(()  =>  {
     dispatch(obtenerSolicitudesAction(id)) ;
@@ -75,13 +74,15 @@ const Solicitudes = () => {
         <div className="card-body">
       { solicitudes.length === 0 && isDirector
       ? <h2 className="text-center">No hay solicitudes finalizadas</h2> 
-      : solicitudes.length === 0 && !isDirector 
+      : solicitudes.length === 0 && !isDirector && !isLogistico
       ? <h2 className="text-center">No hay solicitudes creadas</h2> 
+      :  solicitudes.length === 0 && isLogistico
+      ? <h2 className="text-center">No hay solicitudes aprobadas</h2> 
       : <h2 className="text-center">Listado de solicitudes</h2> } 
 
         <hr></hr>
       
-      <div className="offset-1">
+      <div style={{marginLeft: 108}}>
     { solicitudes.length > 0 
       ? (<React.Fragment><div className="col-md-4" >
         
@@ -103,7 +104,7 @@ const Solicitudes = () => {
 
     </div>
 
-    {!isDirector && solicitudes.length > 0
+    {!isDirector && !isLogistico && solicitudes.length > 0
       ?<Link
      to={`/`}
      className="btn btn-success "
@@ -111,7 +112,7 @@ const Solicitudes = () => {
    >
     Crear solicitud
     </Link>
-      : !isDirector && solicitudes.length === 0
+      : !isDirector && !isLogistico && solicitudes.length === 0
       ?<Link
     to={`/`}
     className="btn btn-success "
@@ -130,7 +131,11 @@ const Solicitudes = () => {
             <th style={{width:750}}scope="col">Solicitud</th>
             <th style={{width:320}}scope="col">Acciones</th>
             </React.Fragment>)
-          :  (<React.Fragment>
+            : isLogistico ? ( <React.Fragment>
+              <th style={{width:950}}scope="col">Solicitud</th>
+              <th style={{width:70}}scope="col">Acciones</th>
+              </React.Fragment>)
+           :  (<React.Fragment>
             <th style={{width:800}}scope="col">Solicitud</th>
             <th style={{width:170}}scope="col">Acciones</th>
           </React.Fragment>)
