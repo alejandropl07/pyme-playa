@@ -422,7 +422,7 @@ const PDF = () => {
               }}
             ></View>
            
-              <Text style={{ marginLeft: "88", marginTop: "20" }}>
+              <Text style={{ marginLeft: "138", marginTop: "20" }}>
                 Pfx
               </Text>
 
@@ -430,16 +430,16 @@ const PDF = () => {
               style={{
                 height: "1",
                 backgroundColor: "black",
-                marginLeft: "80",
-                marginRight: "190",
+                marginLeft: "130",
+                marginRight: "140",
               }}
             ></View>
 
-              <Text style={{ marginLeft: "220", marginTop: "-14" }}>
+              <Text style={{ marginLeft: "270", marginTop: "-14" }}>
                 Código
               </Text>
 
-              <Text style={{ marginLeft: "350", marginTop: "-14" }}>
+              <Text style={{ marginLeft: "400", marginTop: "-14" }}>
                 Cantidad
               </Text>    
 
@@ -448,15 +448,15 @@ const PDF = () => {
             return (
 
               <React.Fragment>
-              <Text style={{ marginLeft: "90", marginTop: "10" }}> 
+              <Text style={{ marginLeft: "140", marginTop: "10" }}> 
               {producto.Pfx}
                </Text>
 
-              <Text style={{ marginLeft: "235", marginTop: "-14" }}> 
+              <Text style={{ marginLeft: "285", marginTop: "-14" }}> 
               {solicitud.tc_solicitud_productos[0].Código}
               </Text>
 
-              <Text style={{ marginLeft: "365", marginTop: "-14" }}> 
+              <Text style={{ marginLeft: "415", marginTop: "-14" }}> 
               {solicitud.tc_solicitud_productos[0].Cantidad}
               </Text>
               </React.Fragment>
