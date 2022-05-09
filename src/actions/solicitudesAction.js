@@ -50,6 +50,7 @@ import {
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
 
+//Limpia el arreglo de productos de una solicitud
 export function solicitudVaciaAction() {
   return (dispatch) => {
     dispatch(solicitudVacia());
@@ -60,17 +61,21 @@ export const solicitudVacia = () => ({
   type: SOLICITUD_VACIA,
 });
 
+//Obtener solicitudes de la BD
 export function obtenerSolicitudesAction(id) {
   return (dispatch) => {
+    //Inicia obtener solicitudes
     dispatch(obtenerSolicitudesComienzo());
 
     //Consultar la API
     clienteAxios
       .get(`/solicitudes/usuario/${id}`)
       .then((respuesta) => {
+        //Solicitudes obtenidas con éxito
         dispatch(descargaSolicitudesExito(respuesta.data));
       })
       .catch((error) => {
+        //Error al cargar solicitudes
         dispatch(descargaSolicitudesError());
       });
   };
@@ -92,12 +97,14 @@ export const descargaSolicitudesError = () => ({
 // AGREGAR SOLICITUD
 export function agregarSolicitudAction(solicitud) {
   return (dispatch) => {
+    //Inicia agregar solicitud
     dispatch(agregarSolicitudComienzo());
 
     //Insertar en la API
     clienteAxios
       .post("/solicitudes", solicitud)
       .then((respuesta) => {
+        //Solicitud creada
         dispatch(agregarSolicitudExito(solicitud));
         Swal.fire({
           title: "Crear solicitud",
@@ -111,6 +118,7 @@ export function agregarSolicitudAction(solicitud) {
         });
       })
       .catch((error) => {
+        //Error al crear solicitud
         dispatch(agregarSolicitudError(error));
         Swal.fire({
           title: "Error",
@@ -141,21 +149,25 @@ export const agregarSolicitudError = (error) => ({
 });
 
 // Obtener solicitud a editar
-
 export function obtenerSolicitudAction(id) {
   return (dispatch) => {
+    //Inicia obtner solicitud a editar
     dispatch(obtenerSolicitudEditar());
+    //Inicia obtener productos de la solicitud
     dispatch(obtenerProductosSolicitud());
 
     clienteAxios
       .get(`/solicitudes/${id}`)
       .then((respuesta) => {
+        //Solicitud a editar obtenida con éxito
         dispatch(editarSolicitudExito(respuesta.data));
+        //Obtenidos productos de la solicitud a editar
         dispatch(
           obtenerProductosSolicitudExito(respuesta.data.tc_solicitud_productos)
         );
       })
       .catch((error) => {
+        //Error al obtener la solicitud
         dispatch(editarSolicitudError());
         dispatch(obtenerProductosSolicitudError());
       });
@@ -189,14 +201,15 @@ export const obtenerProductosSolicitudError = () => ({
 });
 
 // Editar solicitud
-
 export function editarSolicitudAction(solicitud) {
   return (dispatch) => {
+    //Inicia editar solicitud
     dispatch(comenzarSolicitudEditar());
 
     clienteAxios
       .put(`/solicitudes/${solicitud.id_solicitud}`, solicitud)
       .then((respuesta) => {
+        //Solicitud editada
         dispatch(solicitudEditadoExito(respuesta.data));
 
         Swal.fire(
@@ -206,6 +219,7 @@ export function editarSolicitudAction(solicitud) {
         );
       })
       .catch((error) => {
+        //Error al editar solicitud
         dispatch(solicitudEditadoError());
       });
   };
@@ -224,13 +238,17 @@ export const solicitudEditadoError = () => ({
   type: SOLICITUD_EDITADO_ERROR,
 });
 
+//Cargar productos de fichero excel
 export function obtenerProductosExcelAction(productosExcel) {
   return (dispatch) => {
+    //Inicia cargar productos del excel
     dispatch(obtenerProductosExcel());
 
     try {
+      //Productos cargados del excel
       dispatch(obtenerProductosExcelExito(productosExcel));
     } catch (error) {
+      //Error al cargar productos
       dispatch(obtenerProductosExcelError());
     }
   };
@@ -252,11 +270,14 @@ export const obtenerProductosExcelError = () => ({
 // AGREGAR PRODUCTO AL STATE
 export function agregarProductoAction(producto) {
   return (dispatch) => {
+    //Iniciar agregar producto
     dispatch(agregarProductoComienzo());
 
     try {
+      //Producto agregado
       dispatch(agregarProductoExito(producto));
     } catch (error) {
+      //Error al agregar producto
       dispatch(agregarProductoError(error));
     }
   };
@@ -279,11 +300,14 @@ export const agregarProductoError = (error) => ({
 //Editar producto
 export function editarProductoAction(producto) {
   return (dispatch) => {
+    //Inicia editar producto
     dispatch(editarProducto());
 
     try {
+      //Producto editado
       dispatch(editarProductoExito(producto));
     } catch (error) {
+      //Error al editar producto
       dispatch(editarProductoError());
     }
   };
@@ -302,13 +326,17 @@ export const editarProductoError = () => ({
   type: EDITAR_PRODUCTO_ERROR,
 });
 
+//Eliminar producto del state
 export function eliminarProductoAction(id) {
   return (dispatch) => {
+    //Inicia eliminar producto
     dispatch(eliminarProducto());
 
     try {
+      //Producto eliminado
       dispatch(eliminarProductoExito(id));
     } catch (error) {
+      //Error al eliminar producto
       dispatch(eliminarProductoError());
     }
   };
@@ -327,18 +355,20 @@ export const eliminarProductoError = () => ({
   type: ELIMINAR_PRODUCTO_ERROR,
 });
 
-// Aprobar solicitud
-
+// Aprobar solicitud director
 export function aprobarSolicitudAction(id) {
   return (dispatch) => {
+    //Inicia aprobar solicitud
     dispatch(aprobarSolicitud());
 
     clienteAxios
       .put(`/solicitudes/aprobarSolicitud/${id}`)
       .then((respuesta) => {
+        //Solicitud aprobada
         dispatch(aprobarSolicitudExito(respuesta.data));
       })
       .catch((error) => {
+        //Error al aprobar solicitud
         dispatch(aprobarSolicitudError());
       });
   };
@@ -357,19 +387,21 @@ export const aprobarSolicitudError = () => ({
   type: APROBAR_SOLICITUD_ERROR,
 });
 
-
 // Aprobar solicitud logistico
 
 export function aprobarSolicitudLogAction(id) {
   return (dispatch) => {
+    //Inicia aprobar solicitud
     dispatch(aprobarSolicitudLog());
 
     clienteAxios
       .put(`/solicitudes/aprobarSolicitudLog/${id}`)
       .then((respuesta) => {
+        //Solicitud aprobada
         dispatch(aprobarSolicitudLogExito(respuesta.data));
       })
       .catch((error) => {
+        //Error al aprobar solicitud
         dispatch(aprobarSolicitudLogError());
       });
   };
@@ -388,19 +420,20 @@ export const aprobarSolicitudLogError = () => ({
   type: APROBAR_SOLICITUD_LOG_ERROR,
 });
 
-
 // Rechazar solicitud
-
 export function rechazarSolicitudAction(id) {
   return (dispatch) => {
+    //Inicia rechazar solicitud
     dispatch(rechazarSolicitud());
 
     clienteAxios
       .put(`/solicitudes/rechazarSolicitud/${id}`)
       .then((respuesta) => {
+        //Solicitud rechazada
         dispatch(rechazarSolicitudExito(respuesta.data));
       })
       .catch((error) => {
+        //Error al rechazar solicitud
         dispatch(rechazarSolicitudError());
       });
   };
@@ -420,17 +453,19 @@ export const rechazarSolicitudError = () => ({
 });
 
 // Finalizar solicitud
-
 export function finalizarSolicitudAction(id) {
   return (dispatch) => {
+    //Inicia finalizar solicitud
     dispatch(finalizarSolicitud());
 
     clienteAxios
       .put(`/solicitudes/finalizarSolicitud/${id}`)
       .then((respuesta) => {
+        //Solicitud finalizada
         dispatch(finalizarSolicitudExito(respuesta.data));
       })
       .catch((error) => {
+        //Error al finalizar solicitud
         dispatch(finalizarSolicitudError());
       });
   };
@@ -449,19 +484,20 @@ export const finalizarSolicitudError = () => ({
   type: FINALIZAR_SOLICITUD_ERROR,
 });
 
-
-// Esperar solicitud
-
+// Poner solicitud en espera
 export function esperarSolicitudAction(id, causa_espera) {
   return (dispatch) => {
+    //Inicia solicitud en espera
     dispatch(esperarSolicitud());
 
     clienteAxios
-      .put(`/solicitudes/esperarSolicitud/${id}`, {causa_espera})
+      .put(`/solicitudes/esperarSolicitud/${id}`, { causa_espera })
       .then((respuesta) => {
+        //Solicitud puesta en espera
         dispatch(esperarSolicitudExito(respuesta.data));
       })
       .catch((error) => {
+        //Error
         dispatch(esperarSolicitudError());
       });
   };
@@ -480,19 +516,20 @@ export const esperarSolicitudError = () => ({
   type: ESPERAR_SOLICITUD_ERROR,
 });
 
-
 // Obtener solicitud a imprimir
-
 export function obtenerSolicitudImprimirAction(id) {
   return (dispatch) => {
+    // Inicia obtener solicitud a imprimir
     dispatch(obtenerSolicitudImprimir());
 
     clienteAxios
       .get(`/solicitudes/${id}`)
       .then((respuesta) => {
+        // Obtenida solicitud a imprimir
         dispatch(imprimirSolicitudExito(respuesta.data));
       })
       .catch((error) => {
+        // Error  al obtener solicitud a imprimir
         dispatch(imprimirSolicitudError());
       });
   };
