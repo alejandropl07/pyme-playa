@@ -24,6 +24,7 @@ const Solicitud = ({ solicitud }) => {
   const params = useParams();
   const idUsuario = params.id;
   const { isDirector } = useSelector((state) => state.rol);
+  const { isLogistico } = useSelector((state) => state.rol);
 
   const [causa_espera, guardar_causa] = useState("");
   const [modal_causa, guardar_modal] = useState(false);
@@ -143,6 +144,15 @@ const Solicitud = ({ solicitud }) => {
             </button>
           ) : null}
 
+          {isLogistico ? (
+            <button
+              className="btn btn-success me-2"
+              onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
+            >
+              Aprobar
+            </button>
+          ) : null}
+
           {isDirector ? (
             <button
               className="btn btn-danger me-2"
@@ -179,7 +189,7 @@ const Solicitud = ({ solicitud }) => {
             </button>
           ) : null}
 
-          {!isDirector && solicitud.fecha_finalizada !== null ? (
+          {!isDirector  &&  !isLogistico && solicitud.fecha_finalizada !== null ? (
             <Link
               to={`/pdf/${solicitud.id_solicitud}`}
               className="btn btn-secondary"

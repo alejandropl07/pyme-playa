@@ -41,10 +41,21 @@ import {
   ESPERAR_SOLICITUD_EXITO,
   ESPERAR_SOLICITUD,
   ESPERAR_SOLICITUD_ERROR,
+  SOLICITUD_VACIA,
 } from "../types";
 
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
+
+export function solicitudVaciaAction() {
+  return (dispatch) => {
+    dispatch(solicitudVacia());
+  };
+}
+
+export const solicitudVacia = () => ({
+  type: SOLICITUD_VACIA,
+});
 
 export function obtenerSolicitudesAction(id) {
   return (dispatch) => {

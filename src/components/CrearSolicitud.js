@@ -18,6 +18,7 @@ import {
   validacionError,
 } from "../actions/validacionAction";
 import {
+  solicitudVaciaAction,
   agregarSolicitudAction,
   agregarProductoAction,
   obtenerProductosExcelAction,
@@ -41,6 +42,7 @@ import Swal from "sweetalert2";
 const CrearSolicitud = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    const solicitudVacia = () => dispatch(solicitudVaciaAction());
     const obtenerDivision = () => dispatch(obtenerDivisionAction());
     const obtenerSucursales = () => dispatch(obtenerSucursalesAction());
     const obtenerProveedores = () => dispatch(obtenerProveedoresAction());
@@ -50,6 +52,7 @@ const CrearSolicitud = () => {
     const obtenerDestinos = () => dispatch(obtenerDestinosAction());
     const obtenerProductos = () => dispatch(obtenerProductosAction());
     const obtenerMonedas = () => dispatch(obtenerMonedasAction());
+    solicitudVacia();
     obtenerDivision();
     obtenerSucursales();
     obtenerProveedores();

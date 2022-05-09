@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { obtenerSolicitudesAction } from "../actions/solicitudesAction";
-import { obtenerRolAction } from "../actions/rolAction";
+import { obtenerRolAction,  obtenerRolLogAction } from "../actions/rolAction";
 import Solicitud from "./Solicitud";
 
 const Solicitudes = () => {
@@ -18,12 +18,14 @@ const Solicitudes = () => {
   useEffect(()  =>  {
     dispatch(obtenerSolicitudesAction(id)) ;
     dispatch(obtenerRolAction(id)) ;
+    dispatch(obtenerRolLogAction(id)) ;
   },[dispatch,id]);
 
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
   const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
   const { isDirector } = useSelector((state) => state.rol);
+  const { isLogistico } = useSelector((state) => state.rol);
 
   const [paginaActual, setPaginaActual] = useState(0);
   const [busqueda, setBusqueda ] = useState('');

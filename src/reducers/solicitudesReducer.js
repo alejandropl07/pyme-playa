@@ -41,6 +41,7 @@ import {
   ESPERAR_SOLICITUD,
   ESPERAR_SOLICITUD_EXITO,
   ESPERAR_SOLICITUD_ERROR,
+  SOLICITUD_VACIA,
 } from "../types";
 
 // Cada reducer tiene su propio state
@@ -58,6 +59,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case SOLICITUD_VACIA:
+      return {
+        ...state,
+        productos: [],
+      };
     case COMENZAR_DESCARGA_SOLICITUDES:
       return {
         ...state,
