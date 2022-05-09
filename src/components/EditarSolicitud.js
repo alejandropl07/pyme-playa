@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as XLSX from "xlsx";
 import Producto from "./Producto";
 
-//Redux
+//Actions para validar fomulario
 import {
   validarFormularioAction,
   validacionExito,
@@ -36,9 +36,11 @@ const EditarSolicitud = () => {
 
   const dispatch = useDispatch();
 
+  //Obtener parámetros del URL
   const params = useParams();
   const id = params.id;
 
+  //Hook useEffect, se ejecuta al renderizar la vista
   useEffect(() => {
     const obtenerDivision = () => dispatch(obtenerDivisionAction());
     const obtenerSucursales = () => dispatch(obtenerSucursalesAction());
@@ -64,6 +66,7 @@ const EditarSolicitud = () => {
   const obtenerProductosExcel = (productosExcel) =>
     dispatch(obtenerProductosExcelAction(productosExcel));
 
+  //Leer datos del excel
   const readExcel = (e, file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -86,6 +89,7 @@ const EditarSolicitud = () => {
         reject(error);
       };
     });
+    //Verifica q no existan productos con mismo código
     promise.then((d) => {
       var stop = false;
       for (let i = 0; i < productos.length && !stop; i++) {
@@ -96,6 +100,7 @@ const EditarSolicitud = () => {
         }
       }
       if (!stop) {
+        //Guarda productos en el state
         obtenerProductosExcel(d);
       } else {
         Swal.fire({
@@ -110,11 +115,12 @@ const EditarSolicitud = () => {
         });
       }
     });
-    e.target.value='';
+    e.target.value = "";
   };
 
   const navigate = useNavigate();
 
+  //State inicial de productos
   const [Pfx, guardarPfx] = useState("");
   const [Código, guardarCodigo] = useState("");
   const [Cantidad, guardarCantidad] = useState("");
@@ -169,8 +175,10 @@ const EditarSolicitud = () => {
 
   if (!solicitud) return "Cargando...";
 
+  //Submit para editar solicitud
   const submitEditarSolicitud = (e) => {
     e.preventDefault();
+    //Editar solicitud
     editarSolicitud({
       id_solicitud: solicitud.id_solicitud,
       id_division,
@@ -190,9 +198,11 @@ const EditarSolicitud = () => {
       id_comercial: 1,
       productos,
     });
-     navigate('/solicitudes/usuario/1')
+    //Redireccionar
+    navigate("/solicitudes/usuario/1");
   };
 
+  //Submit para agregar producto al state
   const submitAgregarProducto = (e) => {
     e.preventDefault();
     validarFormulario();
@@ -206,6 +216,7 @@ const EditarSolicitud = () => {
     //Si pasa la validadacion
     exitoValidacion();
 
+    //Verifica q no existan productos con mismo código
     if (productos.some((producto) => producto.Código == Código)) {
       Swal.fire({
         title: "Error",
@@ -226,6 +237,7 @@ const EditarSolicitud = () => {
       });
     }
 
+    //Reiniciar campos del formulario
     guardarPfx("");
     guardarCodigo("");
     guardarCantidad("");
@@ -507,7 +519,6 @@ const EditarSolicitud = () => {
                   </div>
                 </div>
 
-
                 <div className="form-group mb-2 row">
                   <div className="col-md-3 mt-1">
                     <label>
@@ -667,16 +678,16 @@ const EditarSolicitud = () => {
                   <strong>Importar productos</strong>{" "}
                 </label>
                 <label className="custom-file-upload">
-                <input
-                  type="file"
-                  className="form-control mx-sm-3"
-                  accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    readExcel(e, file);
-                  }}
-                />
-                Subir archivo
+                  <input
+                    type="file"
+                    className="form-control mx-sm-3"
+                    accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      readExcel(e, file);
+                    }}
+                  />
+                  Subir archivo
                 </label>
               </div>
 

@@ -11,7 +11,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 
-//Redux
+//Actions para validar formulario
 import {
   validarFormularioAction,
   validacionExito,
@@ -35,12 +35,16 @@ import { obtenerMonedasAction } from "../actions/monedasAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { crearClienteAction,  crearClienteComienzo, crearClienteFinal
- } from "../actions/clientesAction";
+import {
+  crearClienteAction,
+  crearClienteComienzo,
+  crearClienteFinal,
+} from "../actions/clientesAction";
 import Swal from "sweetalert2";
 
 const CrearSolicitud = () => {
   const dispatch = useDispatch();
+  //Hook useEffect, se ejecuta al renderizar la página
   useEffect(() => {
     const solicitudVacia = () => dispatch(solicitudVaciaAction());
     const obtenerDivision = () => dispatch(obtenerDivisionAction());
@@ -64,9 +68,11 @@ const CrearSolicitud = () => {
     obtenerMonedas();
   }, [dispatch]);
 
+  //Para guardar productos del excel en el state
   const obtenerProductosExcel = (productosExcel) =>
     dispatch(obtenerProductosExcelAction(productosExcel));
 
+  //Leer datos de fichero excel
   const readExcel = (e, file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -89,34 +95,36 @@ const CrearSolicitud = () => {
         reject(error);
       };
     });
-    promise.then((d) => {var stop    =   false;
-      for (let i = 0; i < productos.length    &&  !stop; i++) {
-          for (let j = 0; j < d.length   &&  !stop; j++) {
-              if(productos[i].Código ==  d[j].Código){
-                  stop    =   true;
-              }
-              
+    //Comprueba que no existan productos iguales en el state
+    promise.then((d) => {
+      var stop = false;
+      for (let i = 0; i < productos.length && !stop; i++) {
+        for (let j = 0; j < d.length && !stop; j++) {
+          if (productos[i].Código == d[j].Código) {
+            stop = true;
           }
+        }
       }
-      if(!stop){
-          obtenerProductosExcel(d);
+      if (!stop) {
+        //Guarda productos en el state
+        obtenerProductosExcel(d);
+      } else {
+        Swal.fire({
+          title: "Error al cargar los datos",
+          text: `Existen productos con el mismo código`,
+          position: "center",
+          background: "white",
+          showConfirmButton: true,
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Aceptar",
+        });
       }
-      else{
-          Swal.fire({
-              title: "Error al cargar los datos",
-              text: `Existen productos con el mismo código`,
-              position: "center",
-              background: "white",
-              showConfirmButton: true,
-              showCancelButton: false,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'Aceptar',            
-            });
-      }
-      });
-      e.target.value='';
+    });
+    e.target.value = "";
   };
 
+  //Estados iniciales variables del formulario
   const [id_division, guardarDivision] = useState("");
   const [id_sucursal, guardarSucursal] = useState("");
   const [id_proveedor, guardarProveedor] = useState("");
@@ -132,11 +140,14 @@ const CrearSolicitud = () => {
   const [id_moneda, guardarMoneda] = useState("");
   const [contrato_solicitud, guardarContrato] = useState("");
 
+  //Estados iniciales productos
   const [Pfx, guardarPfx] = useState("");
   const [Código, guardarCodigo] = useState("");
   const [Cantidad, guardarCantidad] = useState("");
-  const [descrip_cliente, guardar_descrip]  = useState("");
+  //Estado inicial para crear cliente
+  const [descrip_cliente, guardar_descrip] = useState("");
 
+  //Para redireccionar
   const navigate = useNavigate();
 
   const agregarSolicitud = (solicitud) =>
@@ -148,9 +159,10 @@ const CrearSolicitud = () => {
   const exitoValidacion = () => dispatch(validacionExito());
   const errorValidacion = () => dispatch(validacionError());
 
-  const   agregarCliente  =   (cliente)  =>  dispatch(crearClienteAction(cliente));
-  const   comenzarCrearCliente  =   ()  =>  dispatch(crearClienteComienzo());
-  const   finalizarCrearCliente  =   ()  =>  dispatch(crearClienteFinal());
+  //Métodos para crear cliente nuevo
+  const agregarCliente = (cliente) => dispatch(crearClienteAction(cliente));
+  const comenzarCrearCliente = () => dispatch(crearClienteComienzo());
+  const finalizarCrearCliente = () => dispatch(crearClienteFinal());
 
   //Obtener los datos del state
   const error = useSelector((state) => state.error.error);
@@ -173,32 +185,34 @@ const CrearSolicitud = () => {
   const loadingMonedas = useSelector((state) => state.monedas.loading);
   const { monedas } = useSelector((state) => state.monedas.monedas);
 
-  const modalCliente    =   useSelector((state) => state.clientes.modal);
+  const modalCliente = useSelector((state) => state.clientes.modal);
 
   const productos = useSelector((state) => state.solicitudes.productos);
 
-  const  submitCrearCliente =  e   =>{
+  //Submit para crear cliente
+  const submitCrearCliente = (e) => {
     e.preventDefault();
 
     //Validar
     validarFormulario();
-  
-    if(descrip_cliente.trim() === ''){
+
+    if (descrip_cliente.trim() === "") {
       errorValidacion();
-      return;  
-  }
+      return;
+    }
 
     //Si pasa la validadacion
     exitoValidacion();
 
+    //Crear nuevo cliente
     agregarCliente({
-      descrip_cliente
-  });
-  
-  guardar_descrip("");
+      descrip_cliente,
+    });
 
-}
+    guardar_descrip("");
+  };
 
+  //Submit crear nueva solicitud
   const submitCrearSolicitud = (e) => {
     e.preventDefault();
     validarFormulario();
@@ -227,6 +241,7 @@ const CrearSolicitud = () => {
     //Si pasa la validadacion
     exitoValidacion();
 
+    //Crear nueva solicitud
     agregarSolicitud({
       id_division,
       id_sucursal,
@@ -245,9 +260,11 @@ const CrearSolicitud = () => {
       id_comercial: 1,
       productos,
     });
+    //Redireccionar
     navigate("/solicitudes/usuario/1");
   };
 
+  //Submit para agregar nuevo producto al state
   const submitAgregarProducto = (e) => {
     e.preventDefault();
     validarFormulario();
@@ -261,30 +278,28 @@ const CrearSolicitud = () => {
     //Si pasa la validadacion
     exitoValidacion();
 
-    if(productos.some((producto)    =>  (
-      producto.Código  ==  Código 
-    ))){
-        Swal.fire({
-            title: "Error",
-            text: `Ya existe un producto con ese código`,
-            position: "center",
-            background: "white",
-            showConfirmButton: true,
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Aceptar',            
-          });
-    }
-    else{
-
-    //Crear el nuevo producto
-    agregarProducto({
-      Pfx,
-      Código,
-      Cantidad,
-    });
+    //Verifica q no existan productos con mismo código
+    if (productos.some((producto) => producto.Código == Código)) {
+      Swal.fire({
+        title: "Error",
+        text: `Ya existe un producto con ese código`,
+        position: "center",
+        background: "white",
+        showConfirmButton: true,
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Aceptar",
+      });
+    } else {
+      //Crear el nuevo producto
+      agregarProducto({
+        Pfx,
+        Código,
+        Cantidad,
+      });
     }
 
+    //Reiniciar valores de formulario
     guardarPfx("");
     guardarCodigo("");
     guardarCantidad("");
@@ -475,7 +490,12 @@ const CrearSolicitud = () => {
                     </select>
                   </div>
                   <div className="col-md-3">
-                    <Button color="primary" onClick={()=> comenzarCrearCliente()}>Crear cliente</Button>
+                    <Button
+                      color="primary"
+                      onClick={() => comenzarCrearCliente()}
+                    >
+                      Crear cliente
+                    </Button>
                   </div>
                 </div>
 
@@ -651,27 +671,25 @@ const CrearSolicitud = () => {
                   Guardar solicitud
                 </button>
               </form>
-
             </div>
 
-            <div className="col-md-6" >
-            
+            <div className="col-md-6">
               <h3 align="center">Productos</h3>
               <div className="form-group mb-2">
                 <label>
                   <strong>Importar productos</strong>
                 </label>
                 <label className="custom-file-upload">
-                <input
-                  type="file"
-                  className="form-control mx-sm-3"
-                  accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    readExcel(e, file);
-                  }}
-                />
-                Subir archivo
+                  <input
+                    type="file"
+                    className="form-control mx-sm-3"
+                    accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      readExcel(e, file);
+                    }}
+                  />
+                  Subir archivo
                 </label>
               </div>
 
@@ -742,54 +760,48 @@ const CrearSolicitud = () => {
               Campos vacíos
             </div>
           ) : null}
-
         </div>
       </div>
-      <Modal isOpen={modalCliente}>
-          <ModalHeader>
-           <div><h3>Insertar cliente</h3></div>
-          </ModalHeader>
 
-          <ModalBody>
-            <FormGroup>
-              <label>
-                Nombre del cliente: 
-              </label>
-              
-              <input
-                className="form-control"
-                name="descrip_cliente"
-                type="text"
-                value={descrip_cliente}
-                onChange={e=>guardar_descrip(e.target.value)}
-                
-              />
-            </FormGroup>
-            {error ? (
+      {/* Ventana para crear nuevo cliente */}
+      <Modal isOpen={modalCliente}>
+        <ModalHeader>
+          <div>
+            <h3>Insertar cliente</h3>
+          </div>
+        </ModalHeader>
+
+        <ModalBody>
+          <FormGroup>
+            <label>Nombre del cliente:</label>
+
+            <input
+              className="form-control"
+              name="descrip_cliente"
+              type="text"
+              value={descrip_cliente}
+              onChange={(e) => guardar_descrip(e.target.value)}
+            />
+          </FormGroup>
+          {error ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
               Campos vacíos
             </div>
           ) : null}
-          </ModalBody>
+        </ModalBody>
 
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={submitCrearCliente}
-              
-            >
-              Insertar
-            </Button>
-            <Button
-              className="btn btn-danger"
-              onClick={() => finalizarCrearCliente()}
-              
-              
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <ModalFooter>
+          <Button color="primary" onClick={submitCrearCliente}>
+            Insertar
+          </Button>
+          <Button
+            className="btn btn-danger"
+            onClick={() => finalizarCrearCliente()}
+          >
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };
