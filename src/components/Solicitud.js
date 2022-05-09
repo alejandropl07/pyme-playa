@@ -175,7 +175,7 @@ const Solicitud = ({ solicitud }) => {
     <React.Fragment>
       <tr
         className={
-          !isDirector
+          !isDirector && !isLogistico
             ? solicitud.fecha_finalizada !== null
               ? "table-success"
               : "table-danger"
