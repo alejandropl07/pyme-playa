@@ -10,13 +10,14 @@ import {
   FormGroup,
   ModalFooter,
 } from "reactstrap";
-import { obtenerSolicitudesAction } from "../actions/solicitudesAction";
 
 import {
   aprobarSolicitudAction,
   rechazarSolicitudAction,
   finalizarSolicitudAction,
   esperarSolicitudAction,
+  obtenerSolicitudesAction,
+  aprobarSolicitudLogAction
 } from "../actions/solicitudesAction";
 
 const Solicitud = ({ solicitud }) => {
@@ -30,6 +31,7 @@ const Solicitud = ({ solicitud }) => {
   const [modal_causa, guardar_modal] = useState(false);
 
   const aprobarSolicitud = (id) => dispatch(aprobarSolicitudAction(id));
+  const aprobarSolicitudLog = (id) => dispatch(aprobarSolicitudLogAction(id));
   const rechazarSolicitud = (id) => dispatch(rechazarSolicitudAction(id));
   const finalizarSolicitud = (id) => dispatch(finalizarSolicitudAction(id));
   const esperarSolicitud = (id) => dispatch(esperarSolicitudAction(id, causa_espera));
@@ -50,6 +52,28 @@ const Solicitud = ({ solicitud }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         aprobarSolicitud(id);
+        Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
+        obtenerSolicitudes(idUsuario);
+      }
+    });
+  };
+
+
+  const submitAprobarSolicitudLog = (id) => {
+    // Confirmacion de Sweet Alert
+
+    Swal.fire({
+      title: "Está seguro?",
+      text: "No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        aprobarSolicitudLog(id);
         Swal.fire("Aprobada!", "Se ha aprobado la solicitud.", "success");
         obtenerSolicitudes(idUsuario);
       }
@@ -147,7 +171,7 @@ const Solicitud = ({ solicitud }) => {
           {isLogistico ? (
             <button
               className="btn btn-success me-2"
-              onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
+              onClick={() => submitAprobarSolicitudLog(solicitud.id_solicitud)}
             >
               Aprobar
             </button>

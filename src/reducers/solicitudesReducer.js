@@ -42,6 +42,9 @@ import {
   ESPERAR_SOLICITUD_EXITO,
   ESPERAR_SOLICITUD_ERROR,
   SOLICITUD_VACIA,
+  APROBAR_SOLICITUD_LOG,
+  APROBAR_SOLICITUD_LOG_EXITO,
+  APROBAR_SOLICITUD_LOG_ERROR,
 } from "../types";
 
 // Cada reducer tiene su propio state
@@ -271,6 +274,29 @@ export default function (state = initialState, action) {
       };
 
     case APROBAR_SOLICITUD_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
+
+      case APROBAR_SOLICITUD_LOG:
+      return {
+        ...state,
+        error: null,
+      };
+    case APROBAR_SOLICITUD_LOG_EXITO:
+      return {
+        ...state,
+        error: null,
+        solicitudes: state.solicitudes.map((solicitud) =>
+          solicitud.id_solicitud === action.payload.id_solicitud
+            ? (solicitud = action.payload)
+            : solicitud
+        ),
+      };
+
+    case APROBAR_SOLICITUD_LOG_ERROR:
       return {
         ...state,
         error: true,

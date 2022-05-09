@@ -15,17 +15,17 @@ const Solicitudes = () => {
   const params =   useParams();
   const id  = params.id;
 
-  useEffect(()  =>  {
-    dispatch(obtenerSolicitudesAction(id)) ;
-    dispatch(obtenerRolAction(id)) ;
-    dispatch(obtenerRolLogAction(id)) ;
-  },[dispatch,id]);
-
   const loading = useSelector(state => state.solicitudes.loading);
   const error = useSelector(state=> state.solicitudes.error);
   const solicitudes = useSelector(state=> state.solicitudes.solicitudes);
   const { isDirector } = useSelector((state) => state.rol);
   const { isLogistico } = useSelector((state) => state.rol);
+
+  useEffect(()  =>  {
+    dispatch(obtenerSolicitudesAction(id)) ;
+    dispatch(obtenerRolAction(id)) ;
+    dispatch(obtenerRolLogAction(id)) ;
+  },[dispatch,id]);
 
   const [paginaActual, setPaginaActual] = useState(0);
   const [busqueda, setBusqueda ] = useState('');

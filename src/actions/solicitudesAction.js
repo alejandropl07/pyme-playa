@@ -42,6 +42,9 @@ import {
   ESPERAR_SOLICITUD,
   ESPERAR_SOLICITUD_ERROR,
   SOLICITUD_VACIA,
+  APROBAR_SOLICITUD_LOG,
+  APROBAR_SOLICITUD_LOG_EXITO,
+  APROBAR_SOLICITUD_LOG_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/axios";
@@ -352,6 +355,37 @@ export const aprobarSolicitudExito = (solicitud) => ({
 
 export const aprobarSolicitudError = () => ({
   type: APROBAR_SOLICITUD_ERROR,
+});
+
+
+// Aprobar solicitud logistico
+
+export function aprobarSolicitudLogAction(id) {
+  return (dispatch) => {
+    dispatch(aprobarSolicitudLog());
+
+    clienteAxios
+      .put(`/solicitudes/aprobarSolicitudLog/${id}`)
+      .then((respuesta) => {
+        dispatch(aprobarSolicitudLogExito(respuesta.data));
+      })
+      .catch((error) => {
+        dispatch(aprobarSolicitudLogError());
+      });
+  };
+}
+
+export const aprobarSolicitudLog = () => ({
+  type: APROBAR_SOLICITUD_LOG,
+});
+
+export const aprobarSolicitudLogExito = (solicitud) => ({
+  type: APROBAR_SOLICITUD_LOG_EXITO,
+  payload: solicitud,
+});
+
+export const aprobarSolicitudLogError = () => ({
+  type: APROBAR_SOLICITUD_LOG_ERROR,
 });
 
 
