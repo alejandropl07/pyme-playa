@@ -7,6 +7,7 @@ import CrearSolicitud from "./components/CrearSolicitud";
 import EditarSolicitud from "./components/EditarSolicitud";
 import Solicitudes from "./components/Solicitudes";
 import PDF from "./components/PDF";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               element={<EditarSolicitud />}
             />
             <Route exact path="/pdf/:id" element={<PDF />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
       </Provider>
