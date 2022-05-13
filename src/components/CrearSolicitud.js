@@ -756,7 +756,7 @@ const CrearSolicitud = () => {
 
               {error ? (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">
-                  Campos vacíos
+                  Debe ingresar todos los datos
                 </div>
               ) : null}
             </div>
@@ -786,7 +786,7 @@ const CrearSolicitud = () => {
           </FormGroup>
           {error ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
-              Campos vacíos
+              Debe ingresar el nombre del cliente
             </div>
           ) : null}
         </ModalBody>
