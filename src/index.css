@@ -25,3 +25,16 @@ input[type="file"] {
   background-color: ghostwhite;
   margin-left: 15px;
 }
+
+td.acciones{
+  display: flex;
+  justify-content: flex-end;
+}
+
+td.acciones > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.encabezado {
+  width: 80%;
+}

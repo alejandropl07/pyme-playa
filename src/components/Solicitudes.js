@@ -63,6 +63,15 @@ const Solicitudes = () => {
     setBusqueda(e.target.value);
   };
 
+  let rowStyle = {
+    solicitudes: {
+      // width: isDirector ? 750 : isLogistico ? 950 : "",
+    },
+    acciones: {
+      width: isDirector ? "5%" : isLogistico ? "5%" : "5%",
+    },
+  };
+
   return (
     <React.Fragment>
       {error ? (
@@ -85,90 +94,61 @@ const Solicitudes = () => {
 
             <hr></hr>
 
-            <div style={{ marginLeft: 108 }}>
-              {solicitudes.length > 0 ? (
+            <div className="d-flex justify-content-center">
+              <div className="encabezado">
                 <React.Fragment>
-                  <div className="col-md-4">
-                    <input
-                      type="text"
-                      className="mb-2 form-control "
-                      placeholder="Buscar solicitud"
-                      value={busqueda}
-                      onChange={obtenerSolicitud}
-                    />
-                  </div>
-                  <div className="mb-2" style={{ float: "left" }}>
-                    <button
-                      className="btn btn-primary me-2"
-                      onClick={paginaAnterior}
-                    >
-                      {" "}
-                      Anteriores
-                    </button>
+                  <div className="d-flex flex-column">
+                    {solicitudes.length > 0 ? (
+                      <div style={{ width: "30%" }}>
+                        <input
+                          type="text"
+                          className="mb-2 form-control "
+                          placeholder="Buscar solicitud"
+                          value={busqueda}
+                          onChange={obtenerSolicitud}
+                        />
+                      </div>
+                    ) : null}
 
-                    <button
-                      className="btn btn-primary"
-                      onClick={paginaSiguiente}
-                    >
-                      {" "}
-                      Siguientes
-                    </button>
+                    <div className="mb-2 d-flex">
+                      {solicitudes.length > 0 ? (
+                        <>
+                          <button
+                            className="btn btn-primary me-2"
+                            onClick={paginaAnterior}
+                          >
+                            Anteriores
+                          </button>
+                          <button
+                            className="btn btn-primary"
+                            onClick={paginaSiguiente}
+                          >
+                            Siguientes
+                          </button>
+                        </>
+                      ) : null}
+                      {!isDirector && !isLogistico ? (
+                        <Link
+                          to={`/`}
+                          className="btn btn-success "
+                          style={{ marginLeft: "auto" }}
+                        >
+                          Crear solicitud
+                        </Link>
+                      ) : null}
+                    </div>
                   </div>
                 </React.Fragment>
-              ) : null}
-            </div>
 
-            {!isDirector && !isLogistico && solicitudes.length > 0 ? (
-              <Link
-                to={`/`}
-                className="btn btn-success "
-                style={{ marginLeft: 710 }}
-              >
-                Crear solicitud
-              </Link>
-            ) : !isDirector && !isLogistico && solicitudes.length === 0 ? (
-              <Link
-                to={`/`}
-                className="btn btn-success "
-                style={{ marginLeft: 1020 }}
-              >
-                Crear solicitud
-              </Link>
-            ) : null}
-
-            <div className="row justify-content-center" style={{ width: 1280 }}>
-              <div className="col-10">
                 <table className="table">
                   <thead className="bg-primary table-light">
                     <tr>
-                      {isDirector ? (
-                        <React.Fragment>
-                          <th style={{ width: 750 }} scope="col">
-                            Solicitud
-                          </th>
-                          <th style={{ width: 320 }} scope="col">
-                            Acciones
-                          </th>
-                        </React.Fragment>
-                      ) : isLogistico ? (
-                        <React.Fragment>
-                          <th style={{ width: 950 }} scope="col">
-                            Solicitud
-                          </th>
-                          <th style={{ width: 70 }} scope="col">
-                            Acciones
-                          </th>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <th style={{ width: 800 }} scope="col">
-                            Solicitud
-                          </th>
-                          <th style={{ width: 170 }} scope="col">
-                            Acciones
-                          </th>
-                        </React.Fragment>
-                      )}
+                      <th style={rowStyle.solicitudes} scope="col">
+                        Solicitud
+                      </th>
+                      <th style={rowStyle.acciones} scope="col">
+                        Acciones
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

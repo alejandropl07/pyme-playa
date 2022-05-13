@@ -663,7 +663,6 @@ const CrearSolicitud = () => {
                     />
                   </div>
                 </div>
-
               </form>
             </div>
 
@@ -740,7 +739,7 @@ const CrearSolicitud = () => {
                     onChange={(e) => guardarCantidad(e.target.value)}
                   />
                 </div>
-                <div className="col-md-4">
+                <div style={{ width: "40%" }}>
                   <button type="submit" className="btn btn-primary mb-3">
                     Agregar producto
                   </button>
@@ -748,22 +747,20 @@ const CrearSolicitud = () => {
               </form>
 
               <button
-                  type="submit"
-                  className="btn btn-primary font-weight-bold d-block w-100  mt-3"
-                  onClick={submitCrearSolicitud}
-                >
-                  Guardar solicitud
-                </button>
+                type="submit"
+                className="btn btn-primary font-weight-bold d-block w-100  mt-3"
+                onClick={submitCrearSolicitud}
+              >
+                Guardar solicitud
+              </button>
 
               {error ? (
-            <div className="font-weight-bold alert alert-danger text-center mt-4">
-              Campos vacíos
-            </div>
-          ) : null}
+                <div className="font-weight-bold alert alert-danger text-center mt-4">
+                  Campos vacíos
+                </div>
+              ) : null}
             </div>
           </div>
-
-        
         </div>
       </div>
 

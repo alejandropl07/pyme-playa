@@ -188,7 +188,7 @@ const Solicitud = ({ solicitud }) => {
         <td className="acciones">
           {isDirector ? (
             <button
-              className="btn btn-success me-2"
+              className="btn btn-success"
               onClick={() => submitAprobarSolicitud(solicitud.id_solicitud)}
             >
               Aprobar
@@ -197,7 +197,7 @@ const Solicitud = ({ solicitud }) => {
 
           {isLogistico ? (
             <button
-              className="btn btn-success me-2"
+              className="btn btn-success"
               onClick={() => submitAprobarSolicitudLog(solicitud.id_solicitud)}
             >
               Aprobar
@@ -206,7 +206,7 @@ const Solicitud = ({ solicitud }) => {
 
           {isDirector ? (
             <button
-              className="btn btn-danger me-2"
+              className="btn btn-danger"
               onClick={() => submitRechazarSolicitud(solicitud.id_solicitud)}
             >
               Rechazar
@@ -215,17 +215,17 @@ const Solicitud = ({ solicitud }) => {
 
           {isDirector && solicitud.fecha_espera === null ? (
             <button
-              className="btn btn-warning me-2"
+              className="btn btn-warning"
               onClick={() => guardar_modal(true)}
             >
-              En espera
+              Espera
             </button>
           ) : null}
 
           {!isDirector && solicitud.fecha_finalizada === null ? (
             <Link
               to={`/solicitudes/editar/${solicitud.id_solicitud}`}
-              className="btn btn-primary me-2"
+              className="btn btn-primary"
             >
               Editar
             </Link>
@@ -233,7 +233,7 @@ const Solicitud = ({ solicitud }) => {
 
           {!isDirector && solicitud.fecha_finalizada === null ? (
             <button
-              className="btn btn-success me-2"
+              className="btn btn-success"
               onClick={() => submitFinalizarSolicitud(solicitud.id_solicitud)}
             >
               Finalizar
@@ -244,6 +244,7 @@ const Solicitud = ({ solicitud }) => {
           !isLogistico &&
           solicitud.fecha_finalizada !== null ? (
             <Link
+              target="_blank"
               to={`/pdf/${solicitud.id_solicitud}`}
               className="btn btn-secondary"
             >
