@@ -312,8 +312,8 @@ const CrearSolicitud = () => {
           <h2 align="center">Crear nueva solicitud</h2>
           <hr></hr>
           <div className="row">
-            <div className="col-md-6">
-              <form onSubmit={submitCrearSolicitud}>
+            <div className="col-xl-7">
+              <form>
                 <div className="form-group  mb-2 row">
                   <div className="col-md-3 mt-1">
                     <label>
@@ -664,16 +664,10 @@ const CrearSolicitud = () => {
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary font-weight-bold d-block w-100  mt-3"
-                >
-                  Guardar solicitud
-                </button>
               </form>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-xl-5">
               <h3 align="center">Productos</h3>
               <div className="form-group mb-2">
                 <label>
@@ -752,14 +746,24 @@ const CrearSolicitud = () => {
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
 
-          {error ? (
+              <button
+                  type="submit"
+                  className="btn btn-primary font-weight-bold d-block w-100  mt-3"
+                  onClick={submitCrearSolicitud}
+                >
+                  Guardar solicitud
+                </button>
+
+              {error ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
               Campos vacíos
             </div>
           ) : null}
+            </div>
+          </div>
+
+        
         </div>
       </div>
 
