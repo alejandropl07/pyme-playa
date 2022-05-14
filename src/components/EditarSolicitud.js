@@ -759,7 +759,7 @@ const EditarSolicitud = () => {
 
           {error ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
-              Campos vacíos
+              Debe ingresar todos los datos
             </div>
           ) : null}
         </div>
