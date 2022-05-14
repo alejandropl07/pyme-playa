@@ -16,6 +16,9 @@ import {
   validarFormularioAction,
   validacionExito,
   validacionError,
+  validacionClienteError,
+  validacionClienteExito,
+  validarClienteAction,
 } from "../actions/validacionAction";
 import {
   solicitudVaciaAction,
@@ -159,6 +162,10 @@ const CrearSolicitud = () => {
   const exitoValidacion = () => dispatch(validacionExito());
   const errorValidacion = () => dispatch(validacionError());
 
+  const validarCliente = () => dispatch(validarClienteAction());
+  const exitoValidacionCliente = () => dispatch(validacionClienteExito());
+  const errorValidacionCliente = () => dispatch(validacionClienteError());
+
   //Métodos para crear cliente nuevo
   const agregarCliente = (cliente) => dispatch(crearClienteAction(cliente));
   const comenzarCrearCliente = () => dispatch(crearClienteComienzo());
@@ -166,6 +173,7 @@ const CrearSolicitud = () => {
 
   //Obtener los datos del state
   const error = useSelector((state) => state.error.error);
+  const {errorCliente} = useSelector((state) => state.error);
   const loadingDivisiones = useSelector((state) => state.divisiones.loading);
   const { divisiones } = useSelector((state) => state.divisiones.divisiones);
   const loadingSucursal = useSelector((state) => state.sucursales.loading);
@@ -194,15 +202,15 @@ const CrearSolicitud = () => {
     e.preventDefault();
 
     //Validar
-    validarFormulario();
+    validarCliente();
 
     if (descrip_cliente.trim() === "") {
-      errorValidacion();
+      errorValidacionCliente();
       return;
     }
 
     //Si pasa la validadacion
-    exitoValidacion();
+    exitoValidacionCliente();
 
     //Crear nuevo cliente
     agregarCliente({
@@ -784,7 +792,7 @@ const CrearSolicitud = () => {
               onChange={(e) => guardar_descrip(e.target.value)}
             />
           </FormGroup>
-          {error ? (
+          {errorCliente ? (
             <div className="font-weight-bold alert alert-danger text-center mt-4">
               Debe ingresar el nombre del cliente
             </div>

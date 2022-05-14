@@ -2,6 +2,9 @@ import {
   VALIDAR_FORMULARIO,
   VALIDAR_FORMULARIO_EXITO,
   VALIDAR_FORMULARIO_ERROR,
+  VALIDAR_CLIENTE,
+  VALIDAR_CLIENTE_EXITO,
+  VALIDAR_CLIENTE_ERROR,
 } from "../types";
 
 //Validar formulario
@@ -29,5 +32,34 @@ export const validacionExito = () => {
 export const validacionError = () => {
   return {
     type: VALIDAR_FORMULARIO_ERROR,
+  };
+};
+
+
+//Validar cliente
+export function validarClienteAction() {
+  return (dispatch) => {
+    dispatch(iniciarValidacionCliente());
+  };
+}
+
+//Iniciar validación cliente
+export const iniciarValidacionCliente = () => {
+  return {
+    type: VALIDAR_CLIENTE,
+  };
+};
+
+//Validado cliente con éxito
+export const validacionClienteExito = () => {
+  return {
+    type: VALIDAR_CLIENTE_EXITO,
+  };
+};
+
+//Error al validar cliente
+export const validacionClienteError = () => {
+  return {
+    type: VALIDAR_CLIENTE_ERROR,
   };
 };
