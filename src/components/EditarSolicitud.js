@@ -28,7 +28,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 const EditarSolicitud = () => {
-  const fecha_entrega_ref = useRef("");
   const referencia_ref = useRef("");
   const descrip_ref = useRef("");
   const valor_solicitud_ref = useRef("");
@@ -170,8 +169,9 @@ const EditarSolicitud = () => {
   const [id_destino, guardarDestino] = useState(solicitud.id_destino);
   const [id_tipo_producto, guardarTipoProducto] = useState(
     solicitud.id_tipo_producto
-  );
-  const [id_moneda, guardarMoneda] = useState(solicitud.id_moneda);
+    );
+    const [id_moneda, guardarMoneda] = useState(solicitud.id_moneda);
+    const [fecha_entrega, setFechaEntrega] = useState(solicitud.fecha_entrega);
 
   if (!solicitud) return "Cargando...";
 
@@ -187,7 +187,7 @@ const EditarSolicitud = () => {
       id_clase_pedido,
       id_embarque,
       id_cliente,
-      fecha_entrega: fecha_entrega_ref.current.value,
+      fecha_entrega,
       referencia: referencia_ref.current.value,
       descrip_solicitud: descrip_ref.current.value,
       id_destino,
@@ -479,8 +479,8 @@ const EditarSolicitud = () => {
                   <div className="col-md-6">
                     <input
                       type="date"
-                      value={solicitud.fecha_entrega}
-                      ref={fecha_entrega_ref}
+                      defaultValue={solicitud.fecha_entrega}
+                      onChange={(e) => setFechaEntrega(e.target.value)}
                     />
                   </div>
                 </div>
